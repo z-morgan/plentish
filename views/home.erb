@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopping List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+    <script type='text/javascript' src='javascripts/home.js'></script>
+  </head>
+  <body>
+    <header>
+      <% if session[:msg] %>
+        <div class='flash'>
+          <span><%= session.delete(:msg) %></span>
+        </div>
+      <% end %>
+      <h1>Shopping List</h1>
+      <div id='header-buttons'>
+        <a id='register-button'>Register</a>
+        <a id='signin-button'>Sign In</a>
+      </div>
+    </header>
+    <main>
+      <p>Shopping List is a convenience tool for rapidly generating shopping lists based on a collection of recipes. Users can design recipes and define ingredients and quantities they will need. They can then generate a shopping list which collects all of the ingredients for their chosen recipes, and allows them to view and edit them in a central place. Users can also add indiviual items to the shopping list, and they can browse items from past shopping lists. Built using Ruby, Sinatra, Postgres, and vanilla JavaScript.
+      </p>
+      <div id='overlay' class='<%= @overlay_class %>'>
+      </div>
+      <form method='post' action='/register' id='register' class='<%= @register_class %>'>
+        <section>
+        <% if @status && @status[:is_valid] == false %>
+          <p class='error-flash'><%= @status[:error_msg] %></p>
+        <% end %>
+        </section>
+        <label for='username'>Username*</label>
+        <input type='text' id='new-username' name='username' minlength='8' maxlength='50' required
+          title='usernames must be between 8 and 50 characters' value='<%= params[:username] %>'>
+        <label for='password1'>Password**</label>
+        <input type='password' id='password1' name='password1' pattern='.*\d.*' pattern='.*[a-z].*' pattern='.*[A-Z].*' minlength='8' required
+          title='passwords must have at least 8 characters, include a number, an uppercase letter, and a lowercase letter.' value='<%= params[:password1] %>'>
+        <label for='password2'>Re-enter Password**</label>
+        <input type='password' id='password2' name='password2' pattern='.*\d.*' pattern='.*[a-z].*' pattern='.*[A-Z].*' minlength='8' required
+          title='passwords must have at least 8 characters, include a number, an uppercase letter, and a lowercase letter.' value='<%= params[:password2] %>'>
+        <div class='controls'>
+          <input type='submit' value='Register'>
+          <input type='reset' value='Cancel'>
+        </div>
+
+        <p>* usernames must be between 8 and 50 characters</p>
+        <p>** passwords must have at least 8 characters, including a number, an uppercase letter, and a lowercase letter.</p>
+      </form>
+
+      <form method='post' action='/signin' id='signin' class='<%= @signin_class %>'>
+        <section>
+        <% if @status && @status[:is_valid] == false %>
+          <p class='error-flash'><%= @status[:error_msg] %></p>
+        <% end %>
+        </section>
+        <label for='username'>Username:</label>
+        <input type='text' id='username' name='username' minlength='8' maxlength='50' required
+          title='usernames must be between 8 and 50 characters' value='<%= params[:username] %>'>
+        <label for='password'>Password:</label>
+        <input type='password' id='password' name='password' minlength='8' required
+          title='passwords must have at least 8 characters, include a number, an uppercase letter, and a lowercase letter.' value='<%= params[:password] %>'>
+        <div class='controls'>
+          <input type='submit' value='Sign In'>
+          <input type='reset' value='Cancel'>
+        </div>
+      </form>
+
+    </main>
+  </body>
+</html>

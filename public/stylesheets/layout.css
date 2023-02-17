@@ -1,0 +1,125 @@
+html {
+  background-color: rgb(180, 180, 180);
+}
+
+body {
+  height: 1080px;
+  margin: 0;
+}
+
+header {
+  display: block;
+  background-color: #83adfb;
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 100px;
+  z-index: 2;
+}
+
+header.hidden {
+  display: none;
+}
+
+header ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  height: 300px;
+  margin-top: 0px;
+}
+
+header li {
+  flex: 1;
+  border-bottom: solid;
+  width: 100%;
+}
+
+header li a {
+  width: 100%;
+  height: 37px;
+  padding-top: 16px;
+  display: block;
+  color: inherit;
+  cursor: inherit;
+  text-decoration: inherit;
+}
+
+header li a span {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: fit-content;
+}
+
+header ul h1 {
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  padding-bottom: 25px;
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img#hamburger {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  height: 30px;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+div#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #3d3d3d;
+  opacity: .7;
+  z-index: 1;
+}
+
+div#overlay.hidden {
+  display: none;
+}
+
+main {
+  background-color: rgb(180, 180, 180);
+  height: 100%;
+}
+
+@media (min-width: 480px) {
+  body {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+
+  header {
+    position: static;
+    grid-column: 1 / 2;
+    height: 100%;
+    border-right: solid;
+  }
+
+  header.hidden {
+    display: block;
+  }
+
+  img#hamburger {
+    display: none;
+  }
+
+  div#overlay {
+    display: none;
+  }
+
+  main {
+    grid-column: 2 / 3;
+  }
+}

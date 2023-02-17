@@ -1,0 +1,49 @@
+div#recipe-details-pane {
+  background-color: white;
+  margin: 80px 0px 0px 0px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+main h1 {
+  margin-bottom: 8px;
+}
+
+main ul {
+  margin: 50px 0px;
+}
+
+main li {
+  margin-top: 10px;
+}
+
+div#recipe-controls {
+  width: fit-content;
+  margin: 50px auto 20px auto;
+}
+
+div#recipe-controls a {
+  border-radius: 5px;
+  color: white;
+}
+
+#edit-button {
+  background-color: #0190ff;
+  padding: 5px 30px;
+  margin-right: 5px;
+}
+
+#delete-button {
+  background-color: #ff4545;
+  padding: 5px 23px;
+  margin-left: 5px;
+}
+
+@media (min-width: 480px) {
+  div#recipe-details-pane {
+    background-color: white;
+    margin: 0px;
+    box-sizing: border-box;
+    padding: 15px;
+  }
+}

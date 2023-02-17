@@ -1,0 +1,134 @@
+# require 'simplecov'
+# SimpleCov.start
+
+ENV["RACK_ENV"] = "test"
+
+require 'minitest/autorun'
+require 'rack/test'
+# require 'fileutils'
+require_relative '../app'
+require_relative 'postgresdb_setup'
+
+class AppTest < Minitest::Test
+  include Rack::Test::Methods
+  include PostgresDBSetup
+
+  def app
+    Sinatra::Application
+  end
+
+  def session
+    last_request.env["rack.session"]
+  end
+
+  def signed_in
+    { "rack.session" => { username: "admin", name: "Mr. Admin" } }
+  end
+
+  ######## tests #########
+
+  def test_homepage_not_signed_in
+    get '/'
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "id='header-buttons'"
+  end
+
+  # def test_homepage_signed_in
+  #   get '/', {}, signed_in
+  #   assert_equal 302, last_response.status
+
+  #   get last_response["Location"]
+  #   assert_equal 200, last_response.status
+  #   assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+  #   assert_includes last_response.body, "Mr. Admin's Inventories"
+  # end
+
+  def test_register_user
+    post '/register', {username: 'testuser1', password1: 'Password123', password2: 'Password123'}
+    assert_equal 302, last_response.status
+    assert_equal "Account created - You may now sign in", session[:msg]
+
+    get last_response["Location"]
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "id='header-buttons'"
+  end
+
+  def test_register_user_short_name
+    post '/register', {username: 'user1', password1: 'Password123', password2: 'Password123'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Username must be between 8 and 50 characters."
+  end
+
+  def test_register_user_long_name
+    name = 'user1user1user1user1user1user1user1user1user1user1user1'
+    post '/register', {username: name, password1: 'Password123', password2: 'Password123'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Username must be between 8 and 50 characters."
+  end
+
+  def test_register_username_taken
+    post '/register', {username: 'testuser1', password1: 'Password123', password2: 'Password123'}
+    assert_equal 302, last_response.status
+    assert_equal "Account created - You may now sign in", session[:msg]
+
+    post '/register', {username: 'testuser1', password1: 'Password123', password2: 'Password123'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, 'That username already exists.'
+  end
+
+  def test_register_user_short_password
+    post '/register', {username: 'testuser1', password1: 'Pass', password2: 'Pass'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Password must be between 8 and 50 characters."
+  end
+
+  def test_register_user_long_password
+    password = 'Password123Password123Password123Password123Password123'
+    post '/register', {username: 'testuser1', password1: password, password2: password}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Password must be between 8 and 50 characters."
+  end
+
+  def test_register_password_no_uppercase
+    post '/register', {username: 'testuser1', password1: 'password123', password2: 'password123'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Password must contain a number, uppercase letter, and lowercase letter."
+  end
+
+  def test_register_password_no_lowercase
+    post '/register', {username: 'testuser1', password1: 'PASSWORD123', password2: 'PASSWORD123'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Password must contain a number, uppercase letter, and lowercase letter."
+  end
+
+  def test_register_password_no_numbers
+    post '/register', {username: 'testuser1', password1: 'Password', password2: 'Password'}
+    assert_equal 422, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Password must contain a number, uppercase letter, and lowercase letter."
+  end
+
+  def test_signin
+    post '/register', {username: 'testuser1', password1: 'Password123', password2: 'Password123'}
+    assert_equal 302, last_response.status
+    assert_equal "Account created - You may now sign in", session[:msg]
+
+    post '/signin', {username: 'testuser1', password: 'Password123'}
+    assert_equal 302, last_response.status
+
+    assert_equal 'http://example.org/my-shopping-list', last_response['Location']
+    # get last_response["Location"]
+    # assert_equal 200, last_response.status
+    # assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    # assert_includes last_response.body, # something on the page
+  end
+end

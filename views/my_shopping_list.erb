@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/stylesheets/my_shopping_list.css">
+<script type='text/javascript' src='javascripts/my_shopping_list.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+
+<script type='text/x-handlebars' id='list-template'>
+  {{#each items}}
+    {{> item-template }}
+  {{/each}}
+</script>
+
+<script type='text/x-handlebars' id='item-template' data-type='partial'>
+  <li class='list-item'>
+    {{#if done}}
+      <img src='/images/checked_circle.png'>
+    {{else}}
+      <img src='/images/circle.png'>
+    {{/if}}
+    <p>{{name}} - {{quantity}} {{units}}</p>
+    <img class='to-pantry' src='/images/pantry.png'>
+    <img class='pencil' src='/images/pencil.png'>
+  </li>
+</script>
+
+<script type='text/x-handlebars' id='pantry-template'>
+  {{#each items}}
+    {{> pantry-item-template }}
+  {{/each}}
+</script>
+
+<script type='text/x-handlebars' id='pantry-item-template' data-type='partial'>
+  <li class='list-item'>
+    <p>{{name}} - {{quantity}} {{units}}</p>
+    <img class='to-shopping-list' src='/images/shopping_list.png'>
+    <img class='pencil' src='/images/pencil.png'>
+  </li>
+</script>
+
+<a id='reset-list'>New Shopping List</a>
+<div id='shopping-list-pane'>
+  <a id='my-shopping-list-tab' class='active'>
+    My Shopping List
+    <img src='/images/shopping_list.png'>
+  </a>
+  <a id='pantry-tab'>
+    My Pantry
+    <img src='/images/pantry.png'>
+  </a>
+  <ul>
+    <li id='add-item-button'>
+      <a>
+        <img src='/images/plus.png'>
+        <p>Add Item</p>
+      </a>
+    </li>
+
+    <%# <li>
+      <img src='/images/circle.png'>
+      <p>Bananas - 5 ct.</p>
+      <img class='to-pantry' src='/images/pantry.png'>
+      <img class='pencil' src='/images/pencil.png'>
+    </li>
+    <li>
+      <img src='/images/checked_circle.png'>
+      <p>Almonds - 10 oz.</p>
+      <img class='to-pantry' src='/images/pantry.png'>
+      <img class='pencil' src='/images/pencil.png'>
+    </li> %>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopping List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/layout.css">
+    <script type='text/javascript' src='javascripts/layout.js'></script>
+  </head>
+  <body>
+    <header class='hidden'>
+      <ul>
+        <li><h1>Shopping List</h1></li>
+        <li><a href='/my-shopping-list'><span>My Shopping List</span></a></li>
+        <li><a href='/recipes'><span>Recipes</span></a></li>
+        <li><a><span>Archive</span></a></li>
+        <li><a><span>Sign Out</span></a></li>
+      </ul>
+    </header>
+    <main>
+    <img id='hamburger' src='/images/hamburger.png'>
+    <div id='overlay' class='hidden'></div>
+      <%== yield %>
+    </main>
+  </body>
+</html>
