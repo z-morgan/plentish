@@ -2,12 +2,16 @@
 <script type='text/javascript' src='javascripts/recipe_details.js'></script>
 
 <div id='recipe-details-pane'>
-  <h1>Smith Rock Granola</h1>
-  <small>Created on 15/9/22</small>
+  <h1><%= @recipe['name'] %></h1>
+  <small>Created on <%= @recipe['date_created'] %></small>
   <ul>
-    <li>Almonds - 10 oz.</li>
-    <li>Oats - 2 cups</li>
-    <li>Walnuts - 5 oz.</li>
+    <% if @ingredients.empty? %>
+      <li>This recipe has no ingredients.</li>
+    <% else %>
+      <% @ingredients.each do |ingredient| %>
+        <li data-id='<%= ingredient['id'] %>'><%= ingredient['name'] %> - <%= ingredient['quantity'] %> <%= ingredient['units'] %></li>
+      <% end %>
+    <% end %>
   </ul>
   <p>A yummy treat! - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec nam aliquam sem et tortor consequat id. Posuere sollicitudin aliquam ultrices sagittis orci a. Arcu bibendum at varius vel pharetra vel turpis nunc eget. Turpis egestas sed tempus urna et pharetra pharetra. Enim blandit volutpat maecenas volutpat blandit. Neque sodales ut etiam sit amet nisl purus in. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Amet cursus sit amet dictum sit amet justo donec. Morbi tincidunt augue interdum velit euismod in pellentesque massa.
 

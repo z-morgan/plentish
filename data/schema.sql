@@ -20,6 +20,12 @@ CREATE TABLE recipes(
   user_id int NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE recipes_shopping_lists(
+  id serial PRIMARY KEY,
+  recipe_id int REFERENCES recipes(id) ON DELETE CASCADE,
+  shopping_list_id int REFERENCES shopping_lists(id) ON DELETE CASCADE
+);
+
 CREATE TABLE ingredients(
   id serial PRIMARY KEY,
   name varchar(50) NOT NULL,

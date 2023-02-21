@@ -37,7 +37,7 @@ def validate_creds(u_name, pass)
   elsif !(pass =~ /[a-z]/ && pass =~ /[A-Z]/ && pass =~ /\d/)
     status[:error_msg] = 'Password must contain a number, uppercase letter, and lowercase letter.'
   else
-    status[:is_valid] = true;
+    status[:is_valid] = true
   end
 
   status
@@ -45,7 +45,12 @@ end
 
 before do
   @db = init_db
-  redirect '/' unless (request.path_info =~ /(^\/$|signin|register)/) || session[:username]
+  unless session[:username] || (request.path_info =~ /(^\/$|signin|register)/)
+    # eventually change this to a 401 with an `WWW-Authenticate` header 
+    p 'SESSION IS INVALID' # delete this and the next line
+    p session[:username]
+    redirect '/'
+  end
 end
 
 after do
@@ -58,7 +63,7 @@ get '/' do
   @overlay_class = 'hidden'
   @register_class = 'hidden'
   @signin_class = 'hidden'
-  erb :home, :layout => false;
+  erb :home, :layout => false
 end
 
 post '/register' do
@@ -75,7 +80,7 @@ post '/register' do
     @register_class = ''
     @signin_class = 'hidden'
     status 422
-    erb :home, :layout => false;
+    erb :home, :layout => false
   end
 end
 
@@ -99,7 +104,7 @@ post '/signin' do
   end
 
   status 422
-  erb :home, :layout => false;
+  erb :home, :layout => false
 end
 
 get '/my-shopping-list' do
@@ -107,15 +112,32 @@ get '/my-shopping-list' do
 end
 
 get '/my-shopping-list/items' do
-  items_array = @db.retrieve_items(session[:username]);
+  items_array = @db.retrieve_items(session[:username])
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items_array)
 end
 
 get '/recipes' do
+  @recipes = @db.retrieve_recipes(session[:username])
   erb :recipes
 end
 
-get '/recipes/id' do
+get '/recipes/:id' do
+  @recipe = @db.retrieve_recipe(params[:id])
+  @ingredients = @db.retrieve_recipe_ingredients(params[:id])
   erb :recipe_details
+end
+
+put '/recipes/:id' do
+  body_obj = JSON.parse(request.body.read)
+  if body_obj.key?('selected')
+    if body_obj['selected']
+      @db.selectRecipe(session[:username], params[:id])
+    else
+      @db.deselectRecipe(session[:username], params[:id])
+    end
+    status 204
+  else
+    # other update operations here
+  end
 end

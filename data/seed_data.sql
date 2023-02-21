@@ -14,6 +14,10 @@ INSERT INTO recipes
 (name, user_id)
 VALUES ('Smith Rock Granola', 1);
 
+INSERT INTO recipes_shopping_lists
+(recipe_id, shopping_list_id)
+VALUES (1, 1);
+
 INSERT INTO recipes
 (name, user_id)
 VALUES ('Banana Pancakes', 1);

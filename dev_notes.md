@@ -130,10 +130,35 @@ Click 'Already have this'
   - removes ingredient from My Shopping List tab
 
 
-Header interactivity:
 
-click listener on my shopping list
-click listener on recipes
+
+Recipes Page:
+
+
+Add click listener to `selected` button on each recipe
+  - makes an `put` request to `recipes/:id` with the new value of `selected` as JSON
+  - updates the database
+  - response with true or not
+  - update the class and image of the recipe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Buglist:
+- can't open header menu when viewing a recipe on an iphone
+
+
 
 
 

@@ -3,6 +3,27 @@
 
 <a id='new-recipe'>New Recipe</a>
 <ul id='recipes-list'>
-  <li>Smith Rock Granola - 15/9/22</li>
-  <li>Banana Pancakes - 2/3/20</li>
+  <% if @recipes.empty? %>
+    <li>You don't have any recipes. Create one by clicking on "New Recipe".</li>
+  <% else %>
+
+    <% @recipes.each do |recipe| %>
+
+      <% if recipe['selected'] %>
+        <li class='selected'>
+          <a href='/recipes/<%= recipe['id'] %>'></a>
+          <%= recipe['name'] %> - <%= recipe['date_created'] %>
+          <img src='/images/blue_checked_circle.png' data-selected='true' data-id='<%= recipe['id'] %>'>
+        </li>
+      <% else %>
+        <li>
+          <a href='/recipes/<%= recipe['id'] %>'></a>
+          <%= recipe['name'] %> - <%= recipe['date_created'] %>
+          <img src='/images/circle.png' data-id='<%= recipe['id'] %>'>
+        </li>
+      <% end %>
+
+    <% end %>
+
+  <% end %>
 </ul>
