@@ -15,7 +15,7 @@ require_relative 'lib/postgresdb'
 
 configure do
   enable :sessions
-  set :session_secret, 'secret string' # ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+  set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
   set :erb, :escape_html => true
 end
 
@@ -108,6 +108,7 @@ end
 
 get '/my-shopping-list/items' do
   items_array = @db.retrieve_items(session[:username]);
+  headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items_array)
 end
 

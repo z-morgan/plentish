@@ -53,7 +53,6 @@ class PostgresDB
   end
 
   def retrieve_items(username)
-    p username
     sql = <<~SQL
       SELECT name, quantity, units, done, pantry
       FROM items
@@ -70,9 +69,7 @@ class PostgresDB
       item['done'] = item['done'] == 't'
       items.push(item)
     end
-
-    p 'RIGHT HERE'
-    items.tap {|x| p x}
+    items
   end
 end
 

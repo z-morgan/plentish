@@ -11,7 +11,7 @@ module PostgresDBSetup
   end
 
   def teardown
-    @test_connection.exec("DELETE FROM users;")
+    @test_connection.exec("DELETE FROM users WHERE username = 'testuser1';")
     @test_connection.close
   end
 end

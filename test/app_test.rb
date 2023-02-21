@@ -22,7 +22,7 @@ class AppTest < Minitest::Test
   end
 
   def signed_in
-    { "rack.session" => { username: "admin", name: "Mr. Admin" } }
+    { "rack.session" => { username: "asdfasdf" } }
   end
 
   ######## tests #########
@@ -130,5 +130,32 @@ class AppTest < Minitest::Test
     # assert_equal 200, last_response.status
     # assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     # assert_includes last_response.body, # something on the page
+  end
+
+  def test_my_shopping_list
+    get '/my-shopping-list', {}, signed_in
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "my_shopping_list.js"
+  end
+
+  def test_my_shopping_list_not_signed_in
+    get '/my-shopping-list'
+    assert_equal 302, last_response.status
+    assert_equal 'http://example.org/', last_response['Location']
+  end
+
+  def test_get_all_items
+    get '/my-shopping-list/items', {}, signed_in
+    assert_equal 200, last_response.status
+    assert_equal "application/json;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "\"name\":\"Dried Cranberries\""
+  end
+
+  def test_recipes
+    get '/recipes', {}, signed_in
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, 'javascripts/recipes.js'
   end
 end

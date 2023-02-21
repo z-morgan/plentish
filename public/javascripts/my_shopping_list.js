@@ -17,6 +17,7 @@ class APIInterface {
 
 class ItemsData {
   constructor(rawItems) {
+    console.log(rawItems);
     this.rawItems = rawItems;
     [ this.shoppingList, this.pantry ] = this.partitionRawItems(rawItems);
     this.shoppingList = this.sortByDone(this.shoppingList);
