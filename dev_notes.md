@@ -149,10 +149,10 @@ Add the ability to edit a recipe:
         - save button
         - cancel button
     
-  - form submit `save` listener:
-    - puts data to server
-    - upon successful response:
-      - fully reloads details page
+  - form submit:
+    - update all of the recipe fields with the new values
+    - delete all ingredients for that recipe
+    - create new ingredients for each ingredient in the form
   
   - cancel listener:
     - resets form and hides form and overlay

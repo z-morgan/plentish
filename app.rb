@@ -164,16 +164,14 @@ end
 
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
-  p 'RIGHT HERE'
-  p @recipe
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
   @ingredients.each_with_index { |ingredient, i| ingredient['number'] = (i + 1).to_s }
   erb :recipe_details
 end
 
 put '/recipes/:id' do
-  body_obj = JSON.parse(request.body.read)
-  if body_obj.key?('selected')
+  if request.media_type == 'application/json'
+    body_obj = JSON.parse(request.body.read)
     if body_obj['selected']
       @db.select_recipe(session[:username], params[:id])
     else
@@ -181,6 +179,16 @@ put '/recipes/:id' do
     end
     status 204
   else
-    # other update operations here
+    # something else?
   end
+end
+
+post '/recipes/:id' do
+  @db.update_recipe(params[:id], params[:name], params[:description])
+  @db.delete_all_ingredients(params[:id])
+  ingredient_objects = collect_ingredients(params)
+  ingredient_objects.each do |ingredient|
+    @db.create_ingredient(ingredient, params[:id])
+  end
+  redirect "recipes/#{params[:id]}"
 end

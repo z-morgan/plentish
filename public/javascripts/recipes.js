@@ -58,6 +58,7 @@ function addNewRecipeFormBehaviors() {
   const newRecipeButton = document.querySelector('#new-recipe');
   const newRecipeForm = document.querySelector('#new-recipe-form');
   const formOverlay = document.querySelector('#form-overlay');
+  
   newRecipeButton.addEventListener('click', event => {
     event.preventDefault();
 

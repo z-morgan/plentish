@@ -170,6 +170,25 @@ class PostgresDB
     @connection.exec_params(sql, [name, quantity, units, recipe_id])
   end
 
+  def update_recipe(recipe_id, name, description)
+    sql = <<~SQL
+      UPDATE recipes
+      SET name = $2, description = $3
+      WHERE id = $1;
+    SQL
+
+    @connection.exec_params(sql, [recipe_id, name, description])
+  end
+
+  def delete_all_ingredients(recipe_id)
+    sql = <<~SQL
+      DELETE FROM ingredients
+      WHERE recipe_id = $1;
+    SQL
+
+    @connection.exec_params(sql, [recipe_id])
+  end
+
   private
 
   def format_date(date)
