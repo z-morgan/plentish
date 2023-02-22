@@ -1,33 +1,17 @@
-async function sendUpdateRequest(id, newState) {
-  const options = {
-    method: 'PUT',
-    headers: {'Content-type': 'application/json; charset=utf-8'},
-    body: JSON.stringify({selected: newState}),
-  };
-
-  let response;
-  try {
-    response = await fetch(`/recipes/${id}`, options);
-  } catch {
-    alert('Could not communicate with the server at this time.');
-  }
-  return response.status;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+function addRecipeDetailsHandlers() {
   const recipes = document.querySelectorAll('li');
   for (let recipe of recipes) {
     recipe.addEventListener('click', event => {
       event.target.querySelector('a').click();
     });
   }
+}
 
-
+function addRecipeSelectHandlers() {
   const selectButtons = document.querySelectorAll('li img');
   for (let button of selectButtons) {
     button.addEventListener('click', async (event) => {
       event.stopPropagation();
-
 
       const id = event.target.dataset.id;
       const li = event.target.parentNode;
@@ -52,7 +36,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+}
 
+async function sendUpdateRequest(id, newState) {
+  const options = {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json; charset=utf-8'},
+    body: JSON.stringify({selected: newState}),
+  };
+
+  let response;
+  try {
+    response = await fetch(`/recipes/${id}`, options);
+  } catch {
+    alert('Could not communicate with the server at this time.');
+  }
+  return response.status;
+}
+
+function addNewRecipeFormBehaviors() {
   const newRecipeButton = document.querySelector('#new-recipe');
   const newRecipeForm = document.querySelector('#new-recipe-form');
   const formOverlay = document.querySelector('#form-overlay');
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let ingredientTemplate = document.querySelector('[type="text/x-handlebars"]');
   ingredientTemplate = Handlebars.compile(ingredientTemplate.innerHTML);
 
+  const ingredientsList = document.querySelector('#ingredients-list');
   const addIngredientButton = document.querySelector('form > a')
   addIngredientButton.addEventListener('click', event => {
     event.preventDefault();
@@ -77,13 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     newHTML = ingredientTemplate({ nextNum });
-    const ul = document.querySelector('#ingredients-list');
-    ul.insertAdjacentHTML('beforeend', newHTML);
+    ingredientsList.insertAdjacentHTML('beforeend', newHTML);
 
-    const deleteButton = ul.lastElementChild.querySelector('img');
+    const deleteButton = ingredientsList.lastElementChild.querySelector('img');
     deleteButton.addEventListener('click', event => {
       event.target.parentNode.remove();
     });
   });
-});
 
+  newRecipeForm.addEventListener('reset', () => {
+    ingredientsList.textContent = '';
+    newRecipeForm.classList.add('hidden');
+    formOverlay.classList.add('hidden');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  addRecipeDetailsHandlers();
+  addRecipeSelectHandlers();
+  addNewRecipeFormBehaviors();
+});
