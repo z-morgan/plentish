@@ -120,7 +120,7 @@ class PostgresDB
     ingredients
   end
 
-  def selectRecipe(username, recipe_id)
+  def select_recipe(username, recipe_id)
     sql = <<~SQL
       INSERT INTO recipes_shopping_lists
       (recipe_id, shopping_list_id)
@@ -133,7 +133,7 @@ class PostgresDB
     @connection.exec_params(sql, [username, recipe_id])
   end
 
-  def deselectRecipe(username, recipe_id)
+  def deselect_recipe(username, recipe_id)
     sql = <<~SQL
       DELETE FROM recipes_shopping_lists
       WHERE recipe_id = $2 AND shopping_list_id = (
@@ -143,6 +143,31 @@ class PostgresDB
     SQL
 
     @connection.exec_params(sql, [username, recipe_id])
+  end
+
+  def create_recipe(username, name, description)
+    sql = <<~SQL
+      INSERT INTO recipes
+      (name, description, user_id)
+      VALUES ($2, $3, (SELECT id FROM users WHERE username = $1));
+    SQL
+
+    @connection.exec_params(sql, [username, name, description])
+    @connection.exec('SELECT lastval()').values[0][0].to_i
+  end
+
+  def create_ingredient(ingredient, recipe_id)
+    name = ingredient['name']
+    quantity = ingredient['quantity']
+    units = ingredient['units']
+
+    sql = <<~SQL
+      INSERT INTO ingredients
+      (name, quantity, units, recipe_id)
+      VALUES ($1, $2, $3, $4);
+    SQL
+
+    @connection.exec_params(sql, [name, quantity, units, recipe_id])
   end
 
   private

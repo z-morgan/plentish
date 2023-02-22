@@ -43,12 +43,35 @@ def validate_creds(u_name, pass)
   status
 end
 
+def valid_recipe(fields)
+  fields.none? { |_, v| v == '' || v.class != String }
+end
+
+def collect_ingredients(params)
+  max = params.keys.reduce(0) do |acc, key|
+    match = key.match(/\d+$/)
+    num = 0
+    if match
+      num = match[0].to_i
+    end
+    num > acc ? num : acc
+  end
+
+  ingredients = []
+  1.upto(max) do |num|
+    ingredient = {}
+    ingredient['name'] = params["i-name-#{num.to_s}"]
+    ingredient['quantity'] = params["quantity-#{num.to_s}"]
+    ingredient['units'] = params["units-#{num.to_s}"]
+    ingredients.push(ingredient)
+  end
+  ingredients
+end
+
 before do
   @db = init_db
   unless session[:username] || (request.path_info =~ /(^\/$|signin|register)/)
     # eventually change this to a 401 with an `WWW-Authenticate` header 
-    p 'SESSION IS INVALID' # delete this and the next line
-    p session[:username]
     redirect '/'
   end
 end
@@ -122,6 +145,21 @@ get '/recipes' do
   erb :recipes
 end
 
+post '/recipes' do
+  if valid_recipe(params)
+    recipe_id = @db.create_recipe(session[:username], params[:name], params[:description])
+    ingredient_objects = collect_ingredients(params)
+    ingredient_objects.each do |ingredient|
+      @db.create_ingredient(ingredient, recipe_id)
+    end
+    redirect '/recipes'
+  else
+    status 422
+    @recipes = @db.retrieve_recipes(session[:username])
+    erb :recipes
+  end
+end
+
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
@@ -132,9 +170,9 @@ put '/recipes/:id' do
   body_obj = JSON.parse(request.body.read)
   if body_obj.key?('selected')
     if body_obj['selected']
-      @db.selectRecipe(session[:username], params[:id])
+      @db.select_recipe(session[:username], params[:id])
     else
-      @db.deselectRecipe(session[:username], params[:id])
+      @db.deselect_recipe(session[:username], params[:id])
     end
     status 204
   else

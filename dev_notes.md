@@ -163,22 +163,16 @@ Add the ability to edit a recipe:
 Recipes page:
 
 Add the ability to add a recipe:
-  click listener on new recipe button:
-    - reveals a form and overlay, which covers the whole window
-      - fields:
-        - name
-        - new ingredient button
-        - ingredients (for each)
-          - delete button
-        - description text area
-        - save button
-        - cancel button
     
-  - form submit listener:  - bookmark (or cancel listener)
-    - posts data to server
-    - upon successful response:
-      - fully reloads recipes page
-  
+when form is posted to the server:
+  - create the recipe
+  - get it's id
+  - collect the ingredients into an array of objects
+    - for each, create a db ingredient using that object
+redirect to same page
+
+
+
   - cancel listener:
     - resets form and hides form and overlay
 
@@ -207,6 +201,7 @@ When the form is submitted:
 
 Buglist:
 - can't open header menu when viewing a recipe on an iphone
+- clicking fields in the new-recipe form generates JS errors on the console.
 
 
 

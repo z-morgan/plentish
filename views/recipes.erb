@@ -29,7 +29,7 @@
 </ul>
 
 <div id='form-overlay' class='hidden'></div>
-<form id='new-recipe-form' class='hidden'>
+<form method='post' action='/recipes' id='new-recipe-form' class='hidden'>
   <label for='name'>Recipe Name:</label>
   <input type='text' id='name' name='name' placeholder='Banana Pancakes'>
   <a>Add Ingredient</a>
@@ -43,8 +43,18 @@
       </select>
       <img src='/images/red_x.png'>
     </li>
+
+    <li>
+      <input type='text' name='i-name-2' placeholder='Walnuts' required>
+      <input type='number' name='quantity-2' minvalue='0' placeholder='4' required>
+      <select name='units-2' value='units' required>
+        <option value='cups'>cups</option>
+        <option value='oz.'>oz.</option>
+      </select>
+      <img src='/images/red_x.png'>
+    </li>
   </ul>
-  <textarea placeholder='description'></textarea>
+  <textarea name='description' placeholder='description'></textarea>
   <div id='form-controls'>
     <input type='submit' value='Save'>
     <input type='reset' value='Cancel'>

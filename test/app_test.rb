@@ -158,4 +158,25 @@ class AppTest < Minitest::Test
     assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     assert_includes last_response.body, 'javascripts/recipes.js'
   end
+
+  def test_new_recipe
+    request_params = {
+      'name' => 'Pizza',
+      'description' => 'Put in the Oven for 10 minutes.',
+      'i-name-1' => 'Cheese',
+      'quantity-1' => '25',
+      'units-1' => 'oz.',
+      'i-name-2' => 'Salami',
+      'quantity-2' => '4',
+      'units-2' => 'cups'
+    }
+
+    post '/recipes', request_params, signed_in
+    assert_equal 302, last_response.status
+
+    get last_response["Location"]
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "Pizza"
+  end
 end
