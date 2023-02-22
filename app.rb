@@ -164,7 +164,10 @@ end
 
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
+  p 'RIGHT HERE'
+  p @recipe
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
+  @ingredients.each_with_index { |ingredient, i| ingredient['number'] = (i + 1).to_s }
   erb :recipe_details
 end
 

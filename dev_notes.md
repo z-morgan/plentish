@@ -149,7 +149,7 @@ Add the ability to edit a recipe:
         - save button
         - cancel button
     
-  - form submit listener:
+  - form submit `save` listener:
     - puts data to server
     - upon successful response:
       - fully reloads details page
@@ -160,32 +160,8 @@ Add the ability to edit a recipe:
 
 
 
-Recipes page:
-
-Add the ability to add a recipe:
-
-  - Add Ingredient Button:
-    - if there is an existing ingredient, gets the digit identifier, else is `1`
-    - generate the html and insert into the DOM
-    - add click listener to delete button
-
-  - cancel listener:
-    - resets form and hides form and overlay
 
 
-
-
-
-Ingredients in the form:
-
-`add ingredient` button - inserts a new li with the following components
-  - name (`name` -> i-name-1)
-  - quantity (`name` -> quantity-1)
-  - units (`name` -> units-1)
-
-When the form is submitted:
-  - extract all i-name-n values
-  - for each of those, associate them with the quantity and units values ending in the same number
 
 
 
@@ -196,7 +172,6 @@ When the form is submitted:
 
 
 Buglist:
-- can't open header menu when viewing a recipe on an iphone
 - clicking fields in the new-recipe form generates JS errors on the console.
 
 

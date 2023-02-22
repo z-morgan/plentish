@@ -39,11 +39,147 @@ div#recipe-controls a {
   margin-left: 5px;
 }
 
+main img {
+  width: 35px;
+  float: right;
+  bottom: 6.5px;
+  position: relative;
+}
+
+form#edit-recipe-form {
+  position: absolute;
+  background-color: white;
+  z-index: 4;
+  top: 100px;
+  height: fit-content;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+form#edit-recipe-form.hidden {
+  display: none;
+}
+
+form#edit-recipe-form label {
+  display: block;
+}
+
+form#edit-recipe-form input {
+  border-radius: 7px;
+  height: 25px;
+  border: solid;
+  margin: 5px 0px;
+}
+
+form#edit-recipe-form input#name {
+  width: 100%;
+  margin: 5px 0px 20px 0px;
+}
+
+form#edit-recipe-form a {
+  border-radius: 7px;
+  height: 25px;
+  border: solid;
+  display: block;
+  width: fit-content;
+  padding: 5px 10px 0px 10px;
+}
+
+form#edit-recipe-form ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+form#edit-recipe-form ul li {
+  border-bottom: solid;
+  border-top: solid;
+  border-color: #d3d3d3;
+  padding: 5px 0px;
+}
+
+form#edit-recipe-form ul li ~ li {
+  border-top: none;
+}
+
+form#edit-recipe-form ul li input {
+  border-radius: 7px;
+  height: 25px;
+  width: 50%;
+  border: solid;
+  margin: 5px 0px;
+}
+
+form#edit-recipe-form ul li input[type='number'] {
+  width: 40px;
+}
+
+form#edit-recipe-form ul li select {
+  width: 60px;
+  height: 30px;
+  border-radius: 7px;
+  border: solid;
+}
+
+form#edit-recipe-form ul li img {
+  top: 7.5px;
+  width: 25px;
+}
+
+form#edit-recipe-form textarea {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border: solid;
+  border-color: black;
+  border-radius: 7px;
+}
+
+form#edit-recipe-form div#form-controls {
+  display: block;
+  width: fit-content;
+  margin: 30px auto 0px auto;
+}
+
+div#form-controls input {
+  width: 90px;
+  margin: 5px 20px;
+  height: 32px;
+  background-color: #0190ff;
+  color: white;
+}
+
+div#form-controls input ~ input {
+  background-color: #ff4545;
+}
+
+div#form-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #3d3d3d;
+  opacity: .7;
+  z-index: 3;
+}
+
+div#form-overlay.hidden {
+  display: none;
+}
+
 @media (min-width: 480px) {
   div#recipe-details-pane {
     background-color: white;
     margin: 0px;
     box-sizing: border-box;
     padding: 15px;
+  }
+
+  form#edit-recipe-form {
+    left: 50%;
+    width: 480px;
+    margin-left: -240px;
   }
 }
