@@ -132,20 +132,70 @@ Click 'Already have this'
 
 
 
-Recipes Page:
+Recipe Details page:
+
+Add the ability to edit a recipe:
+  click listener on edit button:
+    - reveals a form and overlay, which covers the whole window
+      - fields:
+        - name
+        - ingredients (for each)
+          - name (text input)
+          - quantity (number input)
+          - units (select list)
+          - delete button
+        - new ingredient button
+        - description text area
+        - save button
+        - cancel button
+    
+  - form submit listener:
+    - puts data to server
+    - upon successful response:
+      - fully reloads details page
+  
+  - cancel listener:
+    - resets form and hides form and overlay
 
 
-Add click listener to `selected` button on each recipe
-  - makes an `put` request to `recipes/:id` with the new value of `selected` as JSON
-  - updates the database
-  - response with true or not
-  - update the class and image of the recipe
+
+
+Recipes page:
+
+Add the ability to add a recipe:
+  click listener on new recipe button:
+    - reveals a form and overlay, which covers the whole window
+      - fields:
+        - name
+        - new ingredient button
+        - ingredients (for each)
+          - delete button
+        - description text area
+        - save button
+        - cancel button
+    
+  - form submit listener:  - bookmark (or cancel listener)
+    - posts data to server
+    - upon successful response:
+      - fully reloads recipes page
+  
+  - cancel listener:
+    - resets form and hides form and overlay
 
 
 
 
 
+Ingredients in the form:
 
+`add ingredient` button - inserts a new li with the following components
+  - name (`name` -> i-name-1)
+  - quantity (`name` -> quantity-1)
+  - units (`name` -> units-1)
+
+When the form is submitted:
+  - extract all i-name-n values
+  - for each of those, associate them with the quantity and units values ending in the same number
 
 
 

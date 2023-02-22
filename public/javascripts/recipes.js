@@ -16,14 +16,14 @@ async function sendUpdateRequest(id, newState) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const recipes = document.querySelectorAll('li');
-  const selectButtons = document.querySelectorAll('li img');
-
   for (let recipe of recipes) {
     recipe.addEventListener('click', event => {
       event.target.querySelector('a').click();
     });
   }
 
+
+  const selectButtons = document.querySelectorAll('li img');
   for (let button of selectButtons) {
     button.addEventListener('click', async (event) => {
       event.stopPropagation();
@@ -52,4 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  const newRecipeButton = document.querySelector('#new-recipe');
+  const newRecipeForm = document.querySelector('#new-recipe-form');
+  const formOverlay = document.querySelector('#form-overlay');
+  newRecipeButton.addEventListener('click', event => {
+    event.preventDefault();
+
+    newRecipeForm.classList.remove('hidden');
+    formOverlay.classList.remove('hidden');
+  });
 });
