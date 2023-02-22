@@ -1,5 +1,18 @@
 <link rel="stylesheet" href="/stylesheets/recipes.css">
 <script type='text/javascript' src='/javascripts/recipes.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+
+<script type='text/x-handlebars' id='ingredient-template'>
+  <li>
+    <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' required>
+    <input type='number' name='quantity-{{nextNum}}' minvalue='0' placeholder='4' required>
+    <select name='units-{{nextNum}}' value='units' required>
+      <option value='cups'>cups</option>
+      <option value='oz.'>oz.</option>
+    </select>
+    <img src='/images/red_x.png'>
+  </li>
+</script>
 
 <a id='new-recipe'>New Recipe</a>
 <ul id='recipes-list'>
@@ -33,26 +46,16 @@
   <label for='name'>Recipe Name:</label>
   <input type='text' id='name' name='name' placeholder='Banana Pancakes'>
   <a>Add Ingredient</a>
-  <ul>
-    <li>
+  <ul id='ingredients-list'>
+    <%# <li>
       <input type='text' name='i-name-1' placeholder='Walnuts' required>
       <input type='number' name='quantity-1' minvalue='0' placeholder='4' required>
-      <select name='units-1' value='units' required>
+      <select name='units-1' required>
         <option value='cups'>cups</option>
         <option value='oz.'>oz.</option>
       </select>
       <img src='/images/red_x.png'>
-    </li>
-
-    <li>
-      <input type='text' name='i-name-2' placeholder='Walnuts' required>
-      <input type='number' name='quantity-2' minvalue='0' placeholder='4' required>
-      <select name='units-2' value='units' required>
-        <option value='cups'>cups</option>
-        <option value='oz.'>oz.</option>
-      </select>
-      <img src='/images/red_x.png'>
-    </li>
+    </li> %>
   </ul>
   <textarea name='description' placeholder='description'></textarea>
   <div id='form-controls'>

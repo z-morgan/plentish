@@ -14,22 +14,6 @@ async function sendUpdateRequest(id, newState) {
   return response.status;
 }
 
-// async function sendCreateRequest(recipe) {
-//   const options = {
-//     method: 'POST',
-//     headers: {'Content-type': 'application/json; charset=utf-8'},
-//     body: JSON.stringify(recipe),
-//   };
-
-//   let response;
-//   try {
-//     response = await fetch('/recipes', options);
-//   } catch {
-//     alert('Could not communicate with the server at this time.');
-//   }
-//   return response.status;
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
   const recipes = document.querySelectorAll('li');
   for (let recipe of recipes) {
@@ -79,38 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
     formOverlay.classList.remove('hidden');
   });
 
-  // newRecipeForm.addEventListener('submit', async (event) => {
-  //   event.preventDefault();
+  let ingredientTemplate = document.querySelector('[type="text/x-handlebars"]');
+  ingredientTemplate = Handlebars.compile(ingredientTemplate.innerHTML);
 
-  //   const formData = new FormData(event.currentTarget);
-  //   const ingredientNames = formData.getAll('i-name');
-  //   const quantities = formData.getAll('quantity');
-  //   const units = formData.getAll('units');
+  const addIngredientButton = document.querySelector('form > a')
+  addIngredientButton.addEventListener('click', event => {
+    event.preventDefault();
 
-  //   let ingredients = [];
-  //   for (let i = 0; i < ingredientNames.length; i += 1) {
-  //     ingredients.push({
-  //       name: ingredientNames[i],
-  //       quantity: quantities[i],
-  //       units: units[i],
-  //     });
-  //   }
+    let nextNum = 1;
+    const iNames = document.querySelectorAll('[name^=i-name]');
+    if (iNames.length > 0) {
+      nextNum = Number(iNames[iNames.length - 1].name.match(/\d+$/)[0]) + 1;
+    }
 
-  //   const recipe = {
-  //     name: formData.get('name'),
-  //     ingredients,
-  //     description: formData.get('description'),
-  //   };
+    newHTML = ingredientTemplate({ nextNum });
+    const ul = document.querySelector('#ingredients-list');
+    ul.insertAdjacentHTML('beforeend', newHTML);
 
-  //   await sendCreateRequest(recipe);
-  // });
+    const deleteButton = ul.lastElementChild.querySelector('img');
+    deleteButton.addEventListener('click', event => {
+      event.target.parentNode.remove();
+    });
+  });
 });
 
-
-/*
-get all of the values for each of the ingredients fields
-iterate through all arrays by index, and build an object each time
-collect remaining form fields into an object
-add ingredients array to that object
-
-*/

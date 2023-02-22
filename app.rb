@@ -59,11 +59,13 @@ def collect_ingredients(params)
 
   ingredients = []
   1.upto(max) do |num|
-    ingredient = {}
-    ingredient['name'] = params["i-name-#{num.to_s}"]
-    ingredient['quantity'] = params["quantity-#{num.to_s}"]
-    ingredient['units'] = params["units-#{num.to_s}"]
-    ingredients.push(ingredient)
+    if params["i-name-#{num.to_s}"]
+      ingredient = {}
+      ingredient['name'] = params["i-name-#{num.to_s}"]
+      ingredient['quantity'] = params["quantity-#{num.to_s}"]
+      ingredient['units'] = params["units-#{num.to_s}"]
+      ingredients.push(ingredient)
+    end
   end
   ingredients
 end

@@ -163,15 +163,11 @@ Add the ability to edit a recipe:
 Recipes page:
 
 Add the ability to add a recipe:
-    
-when form is posted to the server:
-  - create the recipe
-  - get it's id
-  - collect the ingredients into an array of objects
-    - for each, create a db ingredient using that object
-redirect to same page
 
-
+  - Add Ingredient Button:
+    - if there is an existing ingredient, gets the digit identifier, else is `1`
+    - generate the html and insert into the DOM
+    - add click listener to delete button
 
   - cancel listener:
     - resets form and hides form and overlay
