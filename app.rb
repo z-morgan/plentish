@@ -192,3 +192,8 @@ post '/recipes/:id' do
   end
   redirect "recipes/#{params[:id]}"
 end
+
+delete '/recipes/:id' do
+  @db.delete_recipe(params[:id])
+  status 204
+end

@@ -157,6 +157,11 @@ Add the ability to edit a recipe:
   - cancel listener:
     - resets form and hides form and overlay
 
+- delete listener:
+    prompts the user to confirm
+    submits a delete request to the server, 
+      which deletes the recipe and it's ingredients
+      Then redirect user back to `/recipes`
 
 
 

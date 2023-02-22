@@ -54,6 +54,50 @@ function addDeleteListeners() {
   }
 }
 
+function addDeleteRecipeHandler() {
+  const deleteButton = document.querySelector('#delete-button');
+  const overlay = document.querySelector('#form-overlay');
+  const confirmDeletePane = document.querySelector('#confirm-delete');
+  const finalDeleteButton = document.querySelector('#final-delete');
+  const backButton = document.querySelector('#go-back');
+
+  deleteButton.addEventListener('click', event => {
+    event.preventDefault();
+
+    overlay.classList.remove('hidden');
+    confirmDeletePane.classList.remove('hidden');
+  });
+
+  finalDeleteButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    let status = await deleteRecipe(event.target.dataset.id);
+    if (status == 204) {
+      event.target.nextElementSibling.click();
+    } else {
+      alert('Something went wrong... try that again after reloading the page.')
+    }
+  });
+
+  backButton.addEventListener('click', event => {
+    event.preventDefault();
+
+    overlay.classList.add('hidden');
+    confirmDeletePane.classList.add('hidden');
+  });
+}
+
+async function deleteRecipe(recipe_id) {
+  let response;
+  try {
+    response = await fetch(`/recipes/${recipe_id}`, { method: 'DELETE' });
+  } catch {
+    alert('Could not communicate with the server at this time.');
+  }
+  return response.status;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   addEditRecipeFormBehaviors();
+  addDeleteRecipeHandler();
 });

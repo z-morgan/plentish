@@ -64,3 +64,12 @@
     <input type='reset' value='Cancel'>
   </div>
 </form>
+
+<div id='confirm-delete' class='hidden'>
+  <p>You are about to delete this recipe -- Are you sure?</p>
+  <div id='delete-controls'>
+    <a id='final-delete' data-id='<%= @recipe['id'] %>'>Delete</a>
+    <a id='redirect-link' href='/recipes'></a>
+    <a id='go-back'>Go Back</a>
+  </div>
+</div>

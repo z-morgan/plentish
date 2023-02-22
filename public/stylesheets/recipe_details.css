@@ -169,6 +169,55 @@ div#form-overlay.hidden {
   display: none;
 }
 
+div#confirm-delete {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 350px;
+  margin-top: -100px;
+  margin-left: -175px;
+  z-index: 4;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+div#confirm-delete.hidden {
+  display: none;
+}
+
+div#delete-controls {
+  display: block;
+  width: fit-content;
+  margin: 75px auto 0px auto;
+}
+
+div#delete-controls a {
+  margin: 5px 20px;
+  height: 32px;
+  color: white;
+  background-color: #ff4545;
+  width: 70px;
+  display: inline-block;
+  border: solid;
+  border-radius: 7px;
+  box-sizing: border-box;
+  padding: 5px 5px 5px 12px;
+  text-decoration: none;
+}
+
+div#delete-controls a ~ a {
+  color: black;
+  background-color: inherit;
+  padding: 5px;
+}
+
+div#delete-controls a#redirect-link {
+  display: none;
+}
+
 @media (min-width: 480px) {
   div#recipe-details-pane {
     background-color: white;

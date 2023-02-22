@@ -189,6 +189,14 @@ class PostgresDB
     @connection.exec_params(sql, [recipe_id])
   end
 
+  def delete_recipe(recipe_id)
+    sql = <<~SQL
+      DELETE FROM recipes WHERE id = $1;
+    SQL
+
+    @connection.exec_params(sql, [recipe_id])
+  end
+
   private
 
   def format_date(date)
