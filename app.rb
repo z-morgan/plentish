@@ -152,6 +152,11 @@ get '/my-shopping-list/items' do
   JSON.generate(items_array)
 end
 
+put '/my-shopping-list/items/:id' do
+  @db.adjustItemQuantity(params[:id], params[:change])
+  status 204
+end
+
 get '/recipes' do
   @recipes = @db.retrieve_recipes(session[:username])
   erb :recipes

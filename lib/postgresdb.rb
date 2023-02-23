@@ -54,7 +54,7 @@ class PostgresDB
 
   def retrieve_items(username)
     sql = <<~SQL
-      SELECT name, quantity, units, done, deleted
+      SELECT id, name, quantity, units, done, deleted
       FROM items
       WHERE shopping_list_id = (
         SELECT current_list_id FROM users
@@ -70,6 +70,15 @@ class PostgresDB
       items.push(item)
     end
     items
+  end
+
+  def adjustItemQuantity(item_id, change)
+    change = change.to_i
+    if change > 0
+      increment_item_by(item_id, change)
+    else
+      decrement_item_by(item_id, -change)
+    end
   end
 
   def retrieve_recipes(username)

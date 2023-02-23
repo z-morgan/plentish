@@ -9,15 +9,18 @@
 </script>
 
 <script type='text/x-handlebars' id='item-template' data-type='partial'>
-  <li class='list-item'>
+  <li class='list-item' data-id='{{id}}'>
     {{#if done}}
       <img src='/images/checked_circle.png'>
     {{else}}
       <img src='/images/circle.png'>
     {{/if}}
-    <p>{{name}} - {{quantity}} {{units}}</p>
+    <p>{{name}} - <span class='quantity'>{{quantity}}</span> {{units}}</p>
     <img class='to-deleted' src='/images/red_x.png'>
-    <img class='pencil' src='/images/pencil.png'>
+    <div class='quantity-adjusters'>
+      <img class='quantity-adjuster' src='/images/up_arrow.png'>
+      <img class='quantity-adjuster' src='/images/down_arrow.png'>
+    </div>
   </li>
 </script>
 
@@ -31,7 +34,6 @@
   <li class='list-item'>
     <p>{{name}} - {{quantity}} {{units}}</p>
     <img class='to-shopping-list' src='/images/shopping_list.png'>
-    <img class='pencil' src='/images/pencil.png'>
   </li>
 </script>
 

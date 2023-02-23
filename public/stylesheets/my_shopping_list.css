@@ -94,6 +94,10 @@ main li p {
 img.to-deleted {
   float: right;
   margin-left: 10px;
+  width: 20px;
+  position: relative;
+  top: 50%;
+  margin-top: -10px;
 }
 
 img.to-shopping-list {
@@ -101,8 +105,25 @@ img.to-shopping-list {
   margin-left: 10px;
 }
 
-img.pencil {
+div.quantity-adjusters {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   float: right;
+  height: 57px;
+  top: -10px;
+}
+
+img.quantity-adjuster {
+  height: 50%;
+  width: auto;
+  box-sizing: border-box;
+  border-right: solid #e2e2e2;
+  border-left: solid #e2e2e2;
+}
+
+img.quantity-adjuster ~ img {
+  border-top: solid #e2e2e2;
 }
 
 main img {

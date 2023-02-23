@@ -13,14 +13,29 @@ class APIInterface {
     }
     return response.json();
   }
+
+  async adjustQuantity(item_id, change) {
+    const options = {
+      method: 'PUT',
+      headers: {'Content-type': 'application/x-www-form-urlencoded'},
+      body: `change=${encodeURIComponent(change)}`
+    };
+
+    let response;
+    try {
+      response = await fetch(`/my-shopping-list/items/${item_id}`, options);
+    } catch {
+      alert('Could not communicate with the server at this time.');
+    }
+    return response.status;
+  }
 }
 
 class ItemsData {
   constructor(rawItems) {
-    console.log(rawItems);
     this.rawItems = rawItems;
     [ this.shoppingList, this.deleted ] = this.partitionRawItems(rawItems);
-    this.shoppingList = this.sortByDone(this.shoppingList);
+    this.sortByDone(this.shoppingList);
   }
 
   partitionRawItems(items) {
@@ -35,13 +50,26 @@ class ItemsData {
   }
 
   sortByDone(items) {
-    return items.sort((a, b) => {
+    items.sort((a, b) => {
       if (a.done === b.done) {
         return 0;
       } else {
         return a.done ? 1 : -1;
       }
     });
+  }
+
+  updateQuantity(id, change) {
+    this.rawItems.find(item => item.id === id).quantity += change;
+  }
+
+  getQuantity(id) {
+    return this.rawItems.find(item => item.id === id).quantity
+  }
+
+  removeItem(id) {
+    this.rawItems = this.rawItems.filter(item => item.id !== id);
+    this.shoppingList = this.shoppingList.filter(item => item.id !== id);
   }
 }
 
@@ -82,6 +110,7 @@ class ShoppingList {
 
   addEventHandlers() {
     this.addListViewToggle();
+    this.addQuantityAdjusters();
   }
 
   addListViewToggle() {
@@ -125,6 +154,41 @@ class ShoppingList {
     const html = this.templates['deleted-template']({items: this.itemsData.deleted})
 
     list.insertAdjacentHTML('beforeend', html)
+  }
+
+  addQuantityAdjusters() {
+    const adjusters = document.querySelectorAll('.quantity-adjuster');
+    for (let adjuster of adjusters) {
+      adjuster.addEventListener('click', this.quantityAdjuster.bind(this));
+    }
+  }
+
+  async quantityAdjuster(event) {
+    event.stopPropagation();
+
+    let change = -1;
+    if (event.target.getAttribute('src') === '/images/up_arrow.png') {
+      change = 1;
+    }
+    
+    const itemLi = event.target.parentNode.parentNode;
+    const itemId = itemLi.dataset.id;
+    const status = await this.API.adjustQuantity(itemId, change);
+
+    if (status === 204) {
+      this.itemsData.updateQuantity(itemId, change);
+      const newQuantity = this.itemsData.getQuantity(itemId);
+
+      if (newQuantity > 0) {
+        const quantSpan = itemLi.querySelector('span.quantity');
+        quantSpan.textContent = String(newQuantity);
+      } else {
+        itemLi.remove();
+        this.itemsData.removeItem(itemId);
+      }
+    } else {
+      alert('Something went wrong... try that again after reloading the page.')
+    }
   }
 }
 
