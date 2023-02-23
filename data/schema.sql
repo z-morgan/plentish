@@ -15,7 +15,7 @@ CREATE TABLE shopping_lists(
 CREATE TABLE recipes(
   id serial PRIMARY KEY,
   name varchar(200) NOT NULL,
-  date_created date NOT NULL DEFAULT CURRENT_DATE,
+  date_created timestamp NOT NULL DEFAULT now(),
   description text,
   user_id int NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );

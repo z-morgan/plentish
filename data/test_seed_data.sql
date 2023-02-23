@@ -47,5 +47,5 @@ INSERT INTO items
 VALUES ('Bananas', 2, 'ct.', 1);
 
 INSERT INTO items
-(name, quantity, units, pantry, shopping_list_id)
+(name, quantity, units, deleted, shopping_list_id)
 VALUES ('Emergen-C', 1, 'ct.', true, 1);

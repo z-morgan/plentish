@@ -179,4 +179,13 @@ class AppTest < Minitest::Test
     assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     assert_includes last_response.body, "Pizza"
   end
+
+  def test_delete_recipe
+    delete '/recipes/1', {}, signed_in
+    assert_equal 204, last_response.status
+
+    get '/recipes', {}, signed_in
+    assert_equal 200, last_response.status
+    refute_includes last_response.body, 'Smith Rock Granola'
+  end
 end

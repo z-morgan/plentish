@@ -79,7 +79,8 @@ class PostgresDB
       AND rs.shopping_list_id = (
         SELECT current_list_id FROM users
         WHERE username = $1
-      );
+      )
+      ORDER BY r.date_created ASC;
     SQL
 
     recipes = [];
@@ -216,7 +217,7 @@ class PostgresDB
   private
 
   def format_date(date)
-    parts = date.split('-')
+    parts = date.match(/\S+ /)[0].strip.split('-')
     parts[1] = parts[1][1] if parts[1][0] == '0'
     parts[2] = parts[2][1] if parts[2][0] == '0'
     parts[0] = parts[0][2..3]

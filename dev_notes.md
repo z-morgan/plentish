@@ -111,10 +111,6 @@ boilerplate features:
 # Steps:
 
 
-When editing or deleting a recipe:
-  - if it is selected, you must update the shopping list as well
-
-
 Shopping List interactivity:
   - item quantity adjuster:
     - sets the quantity to a new value
@@ -130,11 +126,6 @@ Shopping List interactivity:
 
   - item check box:
     - marks the item as `done` and sorts it to the bottom of the list
-
-
-
-
-bug: if a recipe is selected, when it is edited, if an item is removed, it does not get removed form the shopping list
 
 
 
