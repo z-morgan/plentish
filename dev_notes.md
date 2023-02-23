@@ -112,13 +112,10 @@ boilerplate features:
 
 
 Shopping List interactivity:
-  - item quantity adjuster:
-    - sets the quantity to a new value
 
   - item delete button: 
     - removes item from shopping list
-    - (optional) moves it to `deleted` tab?
-
+    - moves it to `deleted` tab?
 
   - item check box:
     - marks the item as `done` and sorts it to the bottom of the list
@@ -130,13 +127,17 @@ Shopping List interactivity:
 
 
 
+Delete buttons:
+  add listener to delete img
+    - sends put request to server to update the `deleted` state
+    - moves item in front-end DS from shopping list to deleted list
+    - removes li from the DOM
+    - inserts li into the DOM in deleted items list
 
-quantity adjusters:
-  - send ajax request to update the quantity on the server
-  - upon success response:
-    - increment the quantity on the front end
-
-
+  add listener to shopping list img
+    - sends put request to server to update the `deleted` state
+    - moves item in front-end DS from deleted list to shoppinglist
+    - removes li from the DOM 
 
 
 

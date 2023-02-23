@@ -72,13 +72,23 @@ class PostgresDB
     items
   end
 
-  def adjustItemQuantity(item_id, change)
+  def adjust_item_quantity(item_id, change)
     change = change.to_i
     if change > 0
       increment_item_by(item_id, change)
     else
       decrement_item_by(item_id, -change)
     end
+  end
+
+  def update_deleted_state(item_id, newState)
+    sql = <<~SQL
+      UPDATE items
+      SET deleted = $2
+      WHERE id = $1;
+    SQL
+
+    @connection.exec_params(sql, [item_id, newState]);
   end
 
   def retrieve_recipes(username)

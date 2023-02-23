@@ -153,7 +153,11 @@ get '/my-shopping-list/items' do
 end
 
 put '/my-shopping-list/items/:id' do
-  @db.adjustItemQuantity(params[:id], params[:change])
+  if params[:change]
+    @db.adjust_item_quantity(params[:id], params[:change])
+  elsif params[:deleted]
+    @db.update_deleted_state(params[:id], params[:deleted])
+  end
   status 204
 end
 

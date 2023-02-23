@@ -29,6 +29,22 @@ class APIInterface {
     }
     return response.status;
   }
+
+  async updateDeletedState(item_id, newState) {
+    const options = {
+      method: 'PUT',
+      headers: {'Content-type': 'application/x-www-form-urlencoded'},
+      body: `deleted=${newState}`
+    };
+
+    let response;
+    try {
+      response = await fetch(`/my-shopping-list/items/${item_id}`, options);
+    } catch {
+      alert('Could not communicate with the server at this time.');
+    }
+    return response.status;
+  }
 }
 
 class ItemsData {
@@ -71,6 +87,19 @@ class ItemsData {
     this.rawItems = this.rawItems.filter(item => item.id !== id);
     this.shoppingList = this.shoppingList.filter(item => item.id !== id);
   }
+
+  updateDeletedState(id, newState) {
+    const itemObj = this.rawItems.find(item => item.id === id);
+    itemObj.deleted = newState;
+
+    if (newState) {
+      this.shoppingList = this.shoppingList.filter(item => item.id !== id);
+      this.deleted.push(itemObj);
+    } else {
+      this.deleted = this.deleted.filter(item => item.id !== id);
+      this.shoppingList.push(itemObj);
+    }
+  }
 }
 
 class ShoppingList {
@@ -103,14 +132,16 @@ class ShoppingList {
 
   populateShoppingList() {
     const list = document.querySelector('#shopping-list-pane ul');
-    const html = this.templates['list-template']({items: this.itemsData.shoppingList})
+    const html = this.templates['list-template']({items: this.itemsData.shoppingList});
 
-    list.insertAdjacentHTML('beforeend', html)
+    list.insertAdjacentHTML('beforeend', html);
+
+    this.addQuantityAdjusters();
+    this.addDeleteButtons();
   }
 
   addEventHandlers() {
     this.addListViewToggle();
-    this.addQuantityAdjusters();
   }
 
   addListViewToggle() {
@@ -154,6 +185,8 @@ class ShoppingList {
     const html = this.templates['deleted-template']({items: this.itemsData.deleted})
 
     list.insertAdjacentHTML('beforeend', html)
+
+    this.addShoppingListButtons();
   }
 
   addQuantityAdjusters() {
@@ -188,6 +221,33 @@ class ShoppingList {
       }
     } else {
       alert('Something went wrong... try that again after reloading the page.')
+    }
+  }
+
+  addDeleteButtons() {
+    const deleteButtons = document.querySelectorAll('.to-deleted');
+    for (let button of deleteButtons) {
+      button.addEventListener('click', this.updateDeletedState.bind(this, true));
+    }
+  }
+
+  async updateDeletedState(newState, event) {
+    const itemLi = event.target.parentNode;
+    const itemId = itemLi.dataset.id;
+    const status = await this.API.updateDeletedState(itemId, newState);
+    
+    if (status === 204) {
+      this.itemsData.updateDeletedState(itemId, newState);
+      itemLi.remove();
+    } else {
+      alert('Something went wrong... try that again after reloading the page.')
+    }
+  }
+
+  addShoppingListButtons() {
+    const shoppingListButtons = document.querySelectorAll('.to-shopping-list');
+    for (let button of shoppingListButtons) {
+      button.addEventListener('click', this.updateDeletedState.bind(this, false));
     }
   }
 }
