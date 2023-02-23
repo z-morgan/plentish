@@ -184,12 +184,28 @@ put '/recipes/:id' do
 end
 
 post '/recipes/:id' do
-  @db.update_recipe(params[:id], params[:name], params[:description])
-  @db.delete_all_ingredients(params[:id])
-  ingredient_objects = collect_ingredients(params)
-  ingredient_objects.each do |ingredient|
-    @db.create_ingredient(ingredient, params[:id])
+  if @db.recipe_is_selected?(session[:username], params[:id])
+    @db.deselect_recipe(session[:username], params[:id])
+    
+    @db.update_recipe(params[:id], params[:name], params[:description])
+
+    @db.delete_all_ingredients(params[:id])
+    ingredient_objects = collect_ingredients(params)
+    ingredient_objects.each do |ingredient|
+      @db.create_ingredient(ingredient, params[:id])
+    end
+
+    @db.select_recipe(session[:username], params[:id])
+  else
+    @db.update_recipe(params[:id], params[:name], params[:description])
+
+    @db.delete_all_ingredients(params[:id])
+    ingredient_objects = collect_ingredients(params)
+    ingredient_objects.each do |ingredient|
+      @db.create_ingredient(ingredient, params[:id])
+    end
   end
+
   redirect "recipes/#{params[:id]}"
 end
 

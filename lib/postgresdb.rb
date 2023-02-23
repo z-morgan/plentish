@@ -201,6 +201,18 @@ class PostgresDB
     @connection.exec_params(sql, [recipe_id])
   end
 
+  def recipe_is_selected?(username, recipe_id)
+    sql = <<~SQL
+      SELECT * FROM recipes_shopping_lists
+      WHERE recipe_id = $2 AND shopping_list_id = (
+        SELECT current_list_id FROM users
+        WHERE username = $1
+      );
+    SQL
+
+    !@connection.exec_params(sql, [username, recipe_id]).values.empty?
+  end
+
   private
 
   def format_date(date)

@@ -134,6 +134,8 @@ Shopping List interactivity:
 
 
 
+bug: if a recipe is selected, when it is edited, if an item is removed, it does not get removed form the shopping list
+
 
 
 
