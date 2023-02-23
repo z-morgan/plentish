@@ -70,6 +70,16 @@ def collect_ingredients(params)
   ingredients
 end
 
+def update_recipe
+  @db.update_recipe(params[:id], params[:name], params[:description])
+
+  @db.delete_all_ingredients(params[:id])
+  ingredient_objects = collect_ingredients(params)
+  ingredient_objects.each do |ingredient|
+    @db.create_ingredient(ingredient, params[:id])
+  end
+end
+
 before do
   @db = init_db
   unless session[:username] || (request.path_info =~ /(^\/$|signin|register)/)
@@ -186,30 +196,19 @@ end
 post '/recipes/:id' do
   if @db.recipe_is_selected?(session[:username], params[:id])
     @db.deselect_recipe(session[:username], params[:id])
-    
-    @db.update_recipe(params[:id], params[:name], params[:description])
-
-    @db.delete_all_ingredients(params[:id])
-    ingredient_objects = collect_ingredients(params)
-    ingredient_objects.each do |ingredient|
-      @db.create_ingredient(ingredient, params[:id])
-    end
-
+    update_recipe
     @db.select_recipe(session[:username], params[:id])
   else
-    @db.update_recipe(params[:id], params[:name], params[:description])
-
-    @db.delete_all_ingredients(params[:id])
-    ingredient_objects = collect_ingredients(params)
-    ingredient_objects.each do |ingredient|
-      @db.create_ingredient(ingredient, params[:id])
-    end
+    update_recipe
   end
 
   redirect "recipes/#{params[:id]}"
 end
 
 delete '/recipes/:id' do
+  if @db.recipe_is_selected?(session[:username], params[:id])
+    @db.deselect_recipe(session[:username], params[:id])
+  end
   @db.delete_recipe(params[:id])
   status 204
 end
