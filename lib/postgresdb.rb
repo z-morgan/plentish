@@ -54,7 +54,7 @@ class PostgresDB
 
   def retrieve_items(username)
     sql = <<~SQL
-      SELECT name, quantity, units, done, pantry
+      SELECT name, quantity, units, done, deleted
       FROM items
       WHERE shopping_list_id = (
         SELECT current_list_id FROM users
@@ -65,7 +65,7 @@ class PostgresDB
     items = [];
     @connection.exec_params(sql, [username]).each do |item|
       item['quantity'] = item['quantity'].to_i      # abstract this to helper method?
-      item['pantry'] = item['pantry'] == 't'
+      item['deleted'] = item['deleted'] == 't'
       item['done'] = item['done'] == 't'
       items.push(item)
     end

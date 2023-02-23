@@ -16,18 +16,18 @@
       <img src='/images/circle.png'>
     {{/if}}
     <p>{{name}} - {{quantity}} {{units}}</p>
-    <img class='to-pantry' src='/images/pantry.png'>
+    <img class='to-deleted' src='/images/red_x.png'>
     <img class='pencil' src='/images/pencil.png'>
   </li>
 </script>
 
-<script type='text/x-handlebars' id='pantry-template'>
+<script type='text/x-handlebars' id='deleted-template'>
   {{#each items}}
-    {{> pantry-item-template }}
+    {{> deleted-item-template }}
   {{/each}}
 </script>
 
-<script type='text/x-handlebars' id='pantry-item-template' data-type='partial'>
+<script type='text/x-handlebars' id='deleted-item-template' data-type='partial'>
   <li class='list-item'>
     <p>{{name}} - {{quantity}} {{units}}</p>
     <img class='to-shopping-list' src='/images/shopping_list.png'>
@@ -41,9 +41,9 @@
     My Shopping List
     <img src='/images/shopping_list.png'>
   </a>
-  <a id='pantry-tab'>
-    My Pantry
-    <img src='/images/pantry.png'>
+  <a id='deleted-tab'>
+    Deleted Items
+    <img src='/images/red_x.png'>
   </a>
   <ul>
     <li id='add-item-button'>
@@ -56,13 +56,13 @@
     <%# <li>
       <img src='/images/circle.png'>
       <p>Bananas - 5 ct.</p>
-      <img class='to-pantry' src='/images/pantry.png'>
+      <img class='to-deleted' src='/images/deleted.png'>
       <img class='pencil' src='/images/pencil.png'>
     </li>
     <li>
       <img src='/images/checked_circle.png'>
       <p>Almonds - 10 oz.</p>
-      <img class='to-pantry' src='/images/pantry.png'>
+      <img class='to-deleted' src='/images/deleted.png'>
       <img class='pencil' src='/images/pencil.png'>
     </li> %>
   </ul>

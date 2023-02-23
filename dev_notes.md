@@ -17,6 +17,7 @@ Extra features:
 - restrict the number of login attempts within a certain period
 - users can choose from a collection of icons to identify with their account
 - upload a picture to go with a recipe, and it shows as a thumbnail on the recipes view
+- select the number of times one will make a recipe per shopping list
 
 --------
 # Pages/Views:
@@ -109,59 +110,40 @@ Extra features:
 # Steps:
 
 
+
+
+Shopping List AutoUpdate:
+  When my shopping list is requested:
+    - load and display all of the items in that shopping list
+
+
+When the recipe selection is updated: 
+  - if a recipe was deselected - subtract it's ingredients from the items in the shopping list
+    - if this brings the item's quantity to 0 or less, just remove it from items list
+  - if a recipe was selected - add it's ingredients to the items in the shopping list
+
+
+
+
 Shopping List interactivity:
+  - item quantity adjuster:
+    - sets the quantity to a new value
 
-Click 'Add Item'
-  - opens a small form which is used to add an item
-    - name
-    - quantity
-    - units
+  - item delete button: 
+    - removes item from shopping list
+    - (optional) moves it to `deleted` tab?
 
-  - submitting that form adds the item to the shopping list
-    - makes Ajax request to create a new ingredient which is a member of the current shopping list
+  - item add form:
+    - if all fields have a value,
+      - adds item to shopping list
+        (if item already exists, increments it's quantity)
 
-Click 'check box'
-  - makes Ajax request to update the done state
-  - replaces circle image with checked circle
-  - sorts item to bottom of the list
-
-Click 'Already have this'
-  - makes Ajax request to update pantry state
-  - removes ingredient from My Shopping List tab
+  - item check box:
+    - marks the item as `done` and sorts it to the bottom of the list
 
 
 
 
-Recipe Details page:
-
-Add the ability to edit a recipe:
-  click listener on edit button:
-    - reveals a form and overlay, which covers the whole window
-      - fields:
-        - name
-        - ingredients (for each)
-          - name (text input)
-          - quantity (number input)
-          - units (select list)
-          - delete button
-        - new ingredient button
-        - description text area
-        - save button
-        - cancel button
-    
-  - form submit:
-    - update all of the recipe fields with the new values
-    - delete all ingredients for that recipe
-    - create new ingredients for each ingredient in the form
-  
-  - cancel listener:
-    - resets form and hides form and overlay
-
-- delete listener:
-    prompts the user to confirm
-    submits a delete request to the server, 
-      which deletes the recipe and it's ingredients
-      Then redirect user back to `/recipes`
 
 
 
@@ -180,6 +162,27 @@ Buglist:
 - clicking fields in the new-recipe form generates JS errors on the console.
 
 
+
+
+
+
+
+
+
+
+
+Understanding the Problem/Test Cases for shopping list generation:
+
+case1:
+
+recipes:
+  1* - item a (1), item b (1), item c (1)
+  2 - item a (1), item b (1), item d (1)
+  3* - item a (2), item b (2)
+
+custom items:
+  - item a (2)
+  - item e (2)
 
 
 

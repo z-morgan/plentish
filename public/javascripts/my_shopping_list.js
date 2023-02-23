@@ -19,13 +19,13 @@ class ItemsData {
   constructor(rawItems) {
     console.log(rawItems);
     this.rawItems = rawItems;
-    [ this.shoppingList, this.pantry ] = this.partitionRawItems(rawItems);
+    [ this.shoppingList, this.deleted ] = this.partitionRawItems(rawItems);
     this.shoppingList = this.sortByDone(this.shoppingList);
   }
 
   partitionRawItems(items) {
     return items.reduce((acc, item) => {
-      if (item.pantry) {
+      if (item.deleted) {
         acc[1].push(item);
       } else {
         acc[0].push(item);
@@ -85,14 +85,14 @@ class ShoppingList {
   }
 
   addListViewToggle() {
-    const pantryTab = document.getElementById('pantry-tab');
+    const deletedTab = document.getElementById('deleted-tab');
     const shoppingListTab = document.getElementById('my-shopping-list-tab');
     const addItemButton = document.getElementById('add-item-button');
 
-    pantryTab.addEventListener('click', event => {
+    deletedTab.addEventListener('click', event => {
       event.preventDefault();
 
-      pantryTab.classList.add('active');
+      deletedTab.classList.add('active');
       shoppingListTab.classList.remove('active');
       addItemButton.classList.add('hidden');
 
@@ -101,13 +101,13 @@ class ShoppingList {
         item.remove();
       }
 
-      this.populatePantry();
+      this.populateDeleted();
     });
 
     shoppingListTab.addEventListener('click', event => {
       event.preventDefault();
 
-      pantryTab.classList.remove('active');
+      deletedTab.classList.remove('active');
       shoppingListTab.classList.add('active');
       addItemButton.classList.remove('hidden');
 
@@ -120,9 +120,9 @@ class ShoppingList {
     });
   }
 
-  populatePantry() {
+  populateDeleted() {
     const list = document.querySelector('#shopping-list-pane ul');
-    const html = this.templates['pantry-template']({items: this.itemsData.pantry})
+    const html = this.templates['deleted-template']({items: this.itemsData.deleted})
 
     list.insertAdjacentHTML('beforeend', html)
   }

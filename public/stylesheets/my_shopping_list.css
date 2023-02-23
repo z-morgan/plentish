@@ -26,7 +26,7 @@ a#my-shopping-list-tab {
   opacity: .6;
 }
 
-a#pantry-tab {
+a#deleted-tab {
   position: relative;
   bottom: 25px;
   left: 30px;
@@ -36,7 +36,7 @@ a#pantry-tab {
   opacity: .6;
 }
 
-a#my-shopping-list-tab.active, a#pantry-tab.active {
+a#my-shopping-list-tab.active, a#deleted-tab.active {
   opacity: 1;
 }
 
@@ -91,7 +91,7 @@ main li p {
   left: 6px;
 }
 
-img.to-pantry {
+img.to-deleted {
   float: right;
   margin-left: 10px;
 }

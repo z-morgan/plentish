@@ -40,6 +40,6 @@ CREATE TABLE items(
   quantity real,
   units varchar(10),
   done boolean NOT NULL DEFAULT false,
-  pantry boolean NOT NULL DEFAULT false,
+  deleted boolean NOT NULL DEFAULT false,
   shopping_list_id int REFERENCES shopping_lists(id) ON DELETE CASCADE
 );
