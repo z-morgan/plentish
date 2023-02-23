@@ -17,10 +17,6 @@ VALUES ('Smith Rock Granola', 'A yummy treat! - Lorem ipsum dolor sit amet, cons
 Arcu odio ut sem nulla pharetra diam sit amet. Sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. At elementum eu facilisis sed. Rhoncus urna neque viverra justo nec. Dignissim enim sit amet venenatis urna cursus eget nunc scelerisque. Curabitur vitae nunc sed velit dignissim sodales ut. Egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Nunc sed blandit libero volutpat. Sed elementum tempus egestas sed sed risus pretium quam vulputate. Urna id volutpat lacus laoreet non curabitur gravida.',
 1);
 
-INSERT INTO recipes_shopping_lists
-(recipe_id, shopping_list_id)
-VALUES (1, 1);
-
 INSERT INTO recipes
 (name, user_id)
 VALUES ('Banana Pancakes', 1);

@@ -10,7 +10,7 @@ build a shopping list app with the following features:
 boilerplate features:
 - the ability to create an account and sign in
 
-Extra features:
+# Extra features:
 - print the shoppping list
 - print the recipe
 - detect duplicate items with different units, and provide a way to combine them into a single item
@@ -18,6 +18,7 @@ Extra features:
 - users can choose from a collection of icons to identify with their account
 - upload a picture to go with a recipe, and it shows as a thumbnail on the recipes view
 - select the number of times one will make a recipe per shopping list
+- deselecting a recipe causes items to be moved to 'deleted' tab instead of disappearing
 
 --------
 # Pages/Views:
@@ -110,19 +111,8 @@ Extra features:
 # Steps:
 
 
-
-
-Shopping List AutoUpdate:
-  When my shopping list is requested:
-    - load and display all of the items in that shopping list
-
-
-When the recipe selection is updated: 
-  - if a recipe was deselected - subtract it's ingredients from the items in the shopping list
-    - if this brings the item's quantity to 0 or less, just remove it from items list
-  - if a recipe was selected - add it's ingredients to the items in the shopping list
-
-
+When editing or deleting a recipe:
+  - if it is selected, you must update the shopping list as well
 
 
 Shopping List interactivity:
@@ -140,6 +130,27 @@ Shopping List interactivity:
 
   - item check box:
     - marks the item as `done` and sorts it to the bottom of the list
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

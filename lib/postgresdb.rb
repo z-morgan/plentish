@@ -131,6 +131,8 @@ class PostgresDB
     SQL
 
     @connection.exec_params(sql, [username, recipe_id])
+
+    add_items_to_shopping_list(username, recipe_id)
   end
 
   def deselect_recipe(username, recipe_id)
@@ -143,6 +145,8 @@ class PostgresDB
     SQL
 
     @connection.exec_params(sql, [username, recipe_id])
+
+    remove_items_from_shopping_list(username, recipe_id)
   end
 
   def create_recipe(username, name, description)
@@ -206,6 +210,92 @@ class PostgresDB
     parts[0] = parts[0][2..3]
     "#{parts[1]}/#{parts[2]}/#{parts[0]}"
   end
+
+  def add_items_to_shopping_list(username, recipe_id)
+    ingredients = retrieve_recipe_ingredients(recipe_id)
+    ingredients.each do |ingredient|
+      item_id = item_id_if_exists(username, ingredient['name'], ingredient['units'])
+      if item_id
+        increment_item_by(item_id, ingredient['quantity'])
+      else
+        insert_item(username, ingredient)
+      end
+    end
+  end
+
+  def remove_items_from_shopping_list(username, recipe_id)
+    ingredients = retrieve_recipe_ingredients(recipe_id)
+    ingredients.each do |ingredient|
+      item_id = item_id_if_exists(username, ingredient['name'], ingredient['units'])
+      decrement_item_by(item_id, ingredient['quantity']) if item_id
+    end
+  end
+
+  def item_id_if_exists(username, name, units)
+    sql = <<~SQL
+      SELECT id FROM items
+      WHERE name = $2
+        AND units = $3
+        AND deleted = false
+        AND shopping_list_id = (
+          SELECT current_list_id FROM users
+          WHERE username = $1
+        );
+    SQL
+
+    item = @connection.exec_params(sql, [username, name, units]).values[0]
+    item ? item[0] : nil
+  end
+
+  def increment_item_by(item_id, quantity)
+    sql = <<~SQL
+      UPDATE items
+      SET quantity = quantity + $2
+      WHERE id = $1;
+    SQL
+
+    item = @connection.exec_params(sql, [item_id, quantity])
+  end
+
+  def insert_item(username, ingredient)
+    name = ingredient['name']
+    quantity = ingredient['quantity']
+    units = ingredient['units']
+
+    sql = <<~SQL
+      INSERT INTO items
+      (name, quantity, units, shopping_list_id)
+      VALUES ($2, $3, $4, (
+        SELECT current_list_id FROM users
+        WHERE username = $1
+      ));
+    SQL
+
+    item = @connection.exec_params(sql, [username, name, quantity, units])
+  end
+
+  def decrement_item_by(item_id, quantity)
+    sql = <<~SQL
+      SELECT quantity FROM items WHERE id = $1;
+    SQL
+
+    item_quant = @connection.exec_params(sql, [item_id]).values[0][0].to_i
+
+    if item_quant <= quantity
+      sql = <<~SQL
+        DELETE FROM items WHERE id = $1;
+      SQL
+
+      @connection.exec_params(sql, [item_id])
+    else
+      sql = <<~SQL
+        UPDATE items
+        SET quantity = quantity - $2
+        WHERE id = $1
+      SQL
+
+      @connection.exec_params(sql, [item_id, quantity])
+    end
+  end
 end
 
-# puts PostgresDB.new(PG.connect(dbname: 'shopping_list')).username_exists('zmorga')
