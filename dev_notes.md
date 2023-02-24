@@ -20,6 +20,7 @@ boilerplate features:
 - select the number of times one will make a recipe per shopping list
 - deselecting a recipe causes items to be moved to 'deleted' tab instead of disappearing
 - decrementing an item's quantity to 0 moves it to the deleted list with a quantity of 1
+- add some extra styling to `add-item` form on the shopping list page for wide-screen viewports
 
 --------
 # Pages/Views:
@@ -111,26 +112,22 @@ boilerplate features:
 
 # Steps:
 
+  - process name string
+  - posts request to server
+    - see if an item exists with that same name and quantity
+    - if so,
+      - increment the quantity by that amount
+    - else
+      - create a new item with the info
 
-Shopping List interactivity:
+  - upon success response (with item's id)
+    - see if an item exists in DS wth that id
+    - if so, replace it with the new item
 
-  - item check box:
-    - marks the item as `done` and sorts it to the bottom of the list
-
-  - item add form:
-    - if all fields have a value,
-      - adds item to shopping list
-        (if item already exists, increments it's quantity)
+    - else
+      - add new item to DS
 
 
-
-item check:
-
-- add listener to each check circle
-  - sends put request to server to update the `done` state
-  - upon success response:
-    - updates front-end DS
-    - applies sorting to front-end DS
 
 
 
@@ -159,7 +156,7 @@ item check:
 
 Buglist:
 - clicking fields in the new-recipe form generates JS errors on the console.
-
+- ! moving a deleted item back to the shopping list does not combine with a new-ish item on the shopping list
 
 
 

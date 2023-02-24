@@ -65,8 +65,71 @@ main ul li {
   border-radius: 1px;
 }
 
-li#add-item-button.hidden {
+li#add-item {
+  height: fit-content;
+}
+
+li#add-item.hidden {
   display: none;
+}
+
+a#add-item-button {
+  height: 37px;
+}
+
+a#add-item-button.hidden {
+  display: none;
+}
+
+div#add-item-fields {
+  width: 320px;
+  margin: 0px auto;
+}
+
+form#add-item-form.hidden {
+  display: none;
+}
+
+form#add-item-form input {
+  border-radius: 7px;
+  height: 25px;
+  width: 60%;
+  border: solid;
+  margin: 5px 0px;
+}
+
+form#add-item-form input[type='number'] {
+  width: 40px;
+}
+
+form#add-item-form select {
+  width: 60px;
+  height: 30px;
+  border-radius: 7px;
+  border: solid;
+}
+
+form#add-item-form img {
+  top: 7.5px;
+  width: 25px;
+}
+
+div#add-item-controls {
+  width: fit-content;
+  margin: 0px auto;
+}
+
+div#add-item-controls input {
+  width: 80px;
+  border: none;
+  color: white;
+  background-color: #0190ff;
+  margin: 7px 0px 0px 0px;
+}
+
+div#add-item-controls input ~ input {
+  background-color: #ff4545;
+  margin-left: 10px;
 }
 
 main li a {

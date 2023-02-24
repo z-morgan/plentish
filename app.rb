@@ -152,6 +152,13 @@ get '/my-shopping-list/items' do
   JSON.generate(items_array)
 end
 
+post '/my-shopping-list/items' do
+  item_details = JSON.parse(request.body.read)
+  item = @db.add_custom_item(session[:username], item_details)
+  headers["Content-Type"] = "application/json;charset=utf-8"
+  JSON.generate(item)
+end
+
 put '/my-shopping-list/items/:id' do
   if params[:change]
     @db.adjust_item_quantity(params[:id], params[:change])

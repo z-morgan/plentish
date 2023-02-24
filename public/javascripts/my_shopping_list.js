@@ -2,7 +2,7 @@ class APIInterface {
   async getItems() {
     const options = {
       method: 'GET',
-      headers: {'Content-type': 'application/json; charset=utf-8'},
+      headers: {'Content-type': 'application/json; charset=utf-8'}, // WHY IS THIS HERE?
     };
 
     let response;
@@ -60,6 +60,22 @@ class APIInterface {
       alert('Could not communicate with the server at this time.');
     }
     return response.status;
+  }
+
+  async addItem(item) {
+    const options = {
+      method: 'POST',
+      headers: {'Content-type': 'application/json; charset=utf-8'},
+      body: JSON.stringify(item),
+    };
+
+    let response;
+    try {
+      response = await fetch(`/my-shopping-list/items`, options);
+    } catch {
+      alert('Could not communicate with the server at this time.');
+    }
+    return response.json();
   }
 }
 
@@ -121,6 +137,19 @@ class ItemsData {
     this.rawItems.find(item => item.id === id).done = newState;
     this.sortByDone(this.shoppingList);
   }
+
+  addNewItem(newItem) {
+    const existingItem = this.rawItems.find(item => item.id === newItem.id)
+    if (existingItem) {
+      let rawIndex = this.rawItems.indexOf(existingItem);
+      let shoppingListIndex = this.shoppingList.indexOf(existingItem);
+      this.rawItems[rawIndex] = newItem;
+      this.shoppingList[shoppingListIndex] = newItem;
+    } else {
+      this.rawItems.push(newItem);
+      this.shoppingList.unshift(newItem);
+    }
+  }
 }
 
 class ShoppingList {
@@ -160,16 +189,18 @@ class ShoppingList {
     this.addQuantityAdjusters();
     this.addDeleteButtons();
     this.addDoneButtons();
+    this.resetAddItem();
   }
 
   addEventHandlers() {
     this.addListViewToggle();
+    this.addAddItemBehavior();
   }
 
   addListViewToggle() {
     const deletedTab = document.getElementById('deleted-tab');
     const shoppingListTab = document.getElementById('my-shopping-list-tab');
-    const addItemButton = document.getElementById('add-item-button');
+    const addItemButton = document.getElementById('add-item');
 
     deletedTab.addEventListener('click', event => {
       event.preventDefault();
@@ -288,14 +319,69 @@ class ShoppingList {
     
     if (status === 204) {
       this.itemsData.updateDoneState(itemId, newState);
-      const listItems = document.querySelectorAll('li.list-item');
-      for (let item of listItems) {
-        item.remove();
-      }
+      this.clearShoppingList();
       this.populateShoppingList();
     } else {
       alert('Something went wrong... try that again after reloading the page.')
     }
+  }
+
+  addAddItemBehavior() {
+    const form = document.querySelector('#add-item-form');
+    const addButton = document.querySelector('#add-item');
+    addButton.addEventListener('click', event => {
+      if (form.classList.contains('hidden')) {
+        event.preventDefault();
+        event.stopPropagation();
+        addButton.firstElementChild.classList.add('hidden');
+        form.classList.remove('hidden');
+      }
+    }, true);
+
+    const cancel = document.querySelector('#add-item-controls input ~ input');
+    cancel.addEventListener('click', this.resetAddItem);
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      formData.set('name', this.formatName(formData.get('name')));
+      let item = {};
+      for (let [ key, value ] of formData) {
+        item[key] = value
+      }
+
+      item = await this.API.addItem(item);
+      
+      if (Object.getPrototypeOf(item) === Object.prototype) {
+        this.itemsData.addNewItem(item);
+        this.clearShoppingList();
+        this.populateShoppingList();
+      } else {
+        alert('Something went wrong... try that again after reloading the page.')
+      }
+    });
+  }
+
+  clearShoppingList() {
+    const listItems = document.querySelectorAll('li.list-item');
+    for (let item of listItems) {
+      item.remove();
+    }
+  }
+
+  resetAddItem() {
+    const form = document.querySelector('#add-item-form');
+    const anchor = document.querySelector('#add-item-button');
+    form.classList.add('hidden');
+    anchor.classList.remove('hidden');
+  }
+
+  formatName(str) {
+    return str.trim().split(' ').map(word => {
+      let tail = word.slice(1);
+      return word[0].toUpperCase() + tail;
+    }).join(' ');
   }
 }
 

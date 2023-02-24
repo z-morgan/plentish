@@ -62,14 +62,7 @@ class PostgresDB
       );
     SQL
 
-    items = [];
-    @connection.exec_params(sql, [username]).each do |item|
-      item['quantity'] = item['quantity'].to_i      # abstract this to helper method?
-      item['deleted'] = item['deleted'] == 't'
-      item['done'] = item['done'] == 't'
-      items.push(item)
-    end
-    items
+    process_items(@connection.exec_params(sql, [username]))
   end
 
   def adjust_item_quantity(item_id, change)
@@ -243,7 +236,31 @@ class PostgresDB
     !@connection.exec_params(sql, [username, recipe_id]).values.empty?
   end
 
+  def add_custom_item(username, item_details)
+    name = item_details['name']
+    quantity = item_details['quantity']
+    units = item_details['units']
+
+    item_id = item_id_if_exists(username, item_details['name'], item_details['units'])
+    if item_id
+      increment_item_by(item_id, item_details['quantity'])
+    else
+      insert_item(username, item_details)
+    end
+  end
+
   private
+
+  def process_items(result)
+    items = [];
+    result.each do |item|
+      item['quantity'] = item['quantity'].to_i
+      item['deleted'] = item['deleted'] == 't'
+      item['done'] = item['done'] == 't'
+      items.push(item)
+    end
+    items
+  end
 
   def format_date(date)
     parts = date.match(/\S+ /)[0].strip.split('-')
@@ -293,10 +310,11 @@ class PostgresDB
     sql = <<~SQL
       UPDATE items
       SET quantity = quantity + $2
-      WHERE id = $1;
+      WHERE id = $1
+      RETURNING id, name, quantity, units, done, deleted;
     SQL
 
-    item = @connection.exec_params(sql, [item_id, quantity])
+    process_items(@connection.exec_params(sql, [item_id, quantity]))[0]
   end
 
   def insert_item(username, ingredient)
@@ -310,10 +328,11 @@ class PostgresDB
       VALUES ($2, $3, $4, (
         SELECT current_list_id FROM users
         WHERE username = $1
-      ));
+      ))
+      RETURNING id, name, quantity, units, done, deleted;
     SQL
 
-    item = @connection.exec_params(sql, [username, name, quantity, units])
+    process_items(@connection.exec_params(sql, [username, name, quantity, units]))[0]
   end
 
   def decrement_item_by(item_id, quantity)

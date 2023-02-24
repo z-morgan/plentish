@@ -5,7 +5,7 @@
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
     <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' required>
-    <input type='number' name='quantity-{{nextNum}}' minvalue='0' placeholder='4' required>
+    <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
     <select name='units-{{nextNum}}' value='units' required>
       <option value='cups'>cups</option>
       <option value='oz.'>oz.</option>
@@ -43,7 +43,7 @@
       <% @ingredients.each do |ingredient| %>
         <li>
           <input type='text' name='i-name-<%= ingredient['number'] %>' value='<%= ingredient['name'] %>' required>
-          <input type='number' name='quantity-<%= ingredient['number'] %>' minvalue='0' value='<%= ingredient['quantity'] %>' required>
+          <input type='number' name='quantity-<%= ingredient['number'] %>' minvalue='1' value='<%= ingredient['quantity'] %>' required>
           <select name='units-<%= ingredient['number'] %>' required>
             <optgroup label='current units'>
               <option value='<%= ingredient['units'] %>' selected><%= ingredient['units'] %></option> 

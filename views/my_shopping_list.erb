@@ -48,11 +48,25 @@
     <img src='/images/red_x.png'>
   </a>
   <ul>
-    <li id='add-item-button'>
-      <a>
+    <li id='add-item'>
+      <a id='add-item-button' class=''>
         <img src='/images/plus.png'>
         <p>Add Item</p>
       </a>
+      <form id='add-item-form' class='hidden'>
+        <div id='add-item-fields'>
+          <input type='text' name='name' placeholder='Ingredient Name' required>
+          <input type='number' name='quantity' minvalue='1' placeholder='1' required>
+          <select name='units' value='units' required>
+            <option value='cups'>cups</option>
+            <option value='oz.'>oz.</option>
+          </select>
+        </div>
+        <div id='add-item-controls'>
+          <input type='submit' value='Add'>
+          <input type='reset' value='Cancel'>
+        </div>
+      </form>
     </li>
 
     <%# <li>
