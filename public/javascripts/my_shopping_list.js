@@ -83,7 +83,7 @@ class ItemsData {
   constructor(rawItems) {
     this.rawItems = rawItems;
     [ this.shoppingList, this.deleted ] = this.partitionRawItems(rawItems);
-    this.sortByDone(this.shoppingList);
+    this.sortByDone();
   }
 
   partitionRawItems(items) {
@@ -97,8 +97,8 @@ class ItemsData {
     }, [[], []]);
   }
 
-  sortByDone(items) {
-    items.sort((a, b) => {
+  sortByDone() {
+    this.shoppingList = this.shoppingList.sort((a, b) => {
       if (a.done === b.done) {
         return 0;
       } else {
@@ -193,6 +193,8 @@ class ShoppingList {
   }
 
   populateShoppingList() {
+    this.itemsData.sortByDone();
+
     const list = document.querySelector('#shopping-list-pane ul');
     const html = this.templates['list-template']({items: this.itemsData.shoppingList});
 

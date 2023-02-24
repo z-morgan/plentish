@@ -18,9 +18,8 @@ boilerplate features:
 - users can choose from a collection of icons to identify with their account
 - upload a picture to go with a recipe, and it shows as a thumbnail on the recipes view
 - select the number of times one will make a recipe per shopping list
-- deselecting a recipe causes items to be moved to 'deleted' tab instead of disappearing
-- decrementing an item's quantity to 0 moves it to the deleted list with a quantity of 1
 - add some extra styling to `add-item` form on the shopping list page for wide-screen viewports
+
 
 --------
 # Pages/Views:
@@ -114,10 +113,6 @@ boilerplate features:
 
 
 
-backend:
-  
-
-
 
 
 
@@ -130,27 +125,6 @@ backend:
 Buglist:
 - clicking fields in the new-recipe form generates JS errors on the console.
 
-
-
-
-
-
-
-
-
-
-Understanding the Problem/Test Cases for shopping list generation:
-
-case1:
-
-recipes:
-  1* - item a (1), item b (1), item c (1)
-  2 - item a (1), item b (1), item d (1)
-  3* - item a (2), item b (2)
-
-custom items:
-  - item a (2)
-  - item e (2)
 
 
 
