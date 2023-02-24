@@ -45,6 +45,22 @@ class APIInterface {
     }
     return response.status;
   }
+
+  async updateDoneState(item_id, newState) {
+    const options = {
+      method: 'PUT',
+      headers: {'Content-type': 'application/x-www-form-urlencoded'},
+      body: `done=${newState}`
+    };
+
+    let response;
+    try {
+      response = await fetch(`/my-shopping-list/items/${item_id}`, options);
+    } catch {
+      alert('Could not communicate with the server at this time.');
+    }
+    return response.status;
+  }
 }
 
 class ItemsData {
@@ -100,6 +116,11 @@ class ItemsData {
       this.shoppingList.push(itemObj);
     }
   }
+
+  updateDoneState(id, newState) {
+    this.rawItems.find(item => item.id === id).done = newState;
+    this.sortByDone(this.shoppingList);
+  }
 }
 
 class ShoppingList {
@@ -138,6 +159,7 @@ class ShoppingList {
 
     this.addQuantityAdjusters();
     this.addDeleteButtons();
+    this.addDoneButtons();
   }
 
   addEventHandlers() {
@@ -248,6 +270,31 @@ class ShoppingList {
     const shoppingListButtons = document.querySelectorAll('.to-shopping-list');
     for (let button of shoppingListButtons) {
       button.addEventListener('click', this.updateDeletedState.bind(this, false));
+    }
+  }
+
+  addDoneButtons() {
+    const doneButtons = document.querySelectorAll('.done-button');
+    for (let button of doneButtons) {
+      button.addEventListener('click', this.updateDoneState.bind(this));
+    }
+  }
+
+  async updateDoneState(event) {
+    const itemLi = event.target.parentNode;
+    const itemId = itemLi.dataset.id;
+    const newState = event.target.getAttribute('src') === '/images/circle.png'
+    const status = await this.API.updateDoneState(itemId, newState);
+    
+    if (status === 204) {
+      this.itemsData.updateDoneState(itemId, newState);
+      const listItems = document.querySelectorAll('li.list-item');
+      for (let item of listItems) {
+        item.remove();
+      }
+      this.populateShoppingList();
+    } else {
+      alert('Something went wrong... try that again after reloading the page.')
     }
   }
 }

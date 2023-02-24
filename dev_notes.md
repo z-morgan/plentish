@@ -19,6 +19,7 @@ boilerplate features:
 - upload a picture to go with a recipe, and it shows as a thumbnail on the recipes view
 - select the number of times one will make a recipe per shopping list
 - deselecting a recipe causes items to be moved to 'deleted' tab instead of disappearing
+- decrementing an item's quantity to 0 moves it to the deleted list with a quantity of 1
 
 --------
 # Pages/Views:
@@ -113,10 +114,6 @@ boilerplate features:
 
 Shopping List interactivity:
 
-  - item delete button: 
-    - removes item from shopping list
-    - moves it to `deleted` tab?
-
   - item check box:
     - marks the item as `done` and sorts it to the bottom of the list
 
@@ -127,19 +124,13 @@ Shopping List interactivity:
 
 
 
-Delete buttons:
-  add listener to delete img
-    - sends put request to server to update the `deleted` state
-    - moves item in front-end DS from shopping list to deleted list
-    - removes li from the DOM
-    - inserts li into the DOM in deleted items list
+item check:
 
-  add listener to shopping list img
-    - sends put request to server to update the `deleted` state
-    - moves item in front-end DS from deleted list to shoppinglist
-    - removes li from the DOM 
-
-
+- add listener to each check circle
+  - sends put request to server to update the `done` state
+  - upon success response:
+    - updates front-end DS
+    - applies sorting to front-end DS
 
 
 

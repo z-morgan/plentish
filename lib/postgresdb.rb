@@ -91,6 +91,16 @@ class PostgresDB
     @connection.exec_params(sql, [item_id, newState]);
   end
 
+  def update_done_state(item_id, newState)
+    sql = <<~SQL
+      UPDATE items
+      SET done = $2
+      WHERE id = $1;
+    SQL
+
+    @connection.exec_params(sql, [item_id, newState]);
+  end
+
   def retrieve_recipes(username)
     sql = <<~SQL
       SELECT r.id, r.name, r.date_created, rs.id AS list_id FROM recipes AS r

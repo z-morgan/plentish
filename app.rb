@@ -157,6 +157,8 @@ put '/my-shopping-list/items/:id' do
     @db.adjust_item_quantity(params[:id], params[:change])
   elsif params[:deleted]
     @db.update_deleted_state(params[:id], params[:deleted])
+  elsif params[:done]
+    @db.update_done_state(params[:id], params[:done])
   end
   status 204
 end

@@ -11,9 +11,9 @@
 <script type='text/x-handlebars' id='item-template' data-type='partial'>
   <li class='list-item' data-id='{{id}}'>
     {{#if done}}
-      <img src='/images/checked_circle.png'>
+      <img class='done-button' src='/images/checked_circle.png'>
     {{else}}
-      <img src='/images/circle.png'>
+      <img class='done-button' src='/images/circle.png'>
     {{/if}}
     <p>{{name}} - <span class='quantity'>{{quantity}}</span> {{units}}</p>
     <img class='to-deleted' src='/images/red_x.png'>
