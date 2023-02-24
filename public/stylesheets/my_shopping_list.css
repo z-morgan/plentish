@@ -31,7 +31,7 @@ a#deleted-tab {
   bottom: 25px;
   left: 30px;
   background-color: inherit;
-  padding: 15px 60px 15px 35px;
+  padding: 15px 50px 15px 25px;
   border-radius: 8px;
   opacity: .6;
 }
@@ -191,6 +191,70 @@ img.quantity-adjuster ~ img {
 
 main img {
   width: 35px;
+}
+
+div#form-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #3d3d3d;
+  opacity: .7;
+  z-index: 3;
+}
+
+div#form-overlay.hidden {
+  display: none;
+}
+
+div#confirm-archive {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 350px;
+  margin-top: -100px;
+  margin-left: -175px;
+  z-index: 4;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+div#confirm-archive.hidden {
+  display: none;
+}
+
+div#archive-controls {
+  display: block;
+  width: fit-content;
+  margin: 75px auto 0px auto;
+}
+
+div#archive-controls a {
+  margin: 5px 20px;
+  height: 32px;
+  color: white;
+  background-color: #0190ff;
+  width: 70px;
+  display: inline-block;
+  border: solid;
+  border-radius: 7px;
+  box-sizing: border-box;
+  padding: 5px 5px 5px 8px;
+  text-decoration: none;
+}
+
+div#archive-controls a ~ a {
+  color: black;
+  background-color: inherit;
+  padding: 5px;
+}
+
+div#archive-controls form {
+  display: none;
 }
 
 @media (min-width: 480px) {

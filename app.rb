@@ -108,6 +108,8 @@ post '/register' do
 
   if @status[:is_valid]
     @db.create_user(params[:username], params[:password1])
+    list_id = @db.create_shopping_list(params[:username])
+    @db.update_current_list(params[:username], list_id)
     session[:msg] = 'Account created - You may now sign in'
     redirect '/'
   else
@@ -168,6 +170,12 @@ put '/my-shopping-list/items/:id' do
     @db.update_done_state(params[:id], params[:done])
   end
   status 204
+end
+
+post '/my-shopping-list/new' do
+  list_id = @db.create_shopping_list(session[:username])
+  @db.update_current_list(session[:username], list_id)
+  redirect '/my-shopping-list'
 end
 
 get '/recipes' do

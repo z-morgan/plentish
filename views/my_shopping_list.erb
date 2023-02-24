@@ -68,18 +68,15 @@
         </div>
       </form>
     </li>
-
-    <%# <li>
-      <img src='/images/circle.png'>
-      <p>Bananas - 5 ct.</p>
-      <img class='to-deleted' src='/images/deleted.png'>
-      <img class='pencil' src='/images/pencil.png'>
-    </li>
-    <li>
-      <img src='/images/checked_circle.png'>
-      <p>Almonds - 10 oz.</p>
-      <img class='to-deleted' src='/images/deleted.png'>
-      <img class='pencil' src='/images/pencil.png'>
-    </li> %>
   </ul>
+</div>
+
+<div id='form-overlay' class='hidden'></div>
+<div id='confirm-archive' class='hidden'>
+  <p>Would you like to archive this shopping list and start a new one?</p>
+  <div id='archive-controls'>
+    <a id='final-archive'>Archive</a>
+    <form method='post' action='/my-shopping-list/new'></form>
+    <a id='go-back'>Go Back</a>
+  </div>
 </div>

@@ -208,7 +208,8 @@ class ShoppingList {
 
   addEventHandlers() {
     this.addListViewToggle();
-    this.addAddItemBehavior();
+    this.initAddItemBehavior();
+    this.addNewListBehavior();
   }
 
   addListViewToggle() {
@@ -341,7 +342,7 @@ class ShoppingList {
     }
   }
 
-  addAddItemBehavior() {
+  initAddItemBehavior() {
     const form = document.querySelector('#add-item-form');
     const addButton = document.querySelector('#add-item');
     addButton.addEventListener('click', event => {
@@ -398,6 +399,28 @@ class ShoppingList {
       let tail = word.slice(1);
       return word[0].toUpperCase() + tail;
     }).join(' ');
+  }
+
+  addNewListBehavior() {
+    const overlay = document.querySelector('#form-overlay');
+    const confirmBox = document.querySelector('#confirm-archive');
+    const newListButton = document.querySelector('#reset-list');
+    newListButton.addEventListener('click', event => {
+      event.preventDefault();
+      overlay.classList.remove('hidden');
+      confirmBox.classList.remove('hidden');
+    });
+
+    const backButton = document.querySelector('#go-back');
+    backButton.addEventListener('click', event => {
+      event.preventDefault();
+      overlay.classList.add('hidden');
+      confirmBox.classList.add('hidden');
+    });
+
+    const archiveForm = document.querySelector('div#archive-controls form');
+    const archiveButton = document.querySelector('#final-archive');
+    archiveButton.addEventListener('click', () => archiveForm.submit());
   }
 }
 

@@ -52,6 +52,27 @@ class PostgresDB
     end
   end
 
+  def create_shopping_list(username)
+    sql = <<~SQL
+      INSERT INTO shopping_lists
+      (user_id) 
+      VALUES ((SELECT id FROM users WHERE username = $1))
+      RETURNING id;
+    SQL
+
+    @connection.exec_params(sql, [username]).values[0][0];
+  end
+
+  def update_current_list(username, list_id)
+    sql = <<~SQL
+      UPDATE users
+      SET current_list_id = $2
+      WHERE id = (SELECT id FROM users WHERE username = $1);
+    SQL
+
+    @connection.exec_params(sql, [username, list_id])
+  end
+
   def retrieve_items(username)
     sql = <<~SQL
       SELECT id, name, quantity, units, done, deleted

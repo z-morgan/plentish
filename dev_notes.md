@@ -112,8 +112,22 @@ boilerplate features:
 # Steps:
 
 
+New Shopping List:
+ - displays a pop up asking if the user wants to archive this list and start a new one
+ - archives the current list and generates a new one
+  - creates a new, empty shopping list
+  - re-assignes the users current list to the new list
+ - (bonus) ask the user to select which recipes they want to make this week
+
+Archive:
+ - displays a list of all previous shopping lists
+ - clicking on a list displays the items in that list, along with a button which adds the item to the current shopping list
 
 
+
+
+
+note: add the ability to automatically create a new shopping list when a new user is registered
 
 
 
