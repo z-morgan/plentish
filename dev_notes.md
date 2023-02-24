@@ -112,24 +112,17 @@ boilerplate features:
 
 # Steps:
 
-  - process name string
-  - posts request to server
-    - see if an item exists with that same name and quantity
-    - if so,
-      - increment the quantity by that amount
-    - else
-      - create a new item with the info
 
-  - upon success response (with item's id)
-    - see if an item exists in DS wth that id
-    - if so, replace it with the new item
-
-    - else
-      - add new item to DS
+backend:
+- when updating the deletion state:
+  - check to see if there is another item in the shopping list with the same name and units
+    - if so, delete it, and add it's quantity to the item whose state is being updated.
 
 
 
-
+frontend:
+- if there is an item with the same name, units, and newState, get it's quantity, and remove it
+- increment the updating item by that amount, and then continue
 
 
 

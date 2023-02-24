@@ -76,12 +76,28 @@ class PostgresDB
 
   def update_deleted_state(item_id, newState)
     sql = <<~SQL
-      UPDATE items
-      SET deleted = $2
+      SELECT name, units FROM items WHERE id = $1;
+    SQL
+    nameUnits = @connection.exec_params(sql, [item_id]).values[0]
+
+    sql = <<~SQL
+      SELECT id, quantity FROM items
+      WHERE name = $1 AND units = $2 AND deleted = $3;
+    SQL
+    idQuant = @connection.exec_params(sql, [nameUnits[0], nameUnits[1], newState]).values[0];
+
+    sql = <<~SQL
+      DELETE FROM items
       WHERE id = $1;
     SQL
+    @connection.exec_params(sql, [idQuant[0]])
 
-    @connection.exec_params(sql, [item_id, newState]);
+    sql = <<~SQL
+      UPDATE items
+      SET deleted = $2, quantity = quantity + $3
+      WHERE id = $1;
+    SQL
+    @connection.exec_params(sql, [item_id, newState, idQuant[1]]);
   end
 
   def update_done_state(item_id, newState)

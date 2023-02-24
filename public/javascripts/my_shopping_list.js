@@ -118,18 +118,30 @@ class ItemsData {
   removeItem(id) {
     this.rawItems = this.rawItems.filter(item => item.id !== id);
     this.shoppingList = this.shoppingList.filter(item => item.id !== id);
+    this.deleted = this.deleted.filter(item => item.id !== id);
   }
 
   updateDeletedState(id, newState) {
-    const itemObj = this.rawItems.find(item => item.id === id);
-    itemObj.deleted = newState;
+    const currentItem = this.rawItems.find(item => item.id === id);
+    const existingItem = this.rawItems.find(item => {
+      return item.name === currentItem.name 
+          && item.units === currentItem.units 
+          && item.deleted === newState;
+    });
+
+    if (existingItem) {
+      currentItem.quantity += existingItem.quantity;
+      this.removeItem(existingItem.id);
+    }
+
+    currentItem.deleted = newState;
 
     if (newState) {
       this.shoppingList = this.shoppingList.filter(item => item.id !== id);
-      this.deleted.push(itemObj);
+      this.deleted.push(currentItem);
     } else {
       this.deleted = this.deleted.filter(item => item.id !== id);
-      this.shoppingList.push(itemObj);
+      this.shoppingList.push(currentItem);
     }
   }
 
@@ -357,6 +369,7 @@ class ShoppingList {
         this.itemsData.addNewItem(item);
         this.clearShoppingList();
         this.populateShoppingList();
+        form.reset();
       } else {
         alert('Something went wrong... try that again after reloading the page.')
       }
