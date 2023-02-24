@@ -113,29 +113,9 @@ boilerplate features:
 # Steps:
 
 
+
 backend:
-- when updating the deletion state:
-  - check to see if there is another item in the shopping list with the same name and units
-    - if so, delete it, and add it's quantity to the item whose state is being updated.
-
-
-
-frontend:
-- if there is an item with the same name, units, and newState, get it's quantity, and remove it
-- increment the updating item by that amount, and then continue
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
@@ -149,7 +129,6 @@ frontend:
 
 Buglist:
 - clicking fields in the new-recipe form generates JS errors on the console.
-- ! moving a deleted item back to the shopping list does not combine with a new-ish item on the shopping list
 
 
 

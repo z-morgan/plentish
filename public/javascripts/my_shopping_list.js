@@ -282,7 +282,8 @@ class ShoppingList {
         quantSpan.textContent = String(newQuantity);
       } else {
         itemLi.remove();
-        this.itemsData.removeItem(itemId);
+        this.itemsData.updateQuantity(itemId, 1);
+        this.itemsData.updateDeletedState(itemId, true);
       }
     } else {
       alert('Something went wrong... try that again after reloading the page.')

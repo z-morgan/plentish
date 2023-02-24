@@ -86,11 +86,15 @@ class PostgresDB
     SQL
     idQuant = @connection.exec_params(sql, [nameUnits[0], nameUnits[1], newState]).values[0];
 
-    sql = <<~SQL
-      DELETE FROM items
-      WHERE id = $1;
-    SQL
-    @connection.exec_params(sql, [idQuant[0]])
+    if idQuant
+      sql = <<~SQL
+        DELETE FROM items
+        WHERE id = $1;
+      SQL
+      @connection.exec_params(sql, [idQuant[0]])
+    else
+      idQuant = [nil, 0]
+    end
 
     sql = <<~SQL
       UPDATE items
@@ -359,11 +363,12 @@ class PostgresDB
     item_quant = @connection.exec_params(sql, [item_id]).values[0][0].to_i
 
     if item_quant <= quantity
-      sql = <<~SQL
-        DELETE FROM items WHERE id = $1;
-      SQL
+      update_deleted_state(item_id, true)
+      # sql = <<~SQL
+      #   DELETE FROM items WHERE id = $1;
+      # SQL
 
-      @connection.exec_params(sql, [item_id])
+      # @connection.exec_params(sql, [item_id])
     else
       sql = <<~SQL
         UPDATE items
