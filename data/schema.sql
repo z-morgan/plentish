@@ -7,8 +7,8 @@ CREATE TABLE users(
 
 CREATE TABLE shopping_lists(
   id serial PRIMARY KEY,
-  date_created date NOT NULL DEFAULT CURRENT_DATE,
-  date_archived date,
+  date_created timestamp NOT NULL DEFAULT now(),
+  date_archived timestamp,
   user_id int NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 

@@ -73,7 +73,37 @@ class PostgresDB
     @connection.exec_params(sql, [username, list_id])
   end
 
-  def retrieve_items(username)
+  def retrieve_archive(username)
+    sql = <<~SQL
+      SELECT id, date_created FROM shopping_lists
+      WHERE user_id = (SELECT id FROM users WHERE username = $1)
+        AND id <> (SELECT current_list_id FROM users WHERE username = $1)
+      ORDER BY date_created DESC;
+    SQL
+
+    archive = [];
+    @connection.exec_params(sql, [username]).each do |list|
+      list['date_created'] = format_date(list['date_created'])
+      archive.push(list);
+    end
+    archive
+  end
+
+  def retrieve_unique_items_by_list(list_id)
+    sql = <<~SQL
+      SELECT name, units FROM items
+      WHERE shopping_list_id = $1
+      GROUP BY name, units;
+    SQL
+
+    items = [];
+    @connection.exec_params(sql, [list_id]).each do |item|
+      items.push(item);
+    end
+    items
+  end
+
+  def retrieve_items_current_list(username)
     sql = <<~SQL
       SELECT id, name, quantity, units, done, deleted
       FROM items
@@ -385,11 +415,6 @@ class PostgresDB
 
     if item_quant <= quantity
       update_deleted_state(item_id, true)
-      # sql = <<~SQL
-      #   DELETE FROM items WHERE id = $1;
-      # SQL
-
-      # @connection.exec_params(sql, [item_id])
     else
       sql = <<~SQL
         UPDATE items

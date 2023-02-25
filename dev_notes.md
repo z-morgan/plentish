@@ -127,6 +127,7 @@ Archive:
 
 
 
+
 note: add the ability to automatically create a new shopping list when a new user is registered
 
 

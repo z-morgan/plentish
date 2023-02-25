@@ -1,0 +1,47 @@
+div#list-pane {
+  margin-top: 80px;
+  background-color: white;
+  height: 100%;
+  padding-top: 10px;
+}
+
+main ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+main ul li {
+  height: 37px;
+  border: solid;
+  padding: 10px;
+  width: 90%;
+  margin: 10px auto;
+  border-radius: 1px;
+}
+
+main li p {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+main li p span {
+  color: grey;
+  padding-left: 10px;
+}
+
+main li a {
+  position: relative;
+  float: right;
+  top: 10px;
+  color: #0082ff;
+}
+
+main li a.checked {
+  color: #0ba903;
+}
+
+main li img {
+  width: 20px;
+  margin-bottom: -5px;
+}
+

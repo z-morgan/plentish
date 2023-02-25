@@ -1,0 +1,31 @@
+h2 {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+ul#archive-list {
+  margin-top: 100px;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul#archive-list li {
+  height: fit-content;
+  border: solid;
+  padding: 15px;
+  width: 90%;
+  margin: 10px auto;
+  border-radius: 8px;
+  font-size: 1.2em;
+  background-color: white;
+}
+
+@media (min-width: 480px) {
+  h2 {
+    position: absolute;
+    top: 10px;
+    left: unset;
+    margin-left: 3%;
+  }
+}

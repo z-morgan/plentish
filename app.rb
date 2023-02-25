@@ -149,7 +149,7 @@ get '/my-shopping-list' do
 end
 
 get '/my-shopping-list/items' do
-  items_array = @db.retrieve_items(session[:username])
+  items_array = @db.retrieve_items_current_list(session[:username])
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items_array)
 end
@@ -176,6 +176,16 @@ post '/my-shopping-list/new' do
   list_id = @db.create_shopping_list(session[:username])
   @db.update_current_list(session[:username], list_id)
   redirect '/my-shopping-list'
+end
+
+get '/archive' do
+  @archive = @db.retrieve_archive(session[:username])
+  erb :archive
+end
+
+get '/archive/:id' do
+  @items = @db.retrieve_unique_items_by_list(params[:id])
+  erb :archived_shopping_list
 end
 
 get '/recipes' do

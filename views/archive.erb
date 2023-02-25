@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/stylesheets/archive.css">
+<%# <script type='text/javascript' src='/javascripts/archive.js'></script> %>
+
+<h2>Archived Shopping Lists</h2>
+<ul id='archive-list'>
+  <% if @archive.empty? %>
+    <li>You don't have any archive. Create one by clicking on "New archive".</li>
+  <% else %>
+    <% @archive.each do |shopping_list| %>
+      <li>
+        <a href='/archive/<%= shopping_list['id'] %>'><%= shopping_list['date_created'] %></a>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
