@@ -20,6 +20,7 @@ boilerplate features:
 - select the number of times one will make a recipe per shopping list
 - add some extra styling to `add-item` form on the shopping list page for wide-screen viewports
 - add the ability to exit the nav menu by clicking the overlay
+- make the suggestion ul width consistent with the items width across varius screen sizes
 
 
 --------
@@ -113,23 +114,34 @@ boilerplate features:
 # Steps:
 
 
-New Shopping List:
- - displays a pop up asking if the user wants to archive this list and start a new one
- - archives the current list and generates a new one
-  - creates a new, empty shopping list
-  - re-assignes the users current list to the new list
- - (bonus) ask the user to select which recipes they want to make this week
+suggestions:
 
-Archive:
- - displays a list of all previous shopping lists
- - clicking on a list displays the items in that list, along with a button which adds the item to the current shopping list
+- create a handlebars template which will generate html given an array of suggestion objects
+- add keydown listener to each ingredient text input which the page is initially loaded, and when a new ingredient form is created
+  - captures the value of the text input
+  - sends ajax request to `get` `/items` with text value
+    - server queries all items for a given user
+    - groups them by name and units
+    - responds with an 8 element array of name/unit objects
+  - front-end generates ul with template and array of suggestions
+  - renders ul in appropriate div
+  - add keydown listener to ul which listens for arrow keys and migrates the highlight class and focus pseudo-class
+        (if uparrow on top suggestion, re-focuses text input
+         down arrow on bottom suggestion does nothing)
+  - add click listener to ul which listens for events on the lis
+    - populates the text box with the name value
+        and populate the units with the units value
+    - deletes the ul from the DOM
+  - add keydown listener for `enter` key to ul which listens for event on the lis
+    - same effect as prev section ^
+  
+  - when ul is rendered, add focus listener to document which removes the ul anytime the focus changes to an element 
+      besides the ul, it's lis, or the current text box.
 
 
 
 
 
-
-note: add the ability to automatically create a new shopping list when a new user is registered
 
 
 

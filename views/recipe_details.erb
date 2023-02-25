@@ -14,6 +14,14 @@
   </li>
 </script>
 
+<%# <script type='text/x-handlebars' id='suggestions-template'>
+  <ul class='suggestions-list'>
+    {{#each suggestions}}
+      <li data-name='{{name}}' data-units='{{units}}'>{{name}} <span class='unit-span'>{{units}}</span></li>
+    {{/each}}
+  </ul>
+</script> %>
+
 <div id='recipe-details-pane'>
   <h1><%= @recipe['name'] %></h1>
   <small>Created on <%= @recipe['date_created'] %></small>
@@ -54,6 +62,8 @@
             </optgroup>
           </select>
           <img src='/images/red_x.png'>
+          <div class='suggestions-box'>
+          </div>
         </li>
       <% end %>
     <% end %>

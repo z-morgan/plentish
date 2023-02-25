@@ -44,7 +44,9 @@ def validate_creds(u_name, pass)
 end
 
 def valid_recipe(fields)
-  fields.none? { |_, v| v == '' || v.class != String }
+  required_fields = fields.clone
+  required_fields.delete('description')
+  fields.none?{|_, v| v.class != String} && required_fields.none?{|_, v| v == ''}
 end
 
 def collect_ingredients(params)
