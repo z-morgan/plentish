@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/stylesheets/archive.css">
-<%# <script type='text/javascript' src='/javascripts/archive.js'></script> %>
+<script type='text/javascript' src='/javascripts/archive.js'></script>
 
 <h2>Archived Shopping Lists</h2>
 <ul id='archive-list'>
@@ -8,7 +8,8 @@
   <% else %>
     <% @archive.each do |shopping_list| %>
       <li>
-        <a href='/archive/<%= shopping_list['id'] %>'><%= shopping_list['date_created'] %></a>
+        <%= shopping_list['date_created'] %>
+        <a href='/archive/<%= shopping_list['id'] %>'></a>
       </li>
     <% end %>
   <% end %>

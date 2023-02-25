@@ -19,6 +19,7 @@ boilerplate features:
 - upload a picture to go with a recipe, and it shows as a thumbnail on the recipes view
 - select the number of times one will make a recipe per shopping list
 - add some extra styling to `add-item` form on the shopping list page for wide-screen viewports
+- add the ability to exit the nav menu by clicking the overlay
 
 
 --------
