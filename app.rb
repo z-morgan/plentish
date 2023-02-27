@@ -97,10 +97,14 @@ end
 ### Routes ###
 
 get '/' do
-  @overlay_class = 'hidden'
-  @register_class = 'hidden'
-  @signin_class = 'hidden'
-  erb :home, :layout => false
+  if session[:username]
+    redirect '/my-shopping-list'
+  else
+    @overlay_class = 'hidden'
+    @register_class = 'hidden'
+    @signin_class = 'hidden'
+    erb :home, :layout => false
+  end
 end
 
 post '/register' do
