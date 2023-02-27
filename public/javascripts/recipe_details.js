@@ -148,8 +148,8 @@ class RecipeDetails {
     const ingredientsList = document.querySelector('#ingredients-list');
     ingredientsList.addEventListener('keyup', async (event) => {
       if (!/i-name/.test(event.target.name)) return;
+      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') return;
 
-      // need clean up code for if the value of event.target is empty string
       const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
       if (event.target.value === '') {
         suggestionsArea.innerHTML = '';
@@ -164,6 +164,73 @@ class RecipeDetails {
       }
     });
 
+    ingredientsList.addEventListener('keydown', event => {
+      if (!/i-name/.test(event.target.name)) return;
+      
+      if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+      const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+      if (suggestionsArea.children.length === 0) return;
+
+      const suggestionsList = suggestionsArea.firstElementChild;
+      const highlighted = suggestionsList.querySelector('li.highlighted');
+      
+      if (event.key === 'ArrowDown') {
+        if (!highlighted) {
+          suggestionsList.firstElementChild.classList.add('highlighted');
+        } else if (highlighted.nextElementSibling) {
+          highlighted.classList.remove('highlighted');
+          highlighted.nextElementSibling.classList.add('highlighted');
+        } 
+      } else if (event.key === 'ArrowUp') {
+        if (!highlighted) return;
+        event.preventDefault();
+        highlighted.classList.remove('highlighted');
+        if (highlighted.previousElementSibling) {
+          highlighted.previousElementSibling.classList.add('highlighted');
+        }
+      }
+    });
+
+    ingredientsList.addEventListener('click', event => {
+      if (!event.target.classList.contains('suggestion')
+       && !event.target.parentNode.classList.contains('suggestion')) return;
+
+      let li = event.target;
+      if (event.target.tagName === 'SPAN') {
+        li = event.target.parentNode;
+      }
+
+      const ingredient = li.parentNode.parentNode.parentNode;
+      const nameField = ingredient.querySelector("[name^='i-name']");
+      const unitsField = ingredient.querySelector("[name^='units-']");
+      const quantityField = ingredient.querySelector("[name^='quantity-']");
+
+      nameField.value = li.dataset.name;
+      unitsField.value = li.dataset.units;
+
+      const suggestionsArea = ingredient.querySelector('div.suggestions-box');
+      suggestionsArea.innerHTML = '';
+      quantityField.focus();
+    });
+
+    ingredientsList.addEventListener('focusout', event => {
+      setTimeout(() => {
+        if (!/i-name/.test(event.target.name)) return;
+
+        const highlighted = event.target.parentNode.querySelector('li.highlighted');
+        if (highlighted) {
+          const ingredient = highlighted.parentNode.parentNode.parentNode;
+          const nameField = ingredient.querySelector("[name^='i-name']");
+          const unitsField = ingredient.querySelector("[name^='units-']");
+
+          nameField.value = highlighted.dataset.name;
+          unitsField.value = highlighted.dataset.units;
+        }
+
+        const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+        suggestionsArea.innerHTML = '';
+      }, 100);
+    });
   }
 }
 

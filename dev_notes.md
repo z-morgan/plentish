@@ -126,15 +126,38 @@ suggestions:
     - responds with an 8 element array of name/unit objects
   - front-end generates ul with template and array of suggestions
   - removes previous suggestions ul and renders new one in appropriate div
-  
-  - add keydown listener to ul which listens for arrow keys and migrates the highlight class and focus pseudo-class
-        (if uparrow on top suggestion, re-focuses text input
-         down arrow on bottom suggestion does nothing)
-  - add click listener to ul which listens for events on the lis
+
+
+
+  - add keydown listener to ul which listens for arrow key presses on the name text input
+    - if there are suggestions showing:
+      - identify which suggestion li has the highlight class
+      - if `down arrow`
+        - if none, add highlight to the first one
+        - if last li is highlighted, do nothing
+        - else,
+          - remove highlight from current li
+          - add highlight to next li
+      - if `up arrow`
+        - if none, do nothing
+        - if first li highlighted, 
+          - prevent default
+          - remove highlight
+        - else
+          - prevent default
+          - remove highlight from current li
+          - add highlight to prev li
+
+
+
+
+  - add click listener to ingredients list which listens for events on the suggestions li's
     - populates the text box with the name value
         and populate the units with the units value
     - deletes the ul from the DOM
-  - add keydown listener for `enter` key to ul which listens for event on the lis
+
+
+  - add keydown listener for `tab` key to ul which listens for event on the lis
     - same effect as prev section ^
   
   - when ul is rendered, add focus listener to document which removes the ul anytime the focus changes to an element 
