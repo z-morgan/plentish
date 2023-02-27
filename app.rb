@@ -146,6 +146,12 @@ post '/signin' do
   erb :home, :layout => false
 end
 
+get '/signout' do
+  session.delete(:username)
+  session[:msg] = 'Successfully signed out'
+  redirect '/'
+end
+
 get '/my-shopping-list' do
   erb :my_shopping_list
 end

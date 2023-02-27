@@ -115,54 +115,10 @@ boilerplate features:
 # Steps:
 
 
-suggestions:
+Implement the signout feature:
 
-- create a handlebars template which will generate html given an array of suggestion objects
-- add keyup listener to the ingredients ul for events on text inputs
-  - captures the value of the text input
-  - sends ajax request to `get` `/items` with text value
-    - server queries all items for a given user
-    - groups them by name and units
-    - responds with an 8 element array of name/unit objects
-  - front-end generates ul with template and array of suggestions
-  - removes previous suggestions ul and renders new one in appropriate div
-
-
-
-  - add keydown listener to ul which listens for arrow key presses on the name text input
-    - if there are suggestions showing:
-      - identify which suggestion li has the highlight class
-      - if `down arrow`
-        - if none, add highlight to the first one
-        - if last li is highlighted, do nothing
-        - else,
-          - remove highlight from current li
-          - add highlight to next li
-      - if `up arrow`
-        - if none, do nothing
-        - if first li highlighted, 
-          - prevent default
-          - remove highlight
-        - else
-          - prevent default
-          - remove highlight from current li
-          - add highlight to prev li
-
-
-
-
-  - add click listener to ingredients list which listens for events on the suggestions li's
-    - populates the text box with the name value
-        and populate the units with the units value
-    - deletes the ul from the DOM
-
-
-  - add keydown listener for `tab` key to ul which listens for event on the lis
-    - same effect as prev section ^
-  
-  - when ul is rendered, add focus listener to document which removes the ul anytime the focus changes to an element 
-      besides the ul, it's lis, or the current text box.
-
+add anchor to signout button which makes a get request to `/signout`
+deletes the username from the session hash and redirects the user to the home page.
 
 
 
