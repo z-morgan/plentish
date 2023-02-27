@@ -6,7 +6,7 @@ unless ENV["RACK_ENV"] == "production"
 end
 
 require 'sinatra/reloader' if development?
-require 'tilt/erubis' # remove tilt?
+require 'tilt/erubis'
 require 'bcrypt'
 require 'securerandom'
 require 'json'
@@ -84,14 +84,25 @@ end
 
 before do
   @db = init_db
-  unless session[:username] || (request.path_info =~ /(^\/$|signin|register)/)
-    # eventually change this to a 401 with an `WWW-Authenticate` header 
-    redirect '/'
-  end
+
+  return if session[:username] || request.path =~ /(^\/$|signin|register)/
+
+  session[:requested_path] = request.path
+  session[:msg] = 'Please sign in first.'
+  redirect '/'
 end
 
 after do
   @db.disconnect
+end
+
+not_found do
+  "Not Found - This page does not exist."
+end
+
+error do
+  '500 - Something went wrong on our end. We apologize that your action ' \
+  'could not be completed.'
 end
 
 ### Routes ###
@@ -138,7 +149,12 @@ post '/signin' do
   if @db.username_exists(username)
     if @db.correct_password(username, password)
       session[:username] = username
-      redirect '/my-shopping-list'
+
+      if session[:requested_path]
+        redirect session.delete(:requested_path)
+      else
+        redirect '/my-shopping-list'
+      end
     else
       @status[:error_msg] = 'That password is incorrect'
     end
@@ -222,6 +238,8 @@ end
 
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
+  not_found if !@recipe
+  
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
   @ingredients.each_with_index { |ingredient, i| ingredient['number'] = (i + 1).to_s }
   erb :recipe_details

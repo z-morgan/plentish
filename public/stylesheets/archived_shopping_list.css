@@ -10,6 +10,10 @@ main ul {
   padding: 0;
 }
 
+main ul p {
+  margin-left: 10px;
+}
+
 main ul li {
   height: 37px;
   border: solid;

@@ -3,14 +3,18 @@
 
 <div id='list-pane'>
   <ul>
-    <% @items.each do |item| %>
-      <li class='list-item'>
-        <p><%= item['name'] %> <span class='units'>1 <%= item['units']%></p>
-        <a class='' data-name='<%= item['name'] %>' data-units='<%= item['units']%>'>
-          <img src='/images/blue_plus.png'>
-          My Shopping List
-        </a>
-      </li>
+    <% if @items.empty? %>
+      <p>This shopping list was empty.</p>
+    <% else %>
+      <% @items.each do |item| %>
+        <li class='list-item'>
+          <p><%= item['name'] %> <span class='units'>1 <%= item['units']%></p>
+          <a class='' data-name='<%= item['name'] %>' data-units='<%= item['units']%>'>
+            <img src='/images/blue_plus.png'>
+            My Shopping List
+          </a>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 <div>

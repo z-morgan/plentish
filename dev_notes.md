@@ -22,6 +22,9 @@ boilerplate features:
 - add the ability to exit the nav menu by clicking the overlay
 - make the suggestion ul width consistent with the items width across varius screen sizes
 - add some server side input formatting for ingredient/item names which matches the front-end string processing
+- change before filter so that instead of redirecting with a 302 if not signed in, use a 401 with an `WWW-Authenticate` header.
+- add a not found page and an error page
+- refactor backend to use the user id in the session (and maybe the current list id?) instead of the username
 
 
 --------
