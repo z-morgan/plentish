@@ -37,6 +37,14 @@
   </li>
 </script>
 
+<script type='text/x-handlebars' id='suggestions-template'>
+  <ul class='suggestions-list'>
+    {{#each suggestions}}
+      <li data-name='{{name}}' data-units='{{units}}' class='suggestion'>{{name}} <span class='unit-span'>{{units}}</span></li>
+    {{/each}}
+  </ul>
+</script>
+
 <a id='reset-list'>New Shopping List</a>
 <div id='shopping-list-pane'>
   <a id='my-shopping-list-tab' class='active'>
@@ -55,12 +63,14 @@
       </a>
       <form id='add-item-form' class='hidden'>
         <div id='add-item-fields'>
-          <input type='text' name='name' placeholder='Ingredient Name' required>
+          <input type='text' name='name' placeholder='Ingredient Name' autocomplete='off' required>
           <input type='number' name='quantity' minvalue='1' placeholder='1' required>
           <select name='units' value='units' required>
             <option value='cups'>cups</option>
             <option value='oz.'>oz.</option>
           </select>
+          <div class='suggestions-box'>
+          </div>
         </div>
         <div id='add-item-controls'>
           <input type='submit' value='Add'>

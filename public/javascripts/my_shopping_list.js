@@ -77,6 +77,18 @@ class APIInterface {
     }
     return response.json();
   }
+
+  async getSuggestions(prefix) {
+    const qString = `?prefix=${encodeURIComponent(prefix)}`;
+
+    let response;
+    try {
+      response = await fetch('/items' + qString, {method: 'GET'});
+    } catch {
+      return [];
+    }
+    return response.json();
+  }
 }
 
 class ItemsData {
@@ -210,6 +222,8 @@ class ShoppingList {
     this.addListViewToggle();
     this.initAddItemBehavior();
     this.addNewListBehavior();
+    this.addNameFormatter();
+    this.addNameSuggestions();
   }
 
   addListViewToggle() {
@@ -421,6 +435,99 @@ class ShoppingList {
     const archiveForm = document.querySelector('div#archive-controls form');
     const archiveButton = document.querySelector('#final-archive');
     archiveButton.addEventListener('click', () => archiveForm.submit());
+  }
+
+  addNameFormatter() {
+    const nameField = document.querySelector("[name='name']");
+    nameField.addEventListener('focusout', event => {
+      if (event.target.value !== '') {
+        event.target.value = this.formatName(event.target.value);
+      }
+    });
+  }
+
+  addNameSuggestions() {
+    const nameField = document.querySelector("[name='name']");
+    nameField.addEventListener('keyup', async (event) => {
+      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') return;
+
+      const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+      if (event.target.value === '') {
+        suggestionsArea.innerHTML = '';
+      } else {
+        const suggestions = await this.API.getSuggestions(this.formatName(event.target.value));
+        suggestionsArea.innerHTML = '';
+
+        if (!Array.isArray(suggestions) || suggestions.length === 0) return;
+        
+        const newHTML = this.templates['suggestions-template']({ suggestions });
+        suggestionsArea.insertAdjacentHTML('afterbegin', newHTML);
+      }
+    });
+
+    nameField.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+      const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+      if (suggestionsArea.children.length === 0) return;
+
+      const suggestionsList = suggestionsArea.firstElementChild;
+      const highlighted = suggestionsList.querySelector('li.highlighted');
+      
+      if (event.key === 'ArrowDown') {
+        if (!highlighted) {
+          suggestionsList.firstElementChild.classList.add('highlighted');
+        } else if (highlighted.nextElementSibling) {
+          highlighted.classList.remove('highlighted');
+          highlighted.nextElementSibling.classList.add('highlighted');
+        } 
+      } else if (event.key === 'ArrowUp') {
+        if (!highlighted) return;
+        event.preventDefault();
+        highlighted.classList.remove('highlighted');
+        if (highlighted.previousElementSibling) {
+          highlighted.previousElementSibling.classList.add('highlighted');
+        }
+      }
+    });
+
+    nameField.parentNode.addEventListener('click', event => {
+      if (!event.target.classList.contains('suggestion')
+       && !event.target.parentNode.classList.contains('suggestion')) return;
+
+      let li = event.target;
+      if (event.target.tagName === 'SPAN') {
+        li = event.target.parentNode;
+      }
+
+      const itemFields = event.currentTarget;
+      const nameField = itemFields.querySelector("[name='name']");
+      const unitsField = itemFields.querySelector("[name='units']");
+      const quantityField = itemFields.querySelector("[name='quantity']");
+
+      nameField.value = li.dataset.name;
+      unitsField.value = li.dataset.units;
+
+      const suggestionsArea = itemFields.querySelector('div.suggestions-box');
+      suggestionsArea.innerHTML = '';
+      quantityField.focus();
+    });
+
+    nameField.addEventListener('focusout', event => {
+      setTimeout(() => {
+        const highlighted = event.target.parentNode.querySelector('li.highlighted');
+        if (highlighted) {
+          const itemFields = highlighted.parentNode.parentNode.parentNode;
+          const nameField = itemFields.querySelector("[name='name']");
+          const unitsField = itemFields.querySelector("[name='units']");
+
+          nameField.value = highlighted.dataset.name;
+          unitsField.value = highlighted.dataset.units;
+        }
+
+        const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+        suggestionsArea.innerHTML = '';
+      }, 100);
+    });
   }
 }
 

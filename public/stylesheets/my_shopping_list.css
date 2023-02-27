@@ -257,6 +257,40 @@ div#archive-controls form {
   display: none;
 }
 
+/* suggestions box */
+
+form#add-item-form div.suggestions-box {
+  position: relative;
+}
+
+form#add-item-form div.suggestions-box ul {
+  position: absolute;
+  margin: 0px;
+  z-index: 4;
+  background-color: #dfdfdf;
+  width: 86%;
+  margin-top: -6px;
+  border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+
+form#add-item-form div.suggestions-box ul li {
+  padding: 3px 0px 3px 3px;
+  margin: 0px;
+  border: none;
+  border-bottom: none;
+  border-top: none;
+}
+
+form#add-item-form div.suggestions-box ul li span.unit-span {
+  position: absolute;
+  left: 81%;
+}
+
+ul.suggestions-list li.highlighted {
+  background-color: #b8b2b2;
+}
+
 @media (min-width: 480px) {
   a#reset-list {
     right: 40px;

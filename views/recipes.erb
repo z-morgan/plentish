@@ -4,14 +4,24 @@
 
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
-    <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' required>
+    <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' autocomplete='off' required>
     <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
     <select name='units-{{nextNum}}' value='units' required>
       <option value='cups'>cups</option>
       <option value='oz.'>oz.</option>
     </select>
     <img src='/images/red_x.png'>
+    <div class='suggestions-box'>
+    </div>
   </li>
+</script>
+
+<script type='text/x-handlebars' id='suggestions-template'>
+  <ul class='suggestions-list'>
+    {{#each suggestions}}
+      <li data-name='{{name}}' data-units='{{units}}' class='suggestion'>{{name}} <span class='unit-span'>{{units}}</span></li>
+    {{/each}}
+  </ul>
 </script>
 
 <a id='new-recipe'>New Recipe</a>
