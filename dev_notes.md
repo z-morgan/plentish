@@ -115,10 +115,6 @@ boilerplate features:
 # Steps:
 
 
-Implement the signout feature:
-
-add anchor to signout button which makes a get request to `/signout`
-deletes the username from the session hash and redirects the user to the home page.
 
 
 

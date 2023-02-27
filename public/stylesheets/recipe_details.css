@@ -248,7 +248,8 @@ ul#ingredients-list li div.suggestions-box ul li span.unit-span {
   left: 81%;
 }
 
-ul.suggestions-list li.highlighted {
+ul.suggestions-list li.highlighted,
+ul.suggestions-list li:hover {
   background-color: #b8b2b2;
 }
 

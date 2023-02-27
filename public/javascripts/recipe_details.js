@@ -231,6 +231,14 @@ class RecipeDetails {
         suggestionsArea.innerHTML = '';
       }, 100);
     });
+
+    ingredientsList.addEventListener('mouseover', event => {
+      if (!event.target.classList.contains('suggestion')) return;
+      const highlighted = event.target.parentNode.querySelector('.highlighted');
+      if (highlighted) {
+        highlighted.classList.remove('highlighted');
+      }
+    });
   }
 }
 

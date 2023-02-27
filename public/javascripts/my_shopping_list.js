@@ -528,6 +528,14 @@ class ShoppingList {
         suggestionsArea.innerHTML = '';
       }, 100);
     });
+
+    const suggestionsArea = document.querySelector('div.suggestions-box');
+    suggestionsArea.addEventListener('mouseover', () => {
+      const highlighted = document.querySelector('.highlighted');
+      if (highlighted) {
+        highlighted.classList.remove('highlighted');
+      }
+    });
   }
 }
 
