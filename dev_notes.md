@@ -21,6 +21,7 @@ boilerplate features:
 - add some extra styling to `add-item` form on the shopping list page for wide-screen viewports
 - add the ability to exit the nav menu by clicking the overlay
 - make the suggestion ul width consistent with the items width across varius screen sizes
+- add some server side input formatting for ingredient/item names which matches the front-end string processing
 
 
 --------
@@ -117,14 +118,15 @@ boilerplate features:
 suggestions:
 
 - create a handlebars template which will generate html given an array of suggestion objects
-- add keydown listener to each ingredient text input which the page is initially loaded, and when a new ingredient form is created
+- add keyup listener to the ingredients ul for events on text inputs
   - captures the value of the text input
   - sends ajax request to `get` `/items` with text value
     - server queries all items for a given user
     - groups them by name and units
     - responds with an 8 element array of name/unit objects
   - front-end generates ul with template and array of suggestions
-  - renders ul in appropriate div
+  - removes previous suggestions ul and renders new one in appropriate div
+  
   - add keydown listener to ul which listens for arrow keys and migrates the highlight class and focus pseudo-class
         (if uparrow on top suggestion, re-focuses text input
          down arrow on bottom suggestion does nothing)

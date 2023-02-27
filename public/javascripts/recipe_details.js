@@ -8,6 +8,18 @@ class APIInterface {
     }
     return response.status;
   }
+
+  async getSuggestions(prefix) {
+    const qString = `?prefix=${encodeURIComponent(prefix)}`;
+
+    let response;
+    try {
+      response = await fetch('/items' + qString, {method: 'GET'});
+    } catch {
+      return [];
+    }
+    return response.json();
+  }
 }
 
 class RecipeDetails {
@@ -17,6 +29,7 @@ class RecipeDetails {
     this.addEditRecipeFormBehaviors();
     this.addDeleteRecipeHandler();
     this.addNameFormatter();
+    this.addNameSuggestions();
   }
 
   initializeTemplates() {
@@ -118,7 +131,9 @@ class RecipeDetails {
     const ingredientsList = document.querySelector('#ingredients-list');
     ingredientsList.addEventListener('focusout', event => {
       if (!/i-name/.test(event.target.name)) return;
-      event.target.value = this.formatName(event.target.value);
+      if (event.target.value !== '') {
+        event.target.value = this.formatName(event.target.value);
+      }
     });
   }
 
@@ -127,6 +142,28 @@ class RecipeDetails {
       let tail = word.slice(1);
       return word[0].toUpperCase() + tail;
     }).join(' ');
+  }
+
+  addNameSuggestions() {
+    const ingredientsList = document.querySelector('#ingredients-list');
+    ingredientsList.addEventListener('keyup', async (event) => {
+      if (!/i-name/.test(event.target.name)) return;
+
+      // need clean up code for if the value of event.target is empty string
+      const suggestionsArea = event.target.parentNode.querySelector('div.suggestions-box');
+      if (event.target.value === '') {
+        suggestionsArea.innerHTML = '';
+      } else {
+        const suggestions = await this.API.getSuggestions(this.formatName(event.target.value));
+        suggestionsArea.innerHTML = '';
+
+        if (!Array.isArray(suggestions) || suggestions.length === 0) return;
+        
+        const newHTML = this.templates['suggestions-template']({ suggestions });
+        suggestionsArea.insertAdjacentHTML('afterbegin', newHTML);
+      }
+    });
+
   }
 }
 

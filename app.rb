@@ -250,3 +250,9 @@ delete '/recipes/:id' do
   @db.delete_recipe(params[:id])
   status 204
 end
+
+get '/items' do
+  items = @db.retrieve_suggested_items(session[:username], params[:prefix]);
+  headers["Content-Type"] = "application/json;charset=utf-8"
+  JSON.generate(items)
+end

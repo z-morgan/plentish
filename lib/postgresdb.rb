@@ -89,6 +89,23 @@ class PostgresDB
     archive
   end
 
+  def retrieve_suggested_items(username, prefix, count = 8)
+    sql = <<~SQL
+      SELECT i.name, i.units FROM items AS i
+      LEFT JOIN shopping_lists AS s ON s.id = i.shopping_list_id
+      WHERE s.user_id = (SELECT id FROM users WHERE username = $1)
+      GROUP BY name, units
+      HAVING name SIMILAR TO CONCAT($2::text, '%')
+      LIMIT $3;
+    SQL
+
+    items = [];
+    @connection.exec_params(sql, [username, prefix, count]).each do |item|
+      items.push(item);
+    end
+    items
+  end
+
   def retrieve_unique_items_by_list(list_id)
     sql = <<~SQL
       SELECT name, units FROM items
