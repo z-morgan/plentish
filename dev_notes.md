@@ -11,8 +11,6 @@ boilerplate features:
 - the ability to create an account and sign in
 
 # Extra features:
-- apply new styling to site
-
 - redo seed-data
 
 
@@ -24,7 +22,6 @@ boilerplate features:
 - add the ability to upload images for recipes
 - print the shoppping list
 - print the recipe
-- add the ability to exit the nav menu by clicking the overlay
 - a settings page where a user can add additional units to be used in their account
 - refactor backend to use the user id in the session (and maybe the current list id?) instead of the username
   - this would simpify a lot of the SQL queries a small amount
@@ -33,10 +30,15 @@ boilerplate features:
 - add email-based password recovery
 
 
-
 # Steps:
 
 
+Units to add:
+- bag
+- dozen
+- can
+- bottle
+- box
 
 
 

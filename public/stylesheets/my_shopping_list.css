@@ -53,7 +53,8 @@ div#shopping-list-pane a#my-shopping-list-tab img {
 
 main ul {
   list-style-type: none;
-  padding: 0;
+  padding: 0px 0px 2px 0px;
+  background-color: inherit;
 }
 
 main ul li {

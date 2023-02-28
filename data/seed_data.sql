@@ -23,15 +23,15 @@ VALUES ('Banana Pancakes', 1);
 
 INSERT INTO ingredients
 (name, quantity, units, recipe_id)
-VALUES ('Almonds', 10, 'oz.', 1);
+VALUES ('Almonds', 10, 'oz', 1);
 
 INSERT INTO ingredients
 (name, quantity, units, recipe_id)
-VALUES ('Oats', 2, 'cups', 1);
+VALUES ('Oats', 2, 'cup', 1);
 
 INSERT INTO ingredients
 (name, quantity, units, recipe_id)
-VALUES ('Walnuts', 4, 'cups', 1);
+VALUES ('Walnuts', 4, 'cup', 1);
 
 INSERT INTO ingredients
 (name, quantity, units, recipe_id)
@@ -39,16 +39,88 @@ VALUES ('Bananas', 5, 'ct.', 2);
 
 INSERT INTO ingredients
 (name, quantity, units, recipe_id)
-VALUES ('Oats', 1, 'cups', 2);
+VALUES ('Oats', 1, 'cup', 2);
 
 INSERT INTO items
 (name, quantity, units, done, shopping_list_id)
 VALUES ('Dried Cranberries', 1, 'cup', true, 1);
 
 INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Potstickers', 50, 'count', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Dried Mangos', 1, 'count', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Peanuts', 5, 'cup', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Popcorn', 10, 'count', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Carrots', 10, 'g', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Pocky Sticks', 1, 'count', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Raisens', 10, 'cup', true, 1);
+
+INSERT INTO items
+(name, quantity, units, done, shopping_list_id)
+VALUES ('Orange Juice', 1, 'cup', true, 1);
+
+INSERT INTO items
 (name, quantity, units, shopping_list_id)
-VALUES ('Bananas', 2, 'ct.', 1);
+VALUES ('Bananas', 6, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Cleaning Solution', 32, 'fl. oz', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Cherries', 25, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Bacon', 30, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Cabbage', 2, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Baby Food', 10, 'cups', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Eggs', 18, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Milk', 1, 'gal', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Barbeque Sauce', 24, 'fl. oz', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Bandaids', 20, 'count', 1);
+
+INSERT INTO items
+(name, quantity, units, shopping_list_id)
+VALUES ('Potato Chips', 2, 'count', 1);
 
 INSERT INTO items
 (name, quantity, units, deleted, shopping_list_id)
-VALUES ('Emergen-C', 1, 'ct.', true, 1);
+VALUES ('Emergen-C', 1, 'count', true, 1);
