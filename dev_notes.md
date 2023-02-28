@@ -28,8 +28,6 @@ boilerplate features:
 
 
 # Steps:
-- fix home page button dimensions
-
 
 - make a demo route which allows full-usage of a auto-resetting demo account `/demo`
 
