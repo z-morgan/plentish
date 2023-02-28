@@ -33,16 +33,15 @@ header div.flash {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
   color: var(--tertiary);
+  background-color: var(--overlay);
+  height: fit-content;
 }
 
 div.flash span {
   box-sizing: content-box;
-  padding: 10px;
-  background-color: var(--overlay);
-  border-radius: 10px;
-  margin-top: -15px;
+  padding: 2px;
 }
 
 header div#header-title {
@@ -220,13 +219,17 @@ form p {
     justify-content: center;
   }
   
-  a {
+  div #header-buttons a {
     width: fit-content;
     box-sizing: border-box;
-    padding: 0.5em 3em;
+    padding: 0.5em 70px;
     border-radius: 10px;
     margin: 0px 5px;
     height: fit-content;
+  }
+
+  div #header-buttons a ~ a {
+    padding: 0.5em 78px;
   }
 }
 

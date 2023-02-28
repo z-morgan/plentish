@@ -28,7 +28,6 @@ boilerplate features:
 
 
 # Steps:
-- fix fonts...
 - fix home page button dimensions
 
 
