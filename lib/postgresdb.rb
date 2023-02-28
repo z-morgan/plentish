@@ -267,12 +267,12 @@ class PostgresDB
       VALUES ($2, $3, (SELECT id FROM users WHERE username = $1));
     SQL
 
-    @connection.exec_params(sql, [username, name, description])
+    @connection.exec_params(sql, [username, format_name(name), description])
     @connection.exec('SELECT lastval()').values[0][0].to_i
   end
 
   def create_ingredient(ingredient, recipe_id)
-    name = ingredient['name']
+    name = format_name(ingredient['name'])
     quantity = ingredient['quantity']
     units = ingredient['units']
 
@@ -292,7 +292,7 @@ class PostgresDB
       WHERE id = $1;
     SQL
 
-    @connection.exec_params(sql, [recipe_id, name, description])
+    @connection.exec_params(sql, [recipe_id, format_name(name), description])
   end
 
   def delete_all_ingredients(recipe_id)
@@ -329,9 +329,9 @@ class PostgresDB
     quantity = item_details['quantity']
     units = item_details['units']
 
-    item_id = item_id_if_exists(username, item_details['name'], item_details['units'])
+    item_id = item_id_if_exists(username, name, units)
     if item_id
-      increment_item_by(item_id, item_details['quantity'])
+      increment_item_by(item_id, quantity)
     else
       insert_item(username, item_details)
     end
@@ -356,6 +356,10 @@ class PostgresDB
     parts[2] = parts[2][1] if parts[2][0] == '0'
     parts[0] = parts[0][2..3]
     "#{parts[1]}/#{parts[2]}/#{parts[0]}"
+  end
+
+  def format_name(str)
+    str.strip.split(' ').map(&:capitalize).join(' ')
   end
 
   def add_items_to_shopping_list(username, recipe_id)
@@ -390,7 +394,7 @@ class PostgresDB
         );
     SQL
 
-    item = @connection.exec_params(sql, [username, name, units]).values[0]
+    item = @connection.exec_params(sql, [username, format_name(name), units]).values[0]
     item ? item[0] : nil
   end
 
@@ -406,7 +410,7 @@ class PostgresDB
   end
 
   def insert_item(username, ingredient)
-    name = ingredient['name']
+    name = format_name(ingredient['name'])
     quantity = ingredient['quantity']
     units = ingredient['units']
 

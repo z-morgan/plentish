@@ -118,12 +118,6 @@ boilerplate features:
 # Steps:
 
 
-# To Do For Sure:
-- add typical kitchen units
-  - identify units
-  - add them to the select lists
-- add server-side name formatting
-
 
 
 

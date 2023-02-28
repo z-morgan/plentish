@@ -409,7 +409,8 @@ class ShoppingList {
   }
 
   formatName(str) {
-    return str.trim().split(' ').map(word => {
+    str = str.trim().replace(/ +/g, ' ');
+    return str.split(' ').map(word => {
       let tail = word.slice(1);
       return word[0].toUpperCase() + tail;
     }).join(' ');
