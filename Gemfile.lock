@@ -8,8 +8,8 @@ GEM
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
-    pg (1.4.5)
-    puma (6.1.0)
+    pg (1.4.6)
+    puma (6.1.1)
       nio4r (~> 2.0)
     rack (2.2.6.2)
     rack-protection (3.0.5)
@@ -29,7 +29,7 @@ GEM
       sinatra (= 3.0.5)
       tilt (~> 2.0)
     sysrandom (1.0.5)
-    tilt (2.0.11)
+    tilt (2.1.0)
 
 PLATFORMS
   arm64-darwin-21
