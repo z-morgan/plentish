@@ -35,4 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
       password2.reportValidity();
     }
   });
+
+  const password2 = document.querySelector('#password2');
+  password2.addEventListener('focusout', event => {
+    event.target.setCustomValidity('');
+  });
 });
