@@ -7,8 +7,9 @@
     <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' autocomplete='off' required>
     <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
     <select name='units-{{nextNum}}' value='units' required>
-      <option value='cups'>cups</option>
-      <option value='oz.'>oz.</option>
+      <% UNITS.each do |unit| %>
+        <option value='<%= unit %>'><%= unit %></option>
+      <% end %>
     </select>
     <img src='/images/red_x.png'>
     <div class='suggestions-box'>
@@ -55,13 +56,9 @@
           <input type='text' name='i-name-<%= ingredient['number'] %>' value='<%= ingredient['name'] %>' autocomplete='off' required>
           <input type='number' name='quantity-<%= ingredient['number'] %>' minvalue='1' value='<%= ingredient['quantity'] %>' required>
           <select name='units-<%= ingredient['number'] %>' required>
-            <optgroup label='current units'>
-              <option value='<%= ingredient['units'] %>' selected><%= ingredient['units'] %></option> 
-            </optgroup>
-            <optgroup label='units'>
-              <option value='cups'>cups</option>
-              <option value='oz.'>oz.</option>
-            </optgroup>
+              <% UNITS.each do |unit| %>
+                <option value='<%= unit %>' <% if unit == ingredient['units'] %>selected<% end %>><%= unit %></option>
+              <% end %>
           </select>
           <img src='/images/red_x.png'>
           <div class='suggestions-box'>

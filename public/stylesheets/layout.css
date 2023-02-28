@@ -1,5 +1,7 @@
 html {
   background-color: rgb(180, 180, 180);
+  font-family: 'Inter', sans-serif;
+  font-size: .9em;
 }
 
 body {
@@ -11,7 +13,7 @@ header {
   display: block;
   background-color: #83adfb;
   width: 100%;
-  height: 500px;
+  height: 410px;
   position: absolute;
   top: 100px;
   z-index: 2;
@@ -36,6 +38,27 @@ header li {
   width: 100%;
 }
 
+header div#header-title {
+  grid-row: 1 / 2;
+  width: fit-content;
+  margin: 2em auto 2em auto;
+}
+
+header div#header-title img {
+  width: 50px;
+}
+
+header div#header-title h1 {
+  display: inline-block;
+  margin: 0px;
+  vertical-align: top;
+  padding-top: 11px;
+  padding-bottom: 14px;
+  box-sizing: border-box;
+  width: fit-content;
+  font-family: 'Send Flowers', cursive;
+}
+
 header li a {
   width: 100%;
   height: 37px;
@@ -51,16 +74,6 @@ header li a span {
   margin-right: auto;
   margin-left: auto;
   width: fit-content;
-}
-
-header ul h1 {
-  box-sizing: border-box;
-  margin-bottom: 0px;
-  padding-bottom: 25px;
-  width: fit-content;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 img#hamburger {

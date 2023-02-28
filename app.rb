@@ -23,7 +23,9 @@ configure :development do
   also_reload 'lib/postgresdb.rb'
 end
 
-### Route Helpers ###
+UNITS = %w(count tsp tbsp cup oz fl.\ oz qt pt gal lb mL g oz kg L stick)
+
+##### Route Helpers #####
 
 def validate_creds(u_name, pass)
   status = {is_valid: false}
@@ -82,7 +84,11 @@ def update_recipe
   end
 end
 
+##### Filters #####
+
 before do
+  UNITS.each { |x| p x }
+
   @db = init_db
 
   return if session[:username] || request.path =~ /(^\/$|signin|register)/
@@ -105,7 +111,7 @@ error do
   'could not be completed.'
 end
 
-### Routes ###
+##### Routes #####
 
 get '/' do
   if session[:username]
@@ -239,7 +245,7 @@ end
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
   not_found if !@recipe
-  
+
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
   @ingredients.each_with_index { |ingredient, i| ingredient['number'] = (i + 1).to_s }
   erb :recipe_details

@@ -66,8 +66,9 @@
           <input type='text' name='name' placeholder='Ingredient Name' autocomplete='off' required>
           <input type='number' name='quantity' minvalue='1' placeholder='1' required>
           <select name='units' value='units' required>
-            <option value='cups'>cups</option>
-            <option value='oz.'>oz.</option>
+            <% UNITS.each do |unit| %>
+              <option value='<%= unit %>'><%= unit %></option>
+            <% end %>
           </select>
           <div class='suggestions-box'>
           </div>

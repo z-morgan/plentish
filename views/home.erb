@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shopping List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Quicksand:wght@700&family=Send+Flowers&display=swap" rel="stylesheet">
+
+    <title>List Lemon</title>
+    <link rel="shortcut icon" href="/images/lemon.png" >
     <link rel="stylesheet" href="/stylesheets/home.css">
     <script type='text/javascript' src='javascripts/home.js'></script>
   </head>
@@ -13,14 +18,17 @@
           <span><%= session.delete(:msg) %></span>
         </div>
       <% end %>
-      <h1>Shopping List</h1>
+      <div id='header-title'>
+        <%# <img src='/images/lemon.png'> %>
+        <h1>LIST LEMON</h1>
+      </div>
       <div id='header-buttons'>
         <a id='register-button'>Register</a>
         <a id='signin-button'>Sign In</a>
       </div>
     </header>
     <main>
-      <p>Shopping List is a convenience tool for rapidly generating shopping lists based on a collection of recipes. Users can design recipes and define ingredients and quantities they will need. They can then generate a shopping list which collects all of the ingredients for their chosen recipes, and allows them to view and edit them in a central place. Users can also add indiviual items to the shopping list, and they can browse items from past shopping lists. Built using Ruby, Sinatra, Postgres, and vanilla JavaScript.
+      <p>List Lemon is a convenience tool for rapidly generating shopping lists based on a collection of recipes. Users can design recipes and define ingredients and quantities they will need. They can then generate a shopping list which collects all of the ingredients for their chosen recipes, and allows them to view and edit them in a central place. Users can also add indiviual items to the shopping list, and they can browse items from past shopping lists. Built using Ruby, Sinatra, Postgres, and vanilla JavaScript.
       </p>
       <div id='overlay' class='<%= @overlay_class %>'>
       </div>

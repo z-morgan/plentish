@@ -1,3 +1,30 @@
+/* :root {
+  --primary: #6AA4F5;
+  --tertiary: #FAF187;
+  --secondary: #FF9261;
+  --purple: #C954DE;
+  --green: #60E087;
+  --overlay: #414141;
+} */
+
+:root {
+  --primary: #22A39F;
+  --tertiary: #F3EFE0;
+  --secondary: #222222;
+  --purple: #C954DE;
+  --green: #60E087;
+  --overlay: #414141;
+}
+
+
+
+html {
+  /* background-color: var(--tertiary); */
+  font-family: 'Quicksand', sans-serif;
+  font-size: .9em;
+  color: #222222;
+}
+
 body {
   margin: 0px;
   width: 100%;
@@ -7,8 +34,8 @@ header {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
-  font-size: 1.5em;
-  background-color: #83adfb;
+  font-size: 1.7em;
+  background-color: var(--primary);
 }
 
 header div.flash {
@@ -22,14 +49,28 @@ header div.flash {
 div.flash span {
   box-sizing: content-box;
   padding: 10px;
-  background-color: #56dc56;
+  background-color: var(--green);
   border-radius: 10px;
+  margin-top: -15px;
 }
 
-h1 {
+header div#header-title {
   grid-row: 1 / 2;
   width: fit-content;
-  margin: 1em auto 1em auto;
+  margin: 2em auto 2em auto;
+}
+
+header div#header-title img {
+  width: 50px;
+}
+
+header div#header-title h1 {
+  display: inline-block;
+  margin: 0px;
+  vertical-align: top;
+  /* font-family: 'Send Flowers', cursive; */
+  /* font-family: 'Quicksand', sans-serif; */
+  color: var(--secondary);
 }
 
 header div#header-buttons {
@@ -44,19 +85,20 @@ header div#header-buttons {
 
 a {
   width: 10em;
-  border: solid;
+  /* border: solid; */
   box-sizing: border-box;
   padding: 0.5em 3.2em;
   border-radius: 10px;
   margin: 0px 5px 10px 5px;
   height: fit-content;
+  background-color: var(--secondary);
+  color: var(--tertiary);
 }
 
 p {
   box-sizing: border-box;
   margin: 10%;
   padding: 5% 8%;
-  border: solid;
   border-radius: 10px;
 }
 
@@ -66,7 +108,7 @@ div#overlay {
   height: 100%;
   top: 0px;
   left: 0px;
-  background-color: #3d3d3d;
+  background-color: var(--overlay);
   opacity: .7;
   z-index: 1;
 }
@@ -92,11 +134,15 @@ form {
   justify-content: center;
 }
 
+form#signin {
+  height: 250px;
+}
+
 p.error-flash {
   box-sizing: content-box;
   padding: 5px;
   border-radius: 8px;
-  background-color: #f6c3c3;
+  background-color: var(--secondary);
 }
 
 label {
@@ -123,9 +169,13 @@ form div.controls input {
   box-sizing: border-box;
   width: 45%;
   height: 30px;
-  background-color: inherit;
-  border: solid;
+  background-color: var(--green);
+  border: none;
   border-radius: 10px;
+}
+
+form div.controls input ~ input {
+  background-color: var(--secondary);
 }
 
 input[type='submit'] {
@@ -145,19 +195,36 @@ form p {
 }
 
 @media (min-width: 480px) {
+  html {
+    background-color: white;
+  }
+
   header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2fr 1fr;
     font-size: 1.5em;
-    background-color: #83adfb;
+    background-color: var(--primary);
+  }
+
+  div.flash span {
+    margin-top: unset;
   }
   
-  h1 {
+  header div#header-title {
     grid-column: 1 / 3;
     grid-row: 1 / 2;
     width: fit-content;
-    margin: 2em auto 2em auto;
+    margin: 4em auto 3em auto;
+  }
+
+  header div#header-title img {
+    width: 65px;
+  }
+
+  header div#header-title h1 {
+    font-size: 2.3em;
+    padding-top: 8px;
   }
   
   header div#header-buttons {
@@ -170,7 +237,7 @@ form p {
   
   a {
     width: fit-content;
-    border: solid;
+    /* border: solid; */
     box-sizing: border-box;
     padding: 0.5em 3em;
     border-radius: 10px;
