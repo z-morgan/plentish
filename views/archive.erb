@@ -4,7 +4,7 @@
 <h2>Archived Shopping Lists</h2>
 <ul id='archive-list'>
   <% if @archive.empty? %>
-    <li>You don't have any archive. Create one by clicking on "New archive".</li>
+    <li>You don't have any archived shopping lists yet. When you start a new shopping list, the old lists will show up here.</li>
   <% else %>
     <% @archive.each do |shopping_list| %>
       <li>

@@ -5,6 +5,11 @@ unless ENV["RACK_ENV"] == "production"
   set :port, 4000
 end
 
+if ENV["RACK_ENV"] == "production"
+  set :port, 8080
+  set :host, "0.0.0.0"
+end
+
 require 'sinatra/reloader' if development?
 require 'tilt/erubis'
 require 'bcrypt'

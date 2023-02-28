@@ -28,7 +28,13 @@ boilerplate features:
 
 
 # Steps:
-- implement html escaping... then add to README
+- fix fonts...
+- fix empty archive message! DONE
+- update home page description
+- fix home page button dimensions
+
+
+- make a demo route which allows full-usage of a auto-resetting demo account `/demo`
 
 
 # Units to add:
