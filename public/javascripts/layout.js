@@ -8,5 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     header.classList.toggle('hidden');
   });
 
-  
+  overlay.addEventListener('click', () => {
+    overlay.classList.add('hidden');
+    header.classList.add('hidden');
+  });
 });
