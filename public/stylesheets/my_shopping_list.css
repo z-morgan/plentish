@@ -82,7 +82,7 @@ a#add-item-button.hidden {
 }
 
 div#add-item-fields {
-  width: 320px;
+  width: fit-content;
   margin: 0px auto;
 }
 
@@ -93,7 +93,7 @@ form#add-item-form.hidden {
 form#add-item-form input {
   border-radius: 7px;
   height: 25px;
-  width: 60%;
+  width: 192px;
   border: solid;
   margin: 5px 0px;
 }
@@ -261,6 +261,8 @@ div#archive-controls form {
 
 form#add-item-form div.suggestions-box {
   position: relative;
+  width: 306px;
+  margin: 0px 4px;
 }
 
 form#add-item-form div.suggestions-box ul {
@@ -268,8 +270,8 @@ form#add-item-form div.suggestions-box ul {
   margin: 0px;
   z-index: 4;
   background-color: #dfdfdf;
-  width: 86%;
-  margin-top: -6px;
+  width: 100%;
+  margin-top: -5px;
   border-bottom-right-radius: 7px;
   border-bottom-left-radius: 7px;
 }

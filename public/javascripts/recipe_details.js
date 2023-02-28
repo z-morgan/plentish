@@ -138,6 +138,7 @@ class RecipeDetails {
   }
 
   formatName(str) {
+    if (str.length === 0) return '';
     str = str.trim().replace(/ +/g, ' ');
     return str.split(' ').map(word => {
       let tail = word.slice(1);

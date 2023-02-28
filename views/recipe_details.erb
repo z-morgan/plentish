@@ -4,16 +4,18 @@
 
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
-    <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' autocomplete='off' required>
-    <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
-    <select name='units-{{nextNum}}' value='units' required>
-      <% UNITS.each do |unit| %>
-        <option value='<%= unit %>'><%= unit %></option>
-      <% end %>
-    </select>
-    <img src='/images/red_x.png'>
-    <div class='suggestions-box'>
+    <div id='ingredient-fields'>
+      <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' autocomplete='off' required>
+      <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
+      <select name='units-{{nextNum}}' value='units' required>
+        <% UNITS.each do |unit| %>
+          <option value='<%= unit %>'><%= unit %></option>
+        <% end %>
+      </select>
+      <div class='suggestions-box'>
+      </div>
     </div>
+    <img src='/images/red_x.png'>
   </li>
 </script>
 

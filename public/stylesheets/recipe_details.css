@@ -92,6 +92,11 @@ form#edit-recipe-form ul {
   padding: 0;
 }
 
+form#edit-recipe-form ul div {
+  width: fit-content;
+  display: inline-block;
+}
+
 form#edit-recipe-form ul li {
   border-bottom: solid;
   border-top: solid;
@@ -106,7 +111,7 @@ form#edit-recipe-form ul li ~ li {
 form#edit-recipe-form ul li input {
   border-radius: 7px;
   height: 25px;
-  width: 50%;
+  width: 170px;
   border: solid;
   margin: 5px 0px;
 }
@@ -222,6 +227,9 @@ div#delete-controls a#redirect-link {
 
 ul#ingredients-list li div.suggestions-box {
   position: relative;
+  display: block;
+  width: 282px;
+  margin: 0px 5px;
 }
 
 ul#ingredients-list li div.suggestions-box ul {
@@ -229,8 +237,8 @@ ul#ingredients-list li div.suggestions-box ul {
   margin: 0px;
   z-index: 4;
   background-color: #dfdfdf;
-  width: 86%;
-  margin-top: -6px;
+  width: 100%;
+  margin-top: -5px;
   border-bottom-right-radius: 7px;
   border-bottom-left-radius: 7px;
 }
@@ -265,5 +273,17 @@ ul.suggestions-list li:hover {
     left: 50%;
     width: 480px;
     margin-left: -240px;
+  }
+
+  form#edit-recipe-form ul li input {
+    width: 250px;
+  }
+
+  form#edit-recipe-form ul li input[type='number'] {
+    width: 50px;
+  }
+
+  ul#ingredients-list li div.suggestions-box {
+    width: 372px;
   }
 }
