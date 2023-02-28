@@ -29,8 +29,6 @@ boilerplate features:
 
 # Steps:
 - fix fonts...
-- fix empty archive message! DONE
-- update home page description
 - fix home page button dimensions
 
 
