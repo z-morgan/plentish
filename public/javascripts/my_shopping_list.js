@@ -1,13 +1,8 @@
 class APIInterface {
   async getItems() {
-    const options = {
-      method: 'GET',
-      headers: {'Content-type': 'application/json; charset=utf-8'}, // WHY IS THIS HERE?
-    };
-
     let response;
     try {
-      response = await fetch('/my-shopping-list/items', options);
+      response = await fetch('/my-shopping-list/items', {method: 'GET'});
     } catch {
       alert('Could not communicate with the server at this time.');
     }

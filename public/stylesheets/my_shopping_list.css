@@ -260,8 +260,6 @@ div#archive-controls form {
   display: none;
 }
 
-/* suggestions box */
-
 form#add-item-form div.suggestions-box {
   position: relative;
   width: 306px;

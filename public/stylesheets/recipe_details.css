@@ -230,8 +230,6 @@ div#delete-controls a#redirect-link {
   display: none;
 }
 
-/* suggestion box  */
-
 ul#ingredients-list li div.suggestions-box {
   position: relative;
   display: block;

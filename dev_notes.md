@@ -10,9 +10,6 @@ build a shopping list app with the following features:
 boilerplate features:
 - the ability to create an account and sign in
 
-# Extra features:
-- redo seed-data
-
 
 # Future work:
 - make a demo route which allows full-usage of a auto-resetting demo account `/demo`
@@ -31,19 +28,13 @@ boilerplate features:
 
 
 # Steps:
+- implement html escaping... then add to README
 
 
-Units to add:
-- bag
-- dozen
-- can
-- bottle
-- box
+# Units to add:
 
 
 
-
-Password123
 
 
 

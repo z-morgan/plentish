@@ -23,7 +23,7 @@ configure :development do
   also_reload 'lib/postgresdb.rb'
 end
 
-UNITS = %w(count tsp tbsp cup oz fl.\ oz qt pt gal lb mL g oz kg L stick)
+UNITS = %w(count tsp tbsp cup oz fl.\ oz qt pt gal lb mL g oz kg L stick bag dozen can bottle box)
 
 ##### Route Helpers #####
 
@@ -252,17 +252,13 @@ get '/recipes/:id' do
 end
 
 put '/recipes/:id' do
-  if request.media_type == 'application/json'
-    body_obj = JSON.parse(request.body.read)
-    if body_obj['selected']
-      @db.select_recipe(session[:username], params[:id])
-    else
-      @db.deselect_recipe(session[:username], params[:id])
-    end
-    status 204
+  body_obj = JSON.parse(request.body.read)
+  if body_obj['selected']
+    @db.select_recipe(session[:username], params[:id])
   else
-    # something else?
+    @db.deselect_recipe(session[:username], params[:id])
   end
+  status 204
 end
 
 post '/recipes/:id' do
