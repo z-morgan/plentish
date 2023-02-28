@@ -12,7 +12,6 @@ boilerplate features:
 
 # Extra features:
 - apply new styling to site
-- make signin form slightly taller
 
 - redo seed-data
 

@@ -3,7 +3,7 @@ a#new-recipe {
   top: 20px;
   left: 17px;
   width: fit-content;
-  background-color: white;
+  background-color: var(--tertiary);
   box-sizing: content-box;
   padding: 10px 20px;
   border-radius: 8px;
@@ -24,7 +24,7 @@ ul#recipes-list li {
   margin: 10px auto;
   border-radius: 8px;
   font-size: 1.2em;
-  background-color: white;
+  background-color: var(--tertiary);
 }
 
 ul#recipes-list li.selected {
@@ -44,7 +44,7 @@ main img {
 
 form#new-recipe-form {
   position: absolute;
-  background-color: white;
+  background-color: var(--tertiary);
   z-index: 4;
   top: 100px;
   height: fit-content;
@@ -67,6 +67,7 @@ form#new-recipe-form input {
   height: 25px;
   border: solid;
   margin: 5px 0px;
+  background-color: inherit;
 }
 
 form#new-recipe-form input#name {
@@ -121,6 +122,7 @@ form#new-recipe-form ul li select {
   height: 30px;
   border-radius: 7px;
   border: solid;
+  background-color: inherit;
 }
 
 form#new-recipe-form ul li img {
@@ -135,6 +137,7 @@ form#new-recipe-form textarea {
   border: solid;
   border-color: black;
   border-radius: 7px;
+  background-color: inherit;
 }
 
 form#new-recipe-form div#form-controls {
@@ -147,12 +150,14 @@ div#form-controls input {
   width: 90px;
   margin: 5px 20px;
   height: 32px;
-  background-color: #0190ff;
-  color: white;
+  background-color: var(--primary);
+  color: var(--secondary);
+  border: none;
 }
 
 div#form-controls input ~ input {
-  background-color: #ff4545;
+  background-color: inherit;
+  border: solid var(--secondary);
 }
 
 div#form-overlay {

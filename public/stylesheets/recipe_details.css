@@ -1,5 +1,5 @@
 div#recipe-details-pane {
-  background-color: white;
+  background-color: var(--tertiary);
   margin: 80px 0px 0px 0px;
   box-sizing: border-box;
   padding: 15px;
@@ -24,17 +24,17 @@ div#recipe-controls {
 
 div#recipe-controls a {
   border-radius: 5px;
-  color: white;
+  color: var(--secondary);
 }
 
-#edit-button {
-  background-color: #0190ff;
+div#recipe-controls #edit-button {
+  background-color: var(--primary);
   padding: 5px 30px;
   margin-right: 5px;
 }
 
-#delete-button {
-  background-color: #ff4545;
+div#recipe-controls #delete-button {
+  background-color: var(--destructive);
   padding: 5px 23px;
   margin-left: 5px;
 }
@@ -48,7 +48,7 @@ main img {
 
 form#edit-recipe-form {
   position: absolute;
-  background-color: white;
+  background-color: var(--tertiary);
   z-index: 4;
   top: 100px;
   height: fit-content;
@@ -71,6 +71,7 @@ form#edit-recipe-form input {
   height: 25px;
   border: solid;
   margin: 5px 0px;
+  background-color: inherit;
 }
 
 form#edit-recipe-form input#name {
@@ -125,6 +126,7 @@ form#edit-recipe-form ul li select {
   height: 30px;
   border-radius: 7px;
   border: solid;
+  background-color: inherit;
 }
 
 form#edit-recipe-form ul li img {
@@ -139,6 +141,7 @@ form#edit-recipe-form textarea {
   border: solid;
   border-color: black;
   border-radius: 7px;
+  background-color: inherit;
 }
 
 form#edit-recipe-form div#form-controls {
@@ -151,12 +154,13 @@ div#form-controls input {
   width: 90px;
   margin: 5px 20px;
   height: 32px;
-  background-color: #0190ff;
-  color: white;
+  background-color: var(--primary);
+  border: none;
 }
 
 div#form-controls input ~ input {
-  background-color: #ff4545;
+  background-color: inherit;
+  border: solid var(--secondary);
 }
 
 div#form-overlay {
@@ -165,7 +169,7 @@ div#form-overlay {
   height: 100%;
   top: 0px;
   left: 0px;
-  background-color: #3d3d3d;
+  background-color: var(--overlay);
   opacity: .7;
   z-index: 3;
 }
@@ -175,7 +179,7 @@ div#form-overlay.hidden {
 }
 
 div#confirm-delete {
-  background-color: white;
+  background-color: var(--tertiary);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -201,12 +205,12 @@ div#delete-controls {
 
 div#delete-controls a {
   margin: 5px 20px;
-  height: 32px;
-  color: white;
-  background-color: #ff4545;
-  width: 70px;
+  height: 27px;
+  color: var(--secondary);
+  background-color: var(--destructive);
+  width: 65px;
   display: inline-block;
-  border: solid;
+  border: none;
   border-radius: 7px;
   box-sizing: border-box;
   padding: 5px 5px 5px 12px;
@@ -217,6 +221,9 @@ div#delete-controls a ~ a {
   color: black;
   background-color: inherit;
   padding: 5px;
+  border: solid var(--secondary);
+  height: 30px;
+  width: 70px;
 }
 
 div#delete-controls a#redirect-link {
@@ -263,7 +270,7 @@ ul.suggestions-list li:hover {
 
 @media (min-width: 480px) {
   div#recipe-details-pane {
-    background-color: white;
+    background-color: var(--tertiary);
     margin: 0px;
     box-sizing: border-box;
     padding: 15px;

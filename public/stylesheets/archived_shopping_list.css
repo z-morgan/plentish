@@ -1,6 +1,6 @@
 div#list-pane {
   margin-top: 80px;
-  background-color: white;
+  background-color: var(--tertiary);
   height: 100%;
   padding-top: 10px;
 }

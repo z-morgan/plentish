@@ -6,8 +6,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Send+Flowers&display=swap" rel="stylesheet">
 
-    <title>List Lemon</title>
-    <link rel="shortcut icon" href="/images/lemon.png" >
+    <title>Plentish</title>
+    <link rel="shortcut icon" href="/images/wheat.png" >
     <link rel="stylesheet" href="/stylesheets/layout.css">
     <script type='text/javascript' src='/javascripts/layout.js'></script>
   </head>
@@ -16,8 +16,8 @@
       <ul>
         <li>
           <div id='header-title'>
-            <img src='/images/lemon.png'>
-            <h1>List Lemon</h1>
+            <%# <img src='/images/lemon.png'> %>
+            <h1>PLENTISH</h1>
           </div>
         </li>
         <li><a href='/my-shopping-list'><span>My Shopping List</span></a></li>
@@ -27,6 +27,7 @@
       </ul>
     </header>
     <main>
+    <div id='accent'></div>
     <img id='hamburger' src='/images/hamburger.png'>
     <div id='overlay' class='hidden'></div>
       <%== yield %>

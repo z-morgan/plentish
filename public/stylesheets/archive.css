@@ -2,6 +2,7 @@ h2 {
   position: absolute;
   top: 10px;
   left: 15px;
+  color: var(--tertiary);
 }
 
 ul#archive-list {
@@ -18,7 +19,7 @@ ul#archive-list li {
   margin: 10px auto;
   border-radius: 8px;
   font-size: 1.2em;
-  background-color: white;
+  background-color: var(--tertiary);
 }
 
 @media (min-width: 480px) {

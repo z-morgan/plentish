@@ -3,16 +3,16 @@ a#reset-list {
   top: 20px;
   left: 17px;
   width: fit-content;
-  background-color: white;
+  background-color: var(--tertiary);
   box-sizing: content-box;
   padding: 10px 20px;
   border-radius: 8px;
-  border: solid;
+  border: solid var(--secondary);
 }
 
 div#shopping-list-pane {
   margin-top: 120px;
-  background-color: white;
+  background-color: var(--tertiary);
   height: 100%;
 }
 
@@ -96,6 +96,7 @@ form#add-item-form input {
   width: 192px;
   border: solid;
   margin: 5px 0px;
+  background-color: inherit;
 }
 
 form#add-item-form input[type='number'] {
@@ -107,6 +108,7 @@ form#add-item-form select {
   height: 30px;
   border-radius: 7px;
   border: solid;
+  background-color: inherit;
 }
 
 form#add-item-form img {
@@ -122,14 +124,14 @@ div#add-item-controls {
 div#add-item-controls input {
   width: 80px;
   border: none;
-  color: white;
-  background-color: #0190ff;
+  background-color: var(--primary);
   margin: 7px 0px 0px 0px;
 }
 
 div#add-item-controls input ~ input {
-  background-color: #ff4545;
+  background-color: inherit;
   margin-left: 10px;
+  border: solid var(--secondary);
 }
 
 main li a {
@@ -181,12 +183,12 @@ img.quantity-adjuster {
   height: 50%;
   width: auto;
   box-sizing: border-box;
-  border-right: solid #e2e2e2;
-  border-left: solid #e2e2e2;
+  border-right: solid grey;
+  border-left: solid grey;
 }
 
 img.quantity-adjuster ~ img {
-  border-top: solid #e2e2e2;
+  border-top: solid grey;
 }
 
 main img {
@@ -209,7 +211,7 @@ div#form-overlay.hidden {
 }
 
 div#confirm-archive {
-  background-color: white;
+  background-color: var(--tertiary);
   position: fixed;
   top: 50%;
   left: 50%;
@@ -235,12 +237,11 @@ div#archive-controls {
 
 div#archive-controls a {
   margin: 5px 20px;
-  height: 32px;
-  color: white;
-  background-color: #0190ff;
-  width: 70px;
+  height: 29px;
+  background-color: var(--primary);
+  width: 65px;
   display: inline-block;
-  border: solid;
+  border: none;
   border-radius: 7px;
   box-sizing: border-box;
   padding: 5px 5px 5px 8px;
@@ -248,9 +249,10 @@ div#archive-controls a {
 }
 
 div#archive-controls a ~ a {
-  color: black;
   background-color: inherit;
+  width: 70px;
   padding: 5px;
+  border: solid var(--secondary);
 }
 
 div#archive-controls form {

@@ -1,25 +1,14 @@
-/* :root {
-  --primary: #6AA4F5;
-  --tertiary: #FAF187;
-  --secondary: #FF9261;
-  --purple: #C954DE;
-  --green: #60E087;
-  --overlay: #414141;
-} */
-
 :root {
   --primary: #22A39F;
-  --tertiary: #F3EFE0;
   --secondary: #222222;
-  --purple: #C954DE;
-  --green: #60E087;
-  --overlay: #414141;
+  --tertiary: #F3EFE0;
+  --overlay: #434242;
+  --destructive: #D3513E;
+  --confirm: #5FC468;
 }
 
-
-
 html {
-  /* background-color: var(--tertiary); */
+  background-color: var(--tertiary);
   font-family: 'Quicksand', sans-serif;
   font-size: .9em;
   color: #222222;
@@ -44,12 +33,13 @@ header div.flash {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  color: var(--tertiary);
 }
 
 div.flash span {
   box-sizing: content-box;
   padding: 10px;
-  background-color: var(--green);
+  background-color: var(--overlay);
   border-radius: 10px;
   margin-top: -15px;
 }
@@ -68,8 +58,6 @@ header div#header-title h1 {
   display: inline-block;
   margin: 0px;
   vertical-align: top;
-  /* font-family: 'Send Flowers', cursive; */
-  /* font-family: 'Quicksand', sans-serif; */
   color: var(--secondary);
 }
 
@@ -122,7 +110,7 @@ form {
   margin-top: -200px;
   position: fixed;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--tertiary);
   padding: 20px;
   opacity: 1;
   z-index: 2;
@@ -135,14 +123,15 @@ form {
 }
 
 form#signin {
-  height: 250px;
+  height: 260px;
 }
 
 p.error-flash {
   box-sizing: content-box;
   padding: 5px;
   border-radius: 8px;
-  background-color: var(--secondary);
+  background-color: var(--overlay);
+  color: var(--tertiary);
 }
 
 label {
@@ -154,11 +143,8 @@ input[type='password'], input[type='text'] {
   border-radius: 7px;
   height: 25px;
   border: solid;
+  background-color: inherit;
 }
-
-/* input.invalid {
-  border-color: red;
-} */
 
 form div.controls {
   margin-top: 20px;
@@ -169,13 +155,14 @@ form div.controls input {
   box-sizing: border-box;
   width: 45%;
   height: 30px;
-  background-color: var(--green);
+  background-color: var(--primary);
   border: none;
   border-radius: 10px;
 }
 
 form div.controls input ~ input {
-  background-color: var(--secondary);
+  background-color: var(--tertiary);
+  border: solid;
 }
 
 input[type='submit'] {
@@ -195,9 +182,6 @@ form p {
 }
 
 @media (min-width: 480px) {
-  html {
-    background-color: white;
-  }
 
   header {
     display: grid;
@@ -237,7 +221,6 @@ form p {
   
   a {
     width: fit-content;
-    /* border: solid; */
     box-sizing: border-box;
     padding: 0.5em 3em;
     border-radius: 10px;
