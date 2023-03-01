@@ -435,7 +435,7 @@ class PostgresDB
       SELECT quantity FROM items WHERE id = $1;
     SQL
 
-    item_quant = @connection.exec_params(sql, [item_id]).values[0][0].to_i
+    item_quant = @connection.exec_params(sql, [item_id]).values[0][0].to_f
 
     if item_quant <= quantity
       update_deleted_state(item_id, true)

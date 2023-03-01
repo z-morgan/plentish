@@ -89,6 +89,19 @@ def update_recipe
   end
 end
 
+def format_quantity_for_js(items)
+  items.map do |item|
+    quantity = (item['quantity'] * 100).to_i.to_s
+
+    until quantity.length >= 3
+      quantity = '0' + quantity
+    end
+
+    item['quantity'] = quantity
+    item
+  end
+end
+
 ##### View Helpers #####
 
 helpers do
@@ -197,6 +210,8 @@ end
 
 get '/my-shopping-list/items' do
   items_array = @db.retrieve_items_current_list(session[:username])
+  items_array = format_quantity_for_js(items_array)
+  p items_array
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items_array)
 end
@@ -204,6 +219,7 @@ end
 post '/my-shopping-list/items' do
   item_details = JSON.parse(request.body.read)
   item = @db.add_custom_item(session[:username], item_details)
+  item = format_quantity_for_js([item])[0]
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(item)
 end

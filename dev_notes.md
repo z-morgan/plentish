@@ -51,12 +51,13 @@ create a db method which identifies the oldest reset demo account, resets it, an
 
 
 # Buglist:
-
-- item name does not autofill when click suggestion (my-shopping-list page)
 - weirdness when manually adjusting quantities now that decimals are allowed.
-- duplicate spaces are removed from recipe descriptions... The text should remain unaltered.
-  - need to perform string processing where `\r\n` is replaced with `<br>`
 
 
+P:
+I don't want JS to do any math with decimals
 
-
+solution:
+- pass quantities as whole numbers to front-end
+- before rendering, JS converts it to a string, and adds a decimal point
+- when doing math

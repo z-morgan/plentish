@@ -114,12 +114,43 @@ class ItemsData {
     });
   }
 
+  shoppingListForDisplay() {
+    return this.forDisplay(this.shoppingList);
+  }
+
+  deletedForDisplay() {
+    return this.forDisplay(this.deleted);
+  }
+
+  forDisplay(list) {
+    return list.map(item => {
+      item = Object.assign({}, item);
+      item.quantity = this.convertDigitsToDisplay(item.quantity);
+      return item;
+    });
+  }
+
+  convertDigitsToDisplay(str) {
+    let digits_arr = str.split('');
+    digits_arr.splice(str.length - 2, 0, '.')
+    return parseFloat(digits_arr.join(''), 10);
+  }
+
   updateQuantity(id, change) {
-    this.rawItems.find(item => item.id === id).quantity += change;
+    const item = this.rawItems.find(item => item.id === id);
+    let quantity = Number(item.quantity);
+    quantity += (change * 100);
+    quantity = String(quantity);
+
+    while (quantity.length < 3) {
+      quantity = '0' + quantity;
+    }
+
+    item.quantity = quantity;
   }
 
   getQuantity(id) {
-    return this.rawItems.find(item => item.id === id).quantity
+    return this.convertDigitsToDisplay(this.rawItems.find(item => item.id === id).quantity);
   }
 
   removeItem(id) {
@@ -137,7 +168,15 @@ class ItemsData {
     });
 
     if (existingItem) {
-      currentItem.quantity += existingItem.quantity;
+      let quantity = Number(currentItem.quantity);
+      quantity += Number(existingItem.quantity);
+      quantity = String(quantity);
+
+      while (quantity.length < 3) {
+        quantity = '0' + quantity;
+      }
+
+      currentItem.quantity = quantity;
       this.removeItem(existingItem.id);
     }
 
@@ -202,8 +241,9 @@ class ShoppingList {
   populateShoppingList() {
     this.itemsData.sortByDone();
 
+    const shoppingList = this.itemsData.shoppingListForDisplay();
     const list = document.querySelector('#shopping-list-pane ul');
-    const html = this.templates['list-template']({items: this.itemsData.shoppingList});
+    const html = this.templates['list-template']({items: shoppingList});
 
     list.insertAdjacentHTML('beforeend', html);
 
@@ -258,8 +298,9 @@ class ShoppingList {
   }
 
   populateDeleted() {
+    const deleted = this.itemsData.deletedForDisplay();
     const list = document.querySelector('#shopping-list-pane ul');
-    const html = this.templates['deleted-template']({items: this.itemsData.deleted})
+    const html = this.templates['deleted-template']({items: deleted})
 
     list.insertAdjacentHTML('beforeend', html)
 
