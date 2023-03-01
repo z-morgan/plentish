@@ -5,8 +5,8 @@
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
     <div class='ingredient-fields'>
-      <input type='text' name='i-name-{{nextNum}}' placeholder='Walnuts' autocomplete='off' required>
-      <input type='number' name='quantity-{{nextNum}}' minvalue='1' placeholder='4' required>
+      <input type='text' name='i-name-{{nextNum}}' placeholder='ingredient name' autocomplete='off' required>
+      <input type='number' name='quantity-{{nextNum}}' minvalue='.01' step='.01' placeholder='1' required>
       <select name='units-{{nextNum}}' value='units' required>
         <% UNITS.each do |unit| %>
           <option value='<%= unit %>'><%= unit %></option>

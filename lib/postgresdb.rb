@@ -184,8 +184,11 @@ class PostgresDB
 
   def retrieve_recipes(username)
     sql = <<~SQL
-      SELECT r.id, r.name, r.date_created, rs.id AS list_id FROM recipes AS r
-      LEFT JOIN recipes_shopping_lists AS rs ON r.id = rs.recipe_id
+      SELECT r.id, r.name, r.date_created, rs.id AS list_id
+      FROM (SELECT id, recipe_id FROM recipes_shopping_lists WHERE shopping_list_id = (
+        SELECT current_list_id FROM users WHERE username = $1
+      )) AS rs
+      RIGHT JOIN recipes AS r ON r.id = rs.recipe_id
       WHERE r.user_id = (
         SELECT id FROM users
         WHERE username = $1
@@ -225,7 +228,7 @@ class PostgresDB
 
     ingredients = [];
     @connection.exec_params(sql, [recipe_id]).each do |ingredient|
-      ingredient['quantity'] = ingredient['quantity'].to_i
+      ingredient['quantity'] = ingredient['quantity'].to_f
       ingredients.push(ingredient)
     end
     ingredients
@@ -342,7 +345,7 @@ class PostgresDB
   def process_items(result)
     items = [];
     result.each do |item|
-      item['quantity'] = item['quantity'].to_i
+      item['quantity'] = item['quantity'].to_f
       item['deleted'] = item['deleted'] == 't'
       item['done'] = item['done'] == 't'
       items.push(item)

@@ -28,8 +28,24 @@ boilerplate features:
 
 
 # Steps:
+- add the ability to set quantity to decimal values (use the `step` attribute of input type=number)  (DONE)
+
 
 - make a demo route which allows full-usage of a auto-resetting demo account `/demo`
+
+
+create a bunch of seed data for a demo account
+
+setup three demo accounts
+- when the demo route is requested, select the demo account with the longest duration since being reset
+- reset that account data
+- sign the user in with that account
+
+add a link to the homepage to visit the demo route
+define a db method which will drop a users data and then re-add the seed data
+add a column to the users table which is an optional timestamp for the last time the account was reset
+create three demo users with the seed data
+create a db method which identifies the oldest reset demo account, resets it, and returns the username
 
 
 # Units to add:
@@ -37,6 +53,11 @@ boilerplate features:
 
 
 
+# Buglist:
+
+- item name does not autofill when click suggestion (my-shopping-list page)
+- weirdness when manually adjusting quantities now that decimals are allowed.
+- starting a new list didn't deselect a recipe
 
 
 

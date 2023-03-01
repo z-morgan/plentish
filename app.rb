@@ -92,8 +92,6 @@ end
 ##### Filters #####
 
 before do
-  UNITS.each { |x| p x }
-
   @db = init_db
 
   return if session[:username] || request.path =~ /(^\/$|signin|register)/
