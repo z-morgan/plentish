@@ -28,9 +28,6 @@ boilerplate features:
 
 
 # Steps:
-- add the ability to set quantity to decimal values (use the `step` attribute of input type=number)  (DONE)
-
-
 - make a demo route which allows full-usage of a auto-resetting demo account `/demo`
 
 
@@ -57,8 +54,8 @@ create a db method which identifies the oldest reset demo account, resets it, an
 
 - item name does not autofill when click suggestion (my-shopping-list page)
 - weirdness when manually adjusting quantities now that decimals are allowed.
-- starting a new list didn't deselect a recipe
-
+- duplicate spaces are removed from recipe descriptions... The text should remain unaltered.
+  - need to perform string processing where `\r\n` is replaced with `<br>`
 
 
 

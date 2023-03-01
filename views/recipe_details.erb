@@ -39,7 +39,7 @@
       <% end %>
     <% end %>
   </ul>
-  <p><%= @recipe['description'] %></p>
+  <p><%== insert_linebreaks(@recipe['description']) %></p>
   <div id='recipe-controls'>
     <a id='edit-button'>Edit</a>
     <a id='delete-button'>Delete</a>

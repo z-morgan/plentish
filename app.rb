@@ -89,6 +89,16 @@ def update_recipe
   end
 end
 
+##### View Helpers #####
+
+helpers do
+  # this method must sanitize `<script>` tags since it's output
+  # is rendered without HTML escaping
+  def insert_linebreaks(str)
+    str.gsub("\r\n", "<br>").gsub(/<\/?script.*>/i, '')
+  end
+end
+
 ##### Filters #####
 
 before do
