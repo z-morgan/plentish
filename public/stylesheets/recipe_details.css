@@ -205,25 +205,24 @@ div#delete-controls {
 
 div#delete-controls a {
   margin: 5px 20px;
-  height: 27px;
+  height: 39px;
   color: var(--secondary);
   background-color: var(--destructive);
-  width: 65px;
+  width: 70px;
   display: inline-block;
   border: none;
   border-radius: 7px;
   box-sizing: border-box;
-  padding: 5px 5px 5px 12px;
   text-decoration: none;
+  padding: 10px 10px 10px 12px;
 }
 
 div#delete-controls a ~ a {
   color: black;
   background-color: inherit;
-  padding: 5px;
+  padding: 10px;
   border: solid var(--secondary);
-  height: 30px;
-  width: 70px;
+  width: fit-content;
 }
 
 div#delete-controls a#redirect-link {

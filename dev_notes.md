@@ -33,5 +33,7 @@ boilerplate features:
 
 
 # Buglist:
-
+- on Iphone xr, the buttons in the confirm archive form are wonky
+  - same for delete recipe confirm form
+- on Iphone xr, the first time you open a list from the archive, you get an error alert the first time you try to select an item.
 
