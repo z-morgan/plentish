@@ -12,7 +12,6 @@ boilerplate features:
 
 
 # Future work:
-- make a demo route which allows full-usage of a auto-resetting demo account `/demo`
 - select the number of times one will make a recipe per shopping list
 - when starting a new list, let the user select recipes or archived items to initialize the list
 - add the ability to combine items which have conversion factors for their units
@@ -28,24 +27,9 @@ boilerplate features:
 
 
 # Steps for current todo:
-make a demo route which allows full-usage of an auto-resetting demo account `/demo`
 
-
-
-
-
-(optional) - add a before filter which does the following if the request is made by a demo user:
-  - checks how long it has been since the account logged in
-  - if more than 15min, log the account out, redirect ot homepage, and 
-      show a flash saying that the demo account time limit has been reached
-
-
-
-note: user id > 2 open on live db (check this before committing)
 
 # Units to add:
-
-
 
 
 # Buglist:

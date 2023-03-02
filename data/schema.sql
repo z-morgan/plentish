@@ -43,3 +43,18 @@ CREATE TABLE items(
   deleted boolean NOT NULL DEFAULT false,
   shopping_list_id int REFERENCES shopping_lists(id) ON DELETE CASCADE
 );
+
+-- Used these statements to add the demo account feature:
+ALTER TABLE users ADD COLUMN last_login_time timestamp;
+
+INSERT INTO users
+(username, password, last_login_time)
+VALUES ('DemoUser1', '$2a$12$.cbgLGK9OBqJIlhjOYmp2e63lnPFFboWeeFKcndx36xfSgzWhjI/i', '2023-03-01 16:57:32.286531');
+
+INSERT INTO users
+(username, password, last_login_time)
+VALUES ('DemoUser2', '$2a$12$.cbgLGK9OBqJIlhjOYmp2e63lnPFFboWeeFKcndx36xfSgzWhjI/i', '2023-03-01 16:58:07.230395');
+
+INSERT INTO users
+(username, password, last_login_time)
+VALUES ('DemoUser3', '$2a$12$.cbgLGK9OBqJIlhjOYmp2e63lnPFFboWeeFKcndx36xfSgzWhjI/i', '2023-03-01 16:58:23.385317');
