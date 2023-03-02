@@ -2,6 +2,7 @@ require 'pg'
 
 require_relative 'demo_account'
 
+
 ### Database Startup method ###
 
 def init_db
@@ -461,4 +462,3 @@ class PostgresDB
     end
   end
 end
-
