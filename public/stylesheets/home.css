@@ -86,8 +86,34 @@ a {
 p {
   box-sizing: border-box;
   margin: 10%;
-  padding: 5% 8%;
+  padding: 19px 30px;
   border-radius: 10px;
+}
+
+main div.demo-account {
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+  padding-bottom: 15px;
+  border-bottom: solid var(--overlay);
+}
+
+main p.demo-account {
+  width: 350px;
+  margin: 0% auto;
+}
+
+main a.demo-account {
+  width: fit-content;
+  box-sizing: border-box;
+  padding: 0.5em 3.2em;
+  border-radius: 10px;
+  height: fit-content;
+  background-color: var(--secondary);
+  margin: 0px auto;
+  display: block;
+  color: var(--tertiary);
+  text-decoration: none;
 }
 
 div#overlay {
