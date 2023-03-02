@@ -2,7 +2,7 @@ CREATE TABLE users(
   id serial PRIMARY KEY,
   username varchar(50) NOT NULL UNIQUE,
   password text NOT NULL,
-  current_list_id int -- NOT NULL
+  current_list_id int
 );
 
 CREATE TABLE shopping_lists(

@@ -26,9 +26,59 @@ end
 
 configure :development do
   also_reload 'lib/postgresdb.rb'
+  also_reload 'lib/demo_account.rb'
 end
 
 UNITS = %w(count tsp tbsp cup oz fl.\ oz qt pt gal lb mL g oz kg L stick bag dozen can bottle box)
+DEMO_TIME_LIMIT_SECONDS = 1200
+
+
+##### Filters #####
+
+before do
+  @db = init_db
+
+  return if session[:username] || request.path =~ /(^\/$|signin|register|demo)/
+
+  session[:requested_path] = request.path
+  session[:msg] = 'Please sign in first.'
+  redirect '/'
+end
+
+before do
+  return unless session[:username] =~ /DemoUser\d/
+
+  if @db.demo_account_duration(session[:username]) > DEMO_TIME_LIMIT_SECONDS
+    session.delete(:username)
+    session[:msg] = 'You have exceeded the demo account time limit. If you would like, you may start a new session.'
+    redirect '/'
+  end
+end
+
+after do
+  @db.disconnect
+end
+
+not_found do
+  "Not Found - This page does not exist."
+end
+
+error do
+  '500 - Something went wrong on our end. We apologize that your action ' \
+  'could not be completed.'
+end
+
+
+##### View Helpers #####
+
+helpers do
+  # this method must sanitize `<script>` tags since it's output
+  # is rendered without HTML escaping
+  def insert_linebreaks(str)
+    str.gsub("\r\n", "<br>").gsub(/<\/?script.*>/i, '')
+  end
+end
+
 
 ##### Route Helpers #####
 
@@ -102,40 +152,6 @@ def format_quantity_for_js(items)
   end
 end
 
-##### View Helpers #####
-
-helpers do
-  # this method must sanitize `<script>` tags since it's output
-  # is rendered without HTML escaping
-  def insert_linebreaks(str)
-    str.gsub("\r\n", "<br>").gsub(/<\/?script.*>/i, '')
-  end
-end
-
-##### Filters #####
-
-before do
-  @db = init_db
-
-  return if session[:username] || request.path =~ /(^\/$|signin|register)/
-
-  session[:requested_path] = request.path
-  session[:msg] = 'Please sign in first.'
-  redirect '/'
-end
-
-after do
-  @db.disconnect
-end
-
-not_found do
-  "Not Found - This page does not exist."
-end
-
-error do
-  '500 - Something went wrong on our end. We apologize that your action ' \
-  'could not be completed.'
-end
 
 ##### Routes #####
 
@@ -211,7 +227,6 @@ end
 get '/my-shopping-list/items' do
   items_array = @db.retrieve_items_current_list(session[:username])
   items_array = format_quantity_for_js(items_array)
-  p items_array
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items_array)
 end
@@ -314,4 +329,9 @@ get '/items' do
   items = @db.retrieve_suggested_items(session[:username], params[:prefix]);
   headers["Content-Type"] = "application/json;charset=utf-8"
   JSON.generate(items)
+end
+
+get '/demo' do
+  session[:username] = @db.demo_account_signin
+  redirect '/my-shopping-list'
 end

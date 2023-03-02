@@ -27,23 +27,21 @@ boilerplate features:
 - add email-based password recovery
 
 
-# Steps:
-- make a demo route which allows full-usage of a auto-resetting demo account `/demo`
+# Steps for current todo:
+make a demo route which allows full-usage of an auto-resetting demo account `/demo`
 
 
-create a bunch of seed data for a demo account
 
-setup three demo accounts
-- when the demo route is requested, select the demo account with the longest duration since being reset
-- reset that account data
-- sign the user in with that account
 
-add a link to the homepage to visit the demo route
-define a db method which will drop a users data and then re-add the seed data
-add a column to the users table which is an optional timestamp for the last time the account was reset
-create three demo users with the seed data
-create a db method which identifies the oldest reset demo account, resets it, and returns the username
 
+(optional) - add a before filter which does the following if the request is made by a demo user:
+  - checks how long it has been since the account logged in
+  - if more than 15min, log the account out, redirect ot homepage, and 
+      show a flash saying that the demo account time limit has been reached
+
+
+
+note: user id > 2 open on live db (check this before committing)
 
 # Units to add:
 
@@ -51,13 +49,5 @@ create a db method which identifies the oldest reset demo account, resets it, an
 
 
 # Buglist:
-- weirdness when manually adjusting quantities now that decimals are allowed.
 
 
-P:
-I don't want JS to do any math with decimals
-
-solution:
-- pass quantities as whole numbers to front-end
-- before rendering, JS converts it to a string, and adds a decimal point
-- when doing math

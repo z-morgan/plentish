@@ -1,5 +1,7 @@
 require 'pg'
 
+require_relative 'demo_account'
+
 ### Database Startup method ###
 
 def init_db
@@ -17,10 +19,19 @@ end
 class PostgresDB
   def initialize(connection)
     @connection = connection
+    @demo_account = DemoAccount.new(@connection)
   end
 
   def disconnect
     @connection.close
+  end
+
+  def demo_account_signin
+    @demo_account.signin
+  end
+
+  def demo_account_duration(username)
+    @demo_account.time_since_login(username)
   end
 
   def create_user(username, password)
