@@ -5,7 +5,7 @@
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
     <div class='ingredient-fields'>
-      <input type='text' name='i-name-{{nextNum}}' placeholder='ingredient name' autocomplete='off' required>
+      <input type='text' name='i-name-{{nextNum}}' placeholder='ingredient name' autocomplete='off' maxlength='49' required>
       <input type='number' name='quantity-{{nextNum}}' minvalue='.01' step='.01' placeholder='1' required>
       <select name='units-{{nextNum}}' value='units' required>
         <% UNITS.each do |unit| %>
@@ -57,7 +57,7 @@
 <div id='form-overlay' class='hidden'></div>
 <form method='post' action='/recipes' id='new-recipe-form' class='hidden'>
   <label for='name'>Recipe Name:</label>
-  <input type='text' id='name' name='name' placeholder='Banana Pancakes'>
+  <input type='text' id='name' name='name' placeholder='recipe name' maxlength='49' required>
   <a>Add Ingredient</a>
   <ul id='ingredients-list'>
   </ul>

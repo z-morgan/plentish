@@ -5,7 +5,7 @@
 <script type='text/x-handlebars' id='ingredient-template'>
   <li>
     <div id='ingredient-fields'>
-      <input type='text' name='i-name-{{nextNum}}' placeholder='ingredient name' autocomplete='off' required>
+      <input type='text' name='i-name-{{nextNum}}' placeholder='ingredient name' autocomplete='off' maxlength='49' required>
       <input type='number' name='quantity-{{nextNum}}' minvalue='0.01' step='0.01' placeholder='1' required>
       <select name='units-{{nextNum}}' value='units' required>
         <% UNITS.each do |unit| %>
@@ -49,13 +49,13 @@
 <div id='form-overlay' class='hidden'></div>
 <form method='post' action='/recipes/<%= @recipe['id'] %>' id='edit-recipe-form' class='hidden'>
   <label for='name'>Recipe Name:</label>
-  <input type='text' id='name' name='name' value='<%= @recipe['name'] %>'>
+  <input type='text' id='name' name='name' value='<%= @recipe['name'] %>' maxlength='49' required>
   <a>Add Ingredient</a>
   <ul id='ingredients-list'>
     <% if !@ingredients.empty? %>
       <% @ingredients.each do |ingredient| %>
         <li>
-          <input type='text' name='i-name-<%= ingredient['number'] %>' value='<%= ingredient['name'] %>' autocomplete='off' required>
+          <input type='text' name='i-name-<%= ingredient['number'] %>' value='<%= ingredient['name'] %>' autocomplete='off' maxlength='49' required>
           <input type='number' name='quantity-<%= ingredient['number'] %>' minvalue='.01' step='.01' value='<%= ingredient['quantity'] %>' required>
           <select name='units-<%= ingredient['number'] %>' required>
               <% UNITS.each do |unit| %>

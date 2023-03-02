@@ -143,18 +143,23 @@ main li a {
 
 main li a img {
   width: 25px;
+  margin-top: 7px;
 }
 
 main li a p {
   vertical-align: middle;
-  margin-top: 20px;
+  margin-top: 17px;
+  width: fit-content;
 }
 
 main li p {
   display: inline-block;
   position: relative;
-  bottom: 11px;
+  bottom: 7px;
   left: 6px;
+  overflow: scroll;
+  width: 65%;
+  white-space: nowrap;
 }
 
 img.to-deleted {
@@ -194,6 +199,7 @@ img.quantity-adjuster ~ img {
 
 main img {
   width: 35px;
+  float: left;
 }
 
 div#form-overlay {
