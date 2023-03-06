@@ -75,7 +75,7 @@ helpers do
   # this method must sanitize `<script>` tags since it's output
   # is rendered without HTML escaping
   def insert_linebreaks(str)
-    str.gsub("\r\n", "<br>").gsub(/<\/?script.*>/i, '')
+    str.gsub("\n", "<br>").gsub(/<\/?script.*>/i, '')
   end
 end
 
@@ -289,7 +289,7 @@ end
 get '/recipes/:id' do
   @recipe = @db.retrieve_recipe(params[:id])
   not_found if !@recipe
-
+  p @recipe
   @ingredients = @db.retrieve_recipe_ingredients(params[:id])
   @ingredients.each_with_index { |ingredient, i| ingredient['number'] = (i + 1).to_s }
   erb :recipe_details
