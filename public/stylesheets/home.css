@@ -48,7 +48,7 @@ div.flash span {
 header div#header-title {
   grid-row: 1 / 2;
   width: fit-content;
-  margin: 2em auto 2em auto;
+  margin: 2.8em auto 1.2em auto;
 }
 
 header div#header-title img {
@@ -61,6 +61,7 @@ header div#header-title h1 {
   vertical-align: top;
   color: var(--secondary);
   font-weight: 700;
+  font-size: 2.4em;
 }
 
 header div#header-buttons {

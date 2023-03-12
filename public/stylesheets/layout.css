@@ -79,6 +79,7 @@ header div#header-title h1 {
   box-sizing: border-box;
   width: fit-content;
   font-weight: 700;
+  font-size: 3em;
 }
 
 header li a {
