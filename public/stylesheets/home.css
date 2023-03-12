@@ -1,7 +1,8 @@
 :root {
   --primary: #22A39F;
   --secondary: #222222;
-  --tertiary: #F3EFE0;
+  /* --tertiary: #F3EFE0; */
+    --tertiary: white;
   --overlay: #434242;
   --destructive: #D3513E;
   --confirm: #5FC468;
