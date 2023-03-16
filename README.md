@@ -1,3 +1,5 @@
+Visit the live app here: https://plentish.fly.dev/
+
 # Technical Summary
 
 Plentish is a simple web app which I built in order to practice the fundamentals of full stack developement. The front-end was created from scratch using plain HTML, CSS and vanilla JavaScript. Handlebars is used to make front-end HTML generation cleaner, but doesn't raise the level of abstaction in any significant way. The back-end is written in Ruby, and uses Sinatra--a lightweight back-end framework which recieves parsed HTTP requests from the application server, and provides a DSL for defining routes and handling session information. The back-end uses a PostgreSQL database to persist the application's data.
