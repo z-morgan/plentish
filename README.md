@@ -19,7 +19,3 @@ Plentish implements a handlful of features which contribute to the integrity of 
 SQL injection attacks are prevented by using an adapter method provided by the `pg` gem, which ensures all SQL statements are properly quoted before executing them against the database. Cross-Site Scripting (XSS) attacks are prevented by automatically escaping any HTML which is interpolated into the view templates when they are rendered.
 
 Lastely, any user input validation which occurs on the frontend also occurs on the backend to promote the integrity of the database.
-
-# Testing
-
-Another trade-off I made was to forego a comprehensive test suite. The app only includes unit tests for user registration and authentication on the backend. I made this decision becuase of my time constraints and becuase I wanted to focus on the app's implementation. In the future, it would be nice to add regression tests to make it easier and quicker to implement additional features.
