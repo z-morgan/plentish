@@ -1,0 +1,6 @@
+config.ru
+dev_notes.md
+fly.toml
+Procfile
+Gemfile.lock
+.DS_Store
